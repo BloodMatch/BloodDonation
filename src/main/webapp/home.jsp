@@ -1,12 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Blood Donation</title>
-</head>
-<body>
-	<h1>You are in the home page</h1>
-</body>
-</html>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"  %>
+
+<c:set var = "title" scope = "session"> 
+    Home
+</c:set>
+
+<c:set var = "content" scope = "session"> 
+        <h5>HOME</h5>
+</c:set>
+
+<c:set var = "other" scope = "session"> 
+    <h6>
+    	Blabla
+    	Other other
+    </h6>
+</c:set>
+
+<%@ include file="layouts/app.view.jsp"%>
