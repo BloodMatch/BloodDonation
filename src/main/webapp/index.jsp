@@ -1,10 +1,12 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"  %>
 <!Doctype HTML>
 <html>
 	<head>
 		<title>Blood Donation</title>
 	</head>
 	<body>
-		<h2>Welcome To Blood Donation web app ! ie</h2>
-		this is not working why 
+	
+		<c:redirect url="home.jsp"/>
+		
 	</body>
 </html>
