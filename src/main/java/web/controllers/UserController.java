@@ -27,11 +27,10 @@ public class UserController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+	
 		UserModel userModel = new UserModel();
 		userModel.setUsers(userDao.all());
-		request.setAttribute("users", userModel.getUsers());
-		
+		request.setAttribute("users", userModel.getUsers()); 
 		request.getRequestDispatcher("User/index.jsp").forward(request,  response);
 	}
 
