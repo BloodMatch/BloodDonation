@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Blood Donation</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<h1>You are in the home page</h1>
+
 </body>
 </html>

@@ -1,17 +1,18 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
 
-<web-app>
+<web-app
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+    version="4.0">
+
   <display-name>Blood Donation</display-name>
   <servlet>
-  	<servlet-name>HomeController</servlet-name>
-  	<display-name>HomeController</display-name>
-  	<description></description>
-  	<servlet-class>web.controllers.HomeController</servlet-class>
+  	<servlet-name>UserController</servlet-name>
+  	<servlet-class>web.controllers.UserController</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>HomeController</servlet-name>
-  	<url-pattern>/home</url-pattern>
+  	<servlet-name>UserController</servlet-name>
+  	<url-pattern>/users</url-pattern>
   </servlet-mapping>
 </web-app>
