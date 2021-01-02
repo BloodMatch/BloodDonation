@@ -5,35 +5,28 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import dao.entities.User;
-import dao.implementation.UserDaoImp;
-import dao.interfaces.IUserDao;
-import web.models.UserModel;
-
 /**
- * Servlet implementation class UserController
+ * Servlet implementation class TotoController
  */
 
-public class UserController extends HttpServlet {
+public class TotoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private IUserDao userDao;
-    
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		userDao = new UserDaoImp();
-	}
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public TotoController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserModel userModel = new UserModel();
-		userModel.setUsers(userDao.findAll());
-		request.setAttribute("users", userModel.getUsers());
-				
-		request.getRequestDispatcher("TEST/users.jsp").forward(request,  response);
+		//TODO Auto-generated method stub
+		response.getWriter().append("Serverd : ").append(request.getContextPath());
+		
 	}
 
 	/**

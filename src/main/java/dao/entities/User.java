@@ -1,17 +1,18 @@
 package dao.entities;
 
 import java.io.Serializable;
+ 
 
 public class User implements Serializable{
 	
-	private long id;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String password;
-	private String phone;
-	private Boolean active;
-	private String role;
+	protected long id;
+	protected String firstName;
+	protected String lastName;
+	protected String email;
+	protected String password;
+	protected String phone;
+	protected Boolean active;
+	protected String role;
 	
 	public User() {
 		super();

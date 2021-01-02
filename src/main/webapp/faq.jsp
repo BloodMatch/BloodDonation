@@ -9,7 +9,7 @@
 </c:set>
 
 <c:set var = "other" scope = "session"> 
-    foooking 
+    test test  
 </c:set>
 
 <%@ include file="layouts/app.view.jsp"%>

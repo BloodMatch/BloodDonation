@@ -7,12 +7,42 @@
     version="4.0">
 
   <display-name>Blood Donation</display-name>
+  
   <servlet>
+  	<display-name>UserController</display-name>
   	<servlet-name>UserController</servlet-name>
   	<servlet-class>web.controllers.UserController</servlet-class>
   </servlet>
+  
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>TotoController</display-name>
+  	<servlet-name>TotoController</servlet-name>
+  	<servlet-class>web.controllers.TotoController</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>DonorController</display-name>
+  	<servlet-name>DonorController</servlet-name>
+  	<servlet-class>web.controllers.DonorController</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
   	<servlet-name>UserController</servlet-name>
   	<url-pattern>/users</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>TotoController</servlet-name>
+  	<url-pattern>/toto</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+  	<servlet-name>DonorController</servlet-name>
+  	<url-pattern>/donor</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

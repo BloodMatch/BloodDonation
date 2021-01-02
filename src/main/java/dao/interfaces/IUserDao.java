@@ -9,7 +9,7 @@ public interface IUserDao {
 	 * Register new User into dataBase
 	 * @return User
 	 */
-	public User register(User user);
+	public User insert(User user);
 	
 	/*
 	 * Search for User in dataBase
@@ -21,7 +21,7 @@ public interface IUserDao {
 	 * Get all Users from dataBase
 	 * @return List<User>
 	 */
-	public List<User> all();
+	public List<User> findAll();
 	
 	/*
 	 * Update User in dataBase

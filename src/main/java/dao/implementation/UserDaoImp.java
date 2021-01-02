@@ -6,6 +6,7 @@ import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.ResultSet;
 
 import dao.DbConnection;
@@ -15,8 +16,27 @@ import dao.interfaces.IUserDao;
 public class UserDaoImp implements IUserDao{
 	private Connection connection = DbConnection.getConnection();
 
-	public User register(User user) {
-		
+	public User insert(User user) {
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("INSERT INTO USER( FIRSTNAME, LASTNAME, EMAIL, PASSWD, PHONE, ACTIVE, ROLE) VALUES(?,?,?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, user.getFirstName());
+			ps.setString(2, user.getLastName());
+			ps.setString(3, user.getEmail());
+			ps.setString(4, user.getPassword());
+			ps.setString(5, user.getPhone());
+			ps.setBoolean(6, user.getActive());
+			ps.setString(7, user.getRole());
+			ps.execute();
+			ResultSet rs = ps.getGeneratedKeys();
+			if(rs.next()) { // 1 : one row affected
+				user.setId(rs.getInt(1));
+				return user;
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -45,7 +65,7 @@ public class UserDaoImp implements IUserDao{
 		return user;
 	}
 
-	public List<User> all() {
+	public List<User> findAll() {
 		List<User> users = new ArrayList<User>();
 		try {
 			PreparedStatement ps = connection.prepareStatement
