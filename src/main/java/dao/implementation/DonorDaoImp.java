@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 import dao.DbConnection;
+import dao.entities.Appointment;
 import dao.entities.Donor;
 import dao.entities.User;
 import dao.interfaces.IDonorDao;
@@ -23,13 +24,13 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 			super.insert(donor);
 			
 			PreparedStatement ps = connection.prepareStatement
-					("INSERT INTO DONOR( CIN, BIRTHDAY, SEXE, BLOODTYPE, VILLE, IMAGE, USERID) VALUES(?,?,?,?,?,?,?) ");
+					("INSERT INTO DONOR( CIN, BIRTHDAY, GENDER, CITY, IMAGE, BLOODID, USERID) VALUES(?,?,?,?,?,?,?) ");
 			ps.setString(1, donor.getCin());
 			ps.setString(2, donor.getBirthDay());
-			ps.setString(3, donor.getSexe());
-			ps.setString(4, donor.getBloodType());
-			ps.setString(5, donor.getVille());
-			ps.setString(6, donor.getImage());
+			ps.setString(3, donor.getGender());
+			ps.setString(4, donor.getCity());
+			ps.setString(5, donor.getImage());
+			ps.setLong(6, donor.getBloodId());
 			ps.setLong(7, donor.getId());
 			
 			if(ps.execute()) { // 1 : one row affected
@@ -42,6 +43,29 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 		return null;
 	}
 
+	public Donor find(long id) {
+		Donor donor = null;
+		User user = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("SELECT DISTINCT * FROM DONOR WHERE UserId = ?");
+			ps.setLong(1, id);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				donor = new Donor();
+				donor.setThis(rs);
+				
+				user = super.find( id);
+				donor.setThis(user);
+				
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return donor;
+	}
+
 	public Donor find(String cin) {
 		Donor donor = null;
 		User user = null;
@@ -52,23 +76,10 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
 				donor = new Donor();
-				donor.setCin(cin);
-				donor.setBirthDay(rs.getString("birthDay")); 
-				donor.setSexe(rs.getString("sexe")); 
-				donor.setBloodType(rs.getString("bloodType"));
-				donor.setVille(rs.getString("ville"));
-				donor.setImage(rs.getString("image"));
-				donor.setId(rs.getLong("userId"));
+				donor.setThis(rs);
 				
-				user = super.find(donor.getId() );
-				
-				donor.setFirstName( user.getFirstName());
-				donor.setLastName( user.getLastName());
-				donor.setEmail( user.getEmail());
-				donor.setPassword( user.getPassword());
-				donor.setPhone( user.getPhone());
-				donor.setActive( user.getActive());
-				donor.setRole( user.getRole());
+				user = super.find( donor.getId());
+				donor.setThis(user);
 				
 			}
 			ps.close();
@@ -77,6 +88,7 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 		}
 		return donor;
 	}
+	
 
 	public List<User> findAll() {
 		List<User> donors = new ArrayList<User>();
@@ -88,22 +100,10 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 			User user;
 			while(rs.next()) {
 				donor = new Donor();
-				donor.setCin(rs.getString("cin"));
-				donor.setBirthDay(rs.getString("birthDay")); 
-				donor.setSexe(rs.getString("sexe")); 
-				donor.setBloodType(rs.getString("bloodType"));
-				donor.setVille(rs.getString("ville"));
-				donor.setImage(rs.getString("image"));
-				donor.setId(rs.getLong("userId"));
-				user = super.find(donor.getId() );
+				donor.setThis(rs);
 				
-				donor.setFirstName( user.getFirstName());
-				donor.setLastName( user.getLastName());
-				donor.setEmail( user.getEmail());
-				donor.setPassword( user.getPassword());
-				donor.setPhone( user.getPhone());
-				donor.setActive( user.getActive());
-				donor.setRole( user.getRole());
+				user = super.find(donor.getId() );
+				donor.setThis(user);
 				
 				donors.add(donor);
 			}
@@ -117,12 +117,12 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 	public Donor update(Donor donor) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("UPDATE DONOR SET BIRTHDAY=?, SEXE=?, BLOODTYPE=?, VILLE=? , IMAGE=? WHERE cin=?");
+					("UPDATE DONOR SET BIRTHDAY=?, GENDER=?, CITY=? , IMAGE=?, BLOODID=? WHERE cin=?");
 			ps.setString(1, donor.getBirthDay());
-			ps.setString(2, donor.getSexe());
-			ps.setString(3, donor.getBloodType());
-			ps.setString(4, donor.getVille());
-			ps.setString(5, donor.getImage());
+			ps.setString(2, donor.getGender());
+			ps.setString(3, donor.getCity());
+			ps.setString(4, donor.getImage());
+			ps.setLong(5, donor.getBloodId());
 			ps.setString(6, donor.getCin());
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
 				return donor;
@@ -132,6 +132,23 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public Boolean delete(long id) {
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("DELETE FROM DONOR WHERE UserId=?");
+			ps.setLong(1, id);
+			
+			if(ps.executeUpdate() == 1) { // 1 : one row affected
+				//super.delete( id);
+				return true;
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public Boolean delete(String cin) {
@@ -151,4 +168,12 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 		return false;
 	}
 
+	public Donor find(User user) {
+		return this.find(user.getId());
+	}
+	
+	public Donor find(Appointment appointment) {
+		return this.find(appointment.getDonorCin());
+	}
+	
 }

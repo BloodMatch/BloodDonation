@@ -1,10 +1,13 @@
 package dao.entities;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
  
 
 public class Blood implements Serializable{
 	
+	private long id;
 	private String type;
 	private String description;
 	
@@ -17,6 +20,29 @@ public class Blood implements Serializable{
 		super();
 		this.type = type;
 		this.description = description;
+	}
+
+	public void setThis(Blood blood){
+		//this.id = blood.getId();
+		this.type = blood.getType();
+		this.description = blood.getDescription();
+	}
+
+	public void setThis(ResultSet rs){
+		try{
+			this.type = rs.getString("type");
+			this.description = rs.getString("description");
+		} catch (SQLException e) {
+				e.printStackTrace();
+		}
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	public String getType() {

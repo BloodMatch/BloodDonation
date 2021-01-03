@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.entities.User;
 import dao.implementation.UserDaoImp;
 import dao.interfaces.IUserDao;
+import dao.interfaces.IDao;
 import web.models.UserModel;
 
 /**

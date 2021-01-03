@@ -6,12 +6,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dao.implementation.UserDaoImp;
-import dao.interfaces.IUserDao;
+import dao.interfaces.IDao;
 import dao.entities.User;
 
 public class TestUserDaoImp {
 	
-	private IUserDao userDaoImp;
+	private IDao<User> userDaoImp;
 
 	@Before
 	public void setUp() throws Exception {
