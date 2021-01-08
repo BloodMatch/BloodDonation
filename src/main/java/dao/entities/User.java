@@ -5,24 +5,29 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import business.Hash;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.servlet.http.HttpServletRequest;
+ 
 
 public class User implements Serializable{
 	
-	private long id;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String password;
-	private String phone;
-	private Boolean active;
-	private String role;
+	protected long id;
+	protected String firstName;
+	protected String lastName;
+	protected String email;
+	protected String passwd;
+	protected String phone;
+	protected Boolean active;
+	protected String role;
 	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String firstName, String lastName, String email, String password, String phone, Boolean active, String role) {
+	public User(String firstName, String lastName, String email, String passwd, String phone, Boolean active, String role) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -31,6 +36,41 @@ public class User implements Serializable{
 		this.phone = phone;
 		this.active = active;
 		this.role = role;
+	}
+
+	public void setThis(User user){
+		this.firstName = user.getFirstName();
+		this.lastName = user.getLastName();
+		this.email = user.getEmail();
+		this.passwd = user.getPasswd();
+		this.phone = user.getPhone();
+		this.active = user.getActive();
+		this.role = user.getRole();
+	}
+
+	public void setThis(HttpServletRequest request){
+		this.firstName = request.getParameter("firstName");
+		this.lastName = request.getParameter("lastName");
+		this.email = request.getParameter("email");
+		this.passwd = request.getParameter("passwd");
+		this.phone = request.getParameter("phone");
+		this.active = Boolean.parseBoolean(request.getParameter("active"));
+		this.role = request.getParameter("role");
+	}
+
+	public void setThis(ResultSet rs){
+		try {
+			this.id = rs.getLong("id");
+			this.firstName = rs.getString("firstName");
+			this.lastName = rs.getString("lastName");
+			this.email = rs.getString("email");
+			this.passwd = rs.getString("passwd");
+			this.phone = rs.getString("phone");
+			this.active = rs.getBoolean("active");
+			this.role = rs.getString("role");
+		} catch (SQLException e) {
+				e.printStackTrace();
+		}	
 	}
 
 	public long getId() {
@@ -65,12 +105,12 @@ public class User implements Serializable{
 		this.email = email;
 	}
 	
-	public String getPassword() {
-		return password;
+	public String getPasswd() {
+		return passwd;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
 	}
 
 	public String getPhone() {
@@ -100,7 +140,7 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", password=" + password + ", phone=" + phone + ", active=" + active + ", role=" + role + "]";
+				+ ", passwd=" + passwd + ", phone=" + phone + ", active=" + active + ", role=" + role + "]";
 	}
 	
 }

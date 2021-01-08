@@ -1,46 +1,89 @@
 package dao.entities;
 
-public class Donor extends User{
-	
-	private final static String myRole = "donor";
-	
-	private Long donorID;
-	private String CIN = "";
-	private String city = "";
-	private String birthday = "";
-	private String gender = "";
-	private int bloodid;
-	
-	public Donor(String firstName, String lastName, String email, String password, String phone, Boolean active) {
-		super(firstName, lastName, email, password, phone, active, myRole);
-	}
+import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest; 
+
+
+public class Donor extends User implements Serializable{
+	
+	protected String cin;
+	protected String birthDay;
+	protected String gender;
+	protected String profession;
+	protected String city;
+	protected String image;
+	protected long BloodId;
+	
 	public Donor() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public String getCIN() {
-		return CIN;
-	}
-
-	public void setCIN(String cIN) {
-		CIN = cIN;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
+	public Donor(String firstName, String lastName, String email, String password, String phone,
+			String cin, String birthDay, String gender, String profession, String city, String image, long BloodId) {
+		super( firstName, lastName, email, password, phone, false, "Donor");
+		this.cin = cin;
+		this.birthDay = birthDay;
+		this.gender = gender;
+		this.profession = profession;
 		this.city = city;
+		this.image = image;
+		this.BloodId = BloodId;
+	}
+	
+	public void setThis(Donor donor){
+		this.cin = donor.getCin();
+		this.birthDay = donor.getBirthDay();
+		this.gender = donor.getGender();
+		this.profession = donor.getProfession();
+		this.city = donor.getCity();
+		this.image = donor.getImage();
+		this.BloodId = donor.getBloodId();
 	}
 
-	public String getBirthday() {
-		return birthday;
+	public void setThis(HttpServletRequest request){
+		super.setThis(request);
+		this.cin = request.getParameter("cin");
+		this.birthDay = request.getParameter("birthDay");
+		this.gender = request.getParameter("gender");
+		this.profession = request.getParameter("profession");
+		this.city = request.getParameter("city");
+		this.image = request.getParameter("image");
+		this.BloodId = Long.parseLong( request.getParameter("BloodId"));
 	}
 
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
+	public void setThis(ResultSet rs){
+		try{
+			this.cin = rs.getString("cin");
+			this.birthDay = rs.getString("birthDay");
+			this.gender = rs.getString("gender");
+			this.profession = rs.getString("profession");
+			this.city = rs.getString("city");
+			this.image = rs.getString("image");
+			this.id = rs.getLong("userId");
+			this.BloodId = rs.getLong("BloodId");
+		} catch (SQLException e) {
+				e.printStackTrace();
+		}
+	}
+
+	public String getCin() {
+		return cin;
+	}
+
+	public void setCin(String cin) {
+		this.cin = cin;
+	}
+
+	public String getBirthDay() {
+		return birthDay;
+	}
+
+	public void setBirthDay(String birthDay) {
+		this.birthDay = birthDay;
 	}
 
 	public String getGender() {
@@ -51,33 +94,42 @@ public class Donor extends User{
 		this.gender = gender;
 	}
 
-	public String getMyRole() {
-		return myRole;
+	public String getProfession() {
+		return profession;
 	}
 
-
-	public Long getDonorID() {
-		return donorID;
+	public void setProfession(String profession) {
+		this.profession = profession;
 	}
 
-	public void setDonorID(Long donorID) {
-		this.donorID = donorID;
+	public String getCity() {
+		return city;
 	}
 
-	public int getBloodid() {
-		return bloodid;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-	public void setBloodid(int bloodid) {
-		this.bloodid = bloodid;
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
+	public long getBloodId() {
+		return BloodId;
+	}
+
+	public void setBloodId(long BloodId) {
+		this.BloodId = BloodId;
 	}
 
 	@Override
 	public String toString() {
-		return "Donor [donorID=" + donorID + ", CIN=" + CIN + ", city=" + city + ", birthday=" + birthday + ", gender="
-				+ gender + ", bloodid=" + bloodid + "]";
+		return "Donor [ cin=" + cin + ", birthDay=" + birthDay + ", gender=" + gender
+				+ ", profession="+ profession + ", BloodId=" + BloodId + ", city=" + city + ", image=" + image + " >> "+ super.toString() +"]";
 	}
-	
-	
 	
 }

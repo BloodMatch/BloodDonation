@@ -5,8 +5,6 @@
 		<title>Blood Donation</title>
 	</head>
 	<body>
-	
 		<c:redirect url="home.jsp"/>
-		
 	</body>
 </html>

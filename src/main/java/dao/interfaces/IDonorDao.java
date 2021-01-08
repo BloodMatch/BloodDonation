@@ -2,38 +2,51 @@ package dao.interfaces;
 
 import java.util.List;
 
+import dao.entities.Appointment;
 import dao.entities.Donor;
+import dao.entities.User;
 
-public interface IDonorDao {
+public interface IDonorDao{
 	
 	/*
-	 * Register new Donor into dataBase
+	 * Insert new Donor into dataBase
 	 * @return Donor
 	 */
-	public Donor create(Donor user);
-	
+	public Donor insert(Donor donor);
+
 	/*
-	 * Search for Donor in dataBase
+	 * Find a Donor by CIN dataBase
 	 * @return Donor
 	 */
-	public Donor find(long id);
-	
-	
-	/*
-	 * Get all Donor from dataBase
-	 * @return List<Donor>
-	 */
-	public List<Donor> all();
+	public Donor find(String cin);
 	
 	/*
-	 * Update Donor in dataBase
+	 * Update a Donor in dataBase
 	 * @return Donor
 	 */
-	public Donor update(Donor user);
+	public Donor update(Donor donor);
 	
 	/*
-	 * Delete Donor from dataBase
-	 * @return Boolean
+	 * Delete a Donor from dataBase
+	 * @return Donor
 	 */
-	public Boolean delete(long id);
+	public Boolean delete(String cin);
+	
+	/*
+	 * user belogs to donor 
+	 * @return Donor
+	 */
+	public Donor find(User user);
+	
+	/*
+	 * apointment belogs to donor 
+	 * @return Donor
+	 */
+	public Donor find(Appointment appointment);
+	
 }
+
+/*
+ * Find the Objcet(Owner/Responsable/that belong to) of hadchi li ghat3tini 
+ * T1 find(T2) :: find the T1 of T2
+ * */

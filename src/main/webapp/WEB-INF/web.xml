@@ -42,6 +42,7 @@
   </filter-mapping>
   
   <servlet>
+  	<display-name>UserController</display-name>
   	<servlet-name>UserController</servlet-name>
   	<servlet-class>web.controllers.UserController</servlet-class>
   </servlet>
@@ -86,4 +87,10 @@
   	<servlet-name>HomeController</servlet-name>
   	<url-pattern>/home</url-pattern>
   </servlet-mapping>
+  
+    <servlet-mapping>
+  	<servlet-name>DonorController</servlet-name>
+  	<url-pattern>/donor</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

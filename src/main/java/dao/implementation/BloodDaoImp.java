@@ -1,57 +1,44 @@
 package dao.implementation;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+
 import dao.DbConnection;
 import dao.entities.Blood;
+import dao.entities.Donor;
 import dao.interfaces.IBloodDao;
 
 public class BloodDaoImp implements IBloodDao{
-	Connection connection = DbConnection.getConnection();
+	private Connection connection = DbConnection.getConnection();
 
-	public Blood create(Blood blood) {
-		try {
-			PreparedStatement ps = connection.prepareStatement
-					("INSERT INOT BLOOD (type, description) values(?, ?)");
-			ps.setString(1, blood.getType());
-			ps.setString(2,	blood.getDescription());
-			
-			if(ps.executeUpdate() == 1) {
-				return blood;
-			}
-			ps.close();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
+	public Blood insert(Blood blood) {
 		return null;
 	}
 
 	public Blood find(long id) {
+		Blood blood = null;
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT DISTINCT * FROM BLOOD WHERE id=?");
+					("SELECT DISTINCT * FROM BLOOD WHERE id = ?");
 			ps.setLong(1, id);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
-				Blood blood = new Blood();
-				blood.setId(id);
-				blood.setType(rs.getString("type"));
-				blood.setDescription(rs.getString("description"));
-				return blood;
+				blood = new Blood();
+				blood.setThis(rs);
 			}
 			ps.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return blood;
 	}
 
-	public List<Blood> all() {
+	public List<Blood> findAll() {
 		List<Blood> bloods = new ArrayList<Blood>();
 		try {
 			PreparedStatement ps = connection.prepareStatement
@@ -59,9 +46,7 @@ public class BloodDaoImp implements IBloodDao{
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Blood blood = new Blood();
-				blood.setId(rs.getLong("id"));
-				blood.setDescription(rs.getString("description"));
-				blood.setType(rs.getString("type"));
+				blood.setThis(rs);
 				bloods.add(blood);
 			}
 			ps.close();
@@ -72,13 +57,14 @@ public class BloodDaoImp implements IBloodDao{
 	}
 
 	public Blood update(Blood blood) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public Boolean delete(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
+	public Blood find(Donor donor) {
+		return this.find(donor.getBloodId());
+	}
 }
