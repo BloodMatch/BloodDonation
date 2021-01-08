@@ -8,17 +8,13 @@
         <%@ include file="header.view.jsp"%>
     </head>
 	<body>
+		<c:set var="rootUrl" value="${pageContext.request.contextPath}"/>
 	    <%@ include file="nav-bar.view.jsp"%>
-	    <br/>
-	    <section>
-	        <div class="content">
-	           ${content}
-	        </div>
-	        <div class="content">
-	           ${other}
-	        </div>
-	    </section>
-	    <hr/>
+	    <main>
+			
+			${content}
+			
+		</main>
 	    <%@ include file="footer.view.jsp"%>
 	</body>
 </html>

@@ -127,6 +127,53 @@ section.first-section{
 section#home-section{
 	display : flex;
 	flex-direction: column;
-	justify-content: center;
+    justify-content: flex-end;
+    background: url('../assets/landingPage.svg') no-repeat center center;
+    background-size: cover;
 	height: 100vh;
+}
+
+section#home-section div{
+   margin-bottom: 3rem;
+}
+
+section#home-section div h1{
+    letter-spacing: .8rem;
+}
+
+.btn-landing-blood, .btn-outline-landing-signIn{
+    margin-right: 1rem;
+    color: #D27373;
+    background-color: #FFF3F3;
+    border-radius: 50px;
+    padding: 7px 70px;
+    box-sizing: border-box;
+    transition: background-color .5s, color .5s ease-in;
+}
+
+.btn-landing-blood:hover{
+    color: #FFF3F3;
+    background-color:transparent;
+    border: 2px solid  #FFF3F3;
+}
+
+.btn-outline-landing-blood{
+    color:  #FFF3F3;
+    border: 2px solid  #FFF3F3;
+    border-radius: 50px;
+    padding: 7px 70px;
+    transition: background-color .5s, color .5s ease-in;
+}
+
+.btn-outline-landing-blood:hover{
+    background-color: #FFF3F3;
+    color: #D27373;
+}
+
+.btn-outline-landing-signIn{
+    padding: 0;
+}
+
+.layout-colorLanding{
+    background-color: rgba(255, 1, 35, 0.55)
 }

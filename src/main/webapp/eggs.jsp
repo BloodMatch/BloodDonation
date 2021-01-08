@@ -5,7 +5,7 @@
 </c:set>
 
 <c:set var = "content" scope = "session"> 
-        <h5>EGGS</h5>
+        EGGG
 </c:set>
 
 <c:remove var="other"/>

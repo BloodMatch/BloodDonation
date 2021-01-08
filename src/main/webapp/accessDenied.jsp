@@ -1,14 +1,14 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"  %>
 
 <c:set var = "title" scope = "session"> 
-    404
+    Access Denied
 </c:set>
 
 <c:set var = "content" scope = "session"> 
-        <section class="mt-5 center-content">
-        	<div class="container">
-        		<h1> Error 404</h1>
-        		<a class="btn btn-success btn-lg" href="${rootUrl}">Go Back</a>
+        <section id="home-section">
+        	<div class="container text-center">
+        		<h1 class="text-danger">Access Denied</h1>
+        		<a class="btn btn-blood btn-lg" href="${rootUrl}">Go Back</a>
         	</div>
         </section>
 </c:set>

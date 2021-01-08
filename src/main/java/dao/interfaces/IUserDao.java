@@ -4,7 +4,7 @@ package dao.interfaces;
 import java.util.List;
 import dao.entities.User;
 
-public interface IUserDao {
+public interface IUserDao extends IAuth {
 	/*
 	 * Register new User into dataBase
 	 * @return User
@@ -16,6 +16,12 @@ public interface IUserDao {
 	 * @return User
 	 */
 	public User find(long id);
+	
+	/*
+	 * Search for User in dataBase
+	 * @return User
+	 */
+	public User findByEmail(String email);
 	
 	/*
 	 * Get all Users from dataBase

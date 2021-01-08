@@ -1,41 +1,112 @@
-<style>
-	.navbar-color{
-		background-color: #b02a37;
-		color: #f8d7da;
-	}
-	.nav-link{
-		color:white;
-		height: 100%;
-		border-bottom: 4px solid #b02a37;
-		padding-left : 2px;
-		padding-right : 2px;
-		margin-left : 10px;
-	}
-	.nav-link:hover{
-		color : #f8d7da;
-		border-bottom-color: #f8d7da;
-	}
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+
+<c:set var="guestNav" scope="session">
+	<ul class="navbar-nav">
+		<li class="nav-item hovred">
+			<a class="nav-link text-white" href="${rootUrl}/home">Home</a>
+		</li>
+		
+		<li class="nav-item hovred">
+			<a class="nav-link text-white" href="${rootUrl}/faq">FAQ</a>
+		</li>
+		
+		<li class="nav-item hovred">
+			<a class="nav-link text-white" href="${rootUrl}/about">About</a>
+		</li>
+	</ul>
 	
-	.btn-outline-login{
-		border-radius: 50px;
-		border-color : white;
-		color:white;
-		height: 50%;
-		margin-left:10px;
-	}
-	.btn-outline-login:hover{
-		background-color : #f8d7da;
-		color : #b02a37;
-	}
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="btn btn-outline-signIn text-white" href="${rootUrl}/login">Sign in</a>
+		</li>
+		
+		<li class="nav-item">
+			<a class="btn btn-signUp text-white" href="${rootUrl }/register">Sign up</a>
+		</li>
+	</ul>
+</c:set>
+
+<c:set var="donorNav" scope="session">
+	<ul class="navbar-nav">
+		<li class="nav-item hovred">
+			<a class="nav-link text-white" href="${rootUrl}/home">Appointments</a>
+		</li>
+		
+		<li class="nav-item hovred">
+			<a class="nav-link text-white" href="${rootUrl}/faq">Analyses</a>
+		</li>
+		
+		<li class="nav-item hovred">
+			<a class="nav-link text-white" href="${rootUrl}/about">We Need Blood</a>
+		</li>
+	</ul>
 	
-</style>
-<header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3  border-bottom shadow-sm navbar-color">
-	<p class="h5 my-0 me-md-auto fw-normal">Donation</p>
-  <nav class="nav nav-masthead justify-content-center float-md-end">
-        <a class="nav-link" href="home.jsp">Home</a>
-        <a class="nav-link" href="gallery.jsp">Gallery</a>
-        <a class="nav-link" href="faq.jsp">FAQ</a>
-		<a class="btn btn-outline-login" href="login.jsp">Sign in</a>
-		<a class="btn btn-outline-login" href="register.jsp">Sign up</a>
-      </nav>
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="btn text-white" href="">${sessionScope.isLoged.firstName} ${sessionScope.isLoged.lastName}</a>
+		</li>
+		
+		<li class="nav-item">
+			<a class="btn text-white" href="">${sessionScope.isLoged.role}</a>
+		</li>
+		<li class="nav-item">
+			<%@ include file="../logout.jsp"%>
+		</li>
+	</ul>
+</c:set>
+
+<c:set var="adminNav" scope="session">
+	<ul class="navbar-nav">
+		<li class="nav-item hovred">
+			<a class="nav-link text-white" href="${rootUrl}/home">Appointments</a>
+		</li>
+		
+		<li class="nav-item hovred">
+			<a class="nav-link text-white" href="${rootUrl}/faq">Hospitals</a>
+		</li>
+		
+		<li class="nav-item hovred">
+			<a class="nav-link text-white" href="${rootUrl}/about">...</a>
+		</li>
+	</ul>
+	
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="btn text-white" href="">${sessionScope.isLoged.firstName} ${sessionScope.isLoged.lastName}</a>
+		</li>
+		
+		<li class="nav-item">
+			<a class="btn text-white" href="">${sessionScope.isLoged.role}</a>
+		</li>
+		<li class="nav-item">
+			<%@ include file="../logout.jsp"%>
+		</li>
+	</ul>
+</c:set>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top layout-color">
+        <div class="container-fluid">
+           	<a class="navbar-brand white" href="${rootUrl}/home">
+                <img src="./assets/Site-logo.svg" alt="Blood Donation Logo" class="logo"/>
+            </a>
+          
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse justify-content-between" id="mobile">
+			<c:choose>
+        		<c:when test="${sessionScope.isLoged == null }">
+					${guestNav}
+				</c:when>
+				<c:when test="${sessionScope.isLoged.role == 'donor' }">
+					${donorNav}
+				</c:when>
+				<c:when test="${sessionScope.isLoged.role == 'admin' }">
+					${adminNave}
+				</c:when>
+			</c:choose>
+			</div>
+        </div>
+    </nav>
 </header>

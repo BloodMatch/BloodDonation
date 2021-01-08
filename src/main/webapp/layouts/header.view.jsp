@@ -9,8 +9,6 @@
 <!-- bootstrap -->
 
 <link href="./resources/bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="./resources/bootstrap-5.0.0-beta1-dist/css/bootstrap-grid.min.css" rel="stylesheet">
-<link href="./resources/bootstrap-5.0.0-beta1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
 
 
 <link href="./styles/main.css" rel="stylesheet">
@@ -25,7 +23,8 @@
 
 <!-- bootstrap -->
 
-<script defer src="./resources/bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.min.js"></script>
-<!-- <script defer src="./resources/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<script defer src="./resources/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script>
 
 <script defer src="./scripts/app.js"></script>
