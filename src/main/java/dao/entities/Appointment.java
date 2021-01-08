@@ -10,11 +10,12 @@ public class Appointment implements Serializable{
 	
 	private long id;
 	private String state;
-	private String date;
+	private String donationType;
+	private String time;
 	private int satisfaction;
 	private String comment;
-	private String DonorCin;
 	private long CenterId;
+	private long DonorId;
 
 
 	public Appointment() {
@@ -22,33 +23,36 @@ public class Appointment implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Appointment( String state, String date, int satisfaction, String comment, String DonorCin, long CenterId) {
+	public Appointment( String state, String donationType, String time, int satisfaction, String comment, long DonorId, long CenterId) {
 		super();
 		this.state = state;
-		this.date = date;
+		this.donationType = donationType;
+		this.time = time;
 		this.satisfaction = satisfaction;
 		this.comment = comment;
-		this.DonorCin = DonorCin;
+		this.DonorId = DonorId;
 		this.CenterId = CenterId;
 	}
 
 	public void setThis(Appointment appointment){
 		//this.id = appointment.getId();
 		this.state = appointment.getState();
-		this.date = appointment.getDate();
+		this.donationType = appointment.getDonationType();
+		this.time = appointment.getTime();
 		this.satisfaction = appointment.getSatisfaction();
 		this.comment = appointment.getComment();
-		this.DonorCin = appointment.getDonorCin();
+		this.DonorId = appointment.getDonorId();
 		this.CenterId = appointment.getCenterId();
 	}
 
 	public void setThis(HttpServletRequest request){
 		//this.id = request.getParameter("id");
 		this.state = request.getParameter("state");
-		this.date = request.getParameter("date");
+		this.state = request.getParameter("donationType");
+		this.time = request.getParameter("time");
 		this.satisfaction = Integer.parseInt( request.getParameter("satisfaction"));
 		this.comment = request.getParameter("comment");
-		this.DonorCin = request.getParameter("DonorCin");
+		this.DonorId = Long.parseLong( request.getParameter("DonorId"));
 		this.CenterId = Long.parseLong(request.getParameter("CenterId"));
 	}
 
@@ -56,10 +60,11 @@ public class Appointment implements Serializable{
 		try{
 			this.id = rs.getLong("id");
 			this.state = rs.getString("state");
-			this.date = rs.getString("date");
+			this.donationType = rs.getString("donationType");
+			this.time = rs.getString("time");
 			this.satisfaction = rs.getInt("satisfaction");
 			this.comment = rs.getString("comment");
-			this.DonorCin = rs.getString("DonorCin");
+			this.DonorId = rs.getLong("DonorId");
 			this.CenterId = rs.getLong("CenterId");
 		} catch (SQLException e) {
 				e.printStackTrace();
@@ -82,12 +87,20 @@ public class Appointment implements Serializable{
 		this.state = state;
 	}
 
-	public String getDate() {
-		return date;
+	public String getDonationType() {
+		return donationType;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setDonationType(String donationType) {
+		this.donationType = donationType;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public int getSatisfaction() {
@@ -106,12 +119,12 @@ public class Appointment implements Serializable{
 		this.comment = comment;
 	}
 
-	public String getDonorCin() {
-		return DonorCin;
+	public long getDonorId() {
+		return DonorId;
 	}
 
-	public void setDonorCin(String DonorCin) {
-		this.DonorCin = DonorCin;
+	public void setDonorId(long DonorId) {
+		this.DonorId = DonorId;
 	}
 	
 	public long getCenterId() {
@@ -124,7 +137,10 @@ public class Appointment implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Donor [ id=" + id+ ", state=" + state+", date="+date+", satisfaction="+satisfaction+", comment="+comment+", DonorCin="+DonorCin+", CenterId="+CenterId+" ]";
+		return String.format(
+			"Appointment [ id=%d, state=%s, donationType=%s, time=%s, comment=%s, DonorId=%d, CenterId  =%d]",
+				id, state, donationType, time, comment, DonorId, CenterId
+		);
 	}
 	
 }

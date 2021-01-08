@@ -24,12 +24,14 @@ public class AdminCenterDaoImp extends UserDaoImp implements IAdminCenterDao{
 			super.insert(admincenter);
 			
 			PreparedStatement ps = connection.prepareStatement
-					("INSERT INTO ADMINCENTER( MATRICULE, CENTERID, USERID) VALUES(?,?,?) ");
+					("INSERT INTO ADMINCENTER( MATRICULE, CENTERID, USERID) VALUES(?,?,?) ", Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, admincenter.getMatricule());
-			ps.setLong(6, admincenter.getCenterId());
-			ps.setLong(7, admincenter.getId());
-			
-			if(ps.execute()) { // 1 : one row affected
+			ps.setLong(2, admincenter.getCenterId());
+			ps.setLong(3, admincenter.getId());
+			ps.execute();
+			ResultSet rs = ps.getGeneratedKeys();
+			if(rs.next()) { // 1 : one row affected
+				admincenter.setAdminCenterId(rs.getInt(1));
 				return admincenter;
 			}
 			
@@ -44,31 +46,8 @@ public class AdminCenterDaoImp extends UserDaoImp implements IAdminCenterDao{
 		User user = null;
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT DISTINCT * FROM ADMINCENTER WHERE UserId = ?");
+					("SELECT DISTINCT * FROM ADMINCENTER WHERE id = ?");
 			ps.setLong(1, id);
-			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
-				admincenter = new AdminCenter();
-				admincenter.setThis(rs);
-				
-				user = super.find( id);
-				admincenter.setThis(user);
-				
-			}
-			ps.close();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return admincenter;
-	}
-
-	public AdminCenter find(String matricule) {
-		AdminCenter admincenter = null;
-		User user = null;
-		try {
-			PreparedStatement ps = connection.prepareStatement
-					("SELECT DISTINCT * FROM ADMINCENTER WHERE matricule = ?");
-			ps.setString(1, matricule);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
 				admincenter = new AdminCenter();
@@ -85,7 +64,6 @@ public class AdminCenterDaoImp extends UserDaoImp implements IAdminCenterDao{
 		return admincenter;
 	}
 	
-
 	public List<User> findAll() {
 		List<User> admincenters = new ArrayList<User>();
 		try {
@@ -112,10 +90,11 @@ public class AdminCenterDaoImp extends UserDaoImp implements IAdminCenterDao{
 
 	public AdminCenter update(AdminCenter admincenter) {
 		try {
+			super.update(admincenter);
 			PreparedStatement ps = connection.prepareStatement
-					("UPDATE ADMINCENTER SET CENTERID=? WHERE matricule=?");
-			ps.setLong(1, admincenter.getCenterId());
-			ps.setString(2, admincenter.getMatricule());
+					("UPDATE ADMINCENTER SET MATRICULE=?  WHERE id=?");
+			ps.setString(1, admincenter.getMatricule());
+			ps.setLong(2, admincenter.getAdminCenterId());
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
 				return admincenter;
 			}
@@ -129,10 +108,11 @@ public class AdminCenterDaoImp extends UserDaoImp implements IAdminCenterDao{
 	public Boolean delete(long id) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("DELETE FROM ADMINCENTER WHERE UserId=?");
+					("DELETE FROM ADMINCENTER WHERE id=?");
 			ps.setLong(1, id);
+			Long userId = this.find(id).getId();
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
-				//super.delete( id);
+				super.delete( userId);
 				return true;
 			}
 			
@@ -142,46 +122,6 @@ public class AdminCenterDaoImp extends UserDaoImp implements IAdminCenterDao{
 		return false;
 	}
 
-	public Boolean delete(String matricule) {
-		try {
-			PreparedStatement ps = connection.prepareStatement
-					("DELETE FROM ADMINCENTER WHERE matricule=?");
-			ps.setString(1, matricule);
-			//Long userId = this.find(matricule).getId();
-			if(ps.executeUpdate() == 1) { // 1 : one row affected
-				//super.delete( userId);
-				return true;
-			}
-			
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	public List<AdminCenter> find(Center center) {
-		List<AdminCenter> admincenters = new ArrayList<AdminCenter>();
-		try {
-			PreparedStatement ps = connection.prepareStatement
-					("SELECT * FROM ADMINCENTER WHERE CenterId = ?");
-			ps.setLong(1, center.getId());
-			ResultSet rs = ps.executeQuery();
-			AdminCenter admincenter;
-			User user;
-			while(rs.next()) {
-				admincenter = new AdminCenter();
-				admincenter.setThis(rs);
-				
-				user = super.find(admincenter.getId() );
-				admincenter.setThis(user);
-				
-				admincenters.add(admincenter);
-			}
-			ps.close();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return admincenters;
-	}
+	
 
 }

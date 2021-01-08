@@ -10,5 +10,5 @@ public interface IAdminCenterDao{
 	 * List of Admins they belongs to a Center
 	 * @List<AdminCenter>
 	 */
-	public List<AdminCenter> find(Center center);
+	//public List<AdminCenter> find(Center center);
 }

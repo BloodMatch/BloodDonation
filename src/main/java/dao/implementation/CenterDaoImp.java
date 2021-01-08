@@ -21,16 +21,15 @@ public class CenterDaoImp implements ICenterDao{
 	public Center insert(Center center) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("INSERT INTO CENTER( CODE, NAME, EMAIL, PHONE1, PHONE2, ADDRESS, COMMUNE, PROVINCE, REGION) VALUES(?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
+					("INSERT INTO CENTER( CODE, NAME, EMAIL, PHONE1, PHONE2, ADDRESS, CITY, ZIPCODE) VALUES(?,?,?,?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, center.getCode());
 			ps.setString(2, center.getName());
 			ps.setString(3, center.getEmail());
 			ps.setString(4, center.getPhone1());
 			ps.setString(5, center.getPhone2());
 			ps.setString(6, center.getAddress());
-			ps.setString(7, center.getCommune());
-			ps.setString(8, center.getProvince());
-			ps.setString(9, center.getRegion());
+			ps.setString(7, center.getCity());
+			ps.setLong(8, center.getZIPCode());
 			ps.execute();
 			ResultSet rs = ps.getGeneratedKeys();
 			if(rs.next()) { // 1 : one row affected
@@ -83,17 +82,16 @@ public class CenterDaoImp implements ICenterDao{
 	public Center update(Center center) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("UPDATE CENTER SET CODE=?, NAME=?, EMAIL=?, PHONE1=? ,PHONE2=?, ADDRESS=?, COMMUNE=?, PROVINCE=?, REGION=? WHERE id=?");
+					("UPDATE CENTER SET CODE=?, NAME=?, EMAIL=?, PHONE1=? ,PHONE2=?, ADDRESS=?, CITY=?, ZIPCODE=? WHERE id=?");
 			ps.setString(1, center.getCode());
 			ps.setString(2, center.getName());
 			ps.setString(3, center.getEmail());
 			ps.setString(4, center.getPhone1());
 			ps.setString(5, center.getPhone2());
 			ps.setString(6, center.getAddress());
-			ps.setString(7, center.getCommune());
-			ps.setString(8, center.getProvince());
-			ps.setString(9, center.getRegion());
-			ps.setLong(10, center.getId());
+			ps.setString(7, center.getCity());
+			ps.setLong(8, center.getZIPCode());
+			ps.setLong(9, center.getId());
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
 				return center;
 			}

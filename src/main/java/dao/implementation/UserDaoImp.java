@@ -33,7 +33,7 @@ public class UserDaoImp implements IUserDao{
 				user.setId(rs.getInt(1));
 				return user;
 			}
-			
+
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -52,6 +52,7 @@ public class UserDaoImp implements IUserDao{
 				user.setThis(rs);
 			}
 			ps.close();
+
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -60,9 +61,10 @@ public class UserDaoImp implements IUserDao{
 
 	public List<User> findAll() {
 		List<User> users = new ArrayList<User>();
+
+		System.out.println("getConnection()");
 		try {
-			PreparedStatement ps = connection.prepareStatement
-					("SELECT * FROM USER");
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM USER");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				User user = new User();
@@ -70,6 +72,7 @@ public class UserDaoImp implements IUserDao{
 				users.add(user);
 			}
 			ps.close();
+
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -91,7 +94,7 @@ public class UserDaoImp implements IUserDao{
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
 				return user;
 			}
-			
+
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}

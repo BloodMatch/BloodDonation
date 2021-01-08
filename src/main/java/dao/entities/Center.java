@@ -14,27 +14,25 @@ public class Center implements Serializable{
 	private String email;
 	private String phone1;
 	private String phone2;
+	private String city;
 	private String address;
-	private String commune;
-	private String province;
-	private String region;
+	private long ZIPCode;
 
 	public Center() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Center( String code, String name, String email, String phone1, String phone2, String address, String commune, String province, String region) {
+	public Center( String code, String name, String email, String phone1, String phone2, String city, String address, long ZIPCode) {
 		super();
 		this.code = code;
 		this.name = name;
 		this.email = email;
 		this.phone1 = phone1;
 		this.phone2 = phone2;
+		this.city = city;
 		this.address = address;
-		this.commune = commune;
-		this.province = province;
-		this.region = region;
+		this.ZIPCode = ZIPCode;
 	}
 
 	public void setThis(Center center){
@@ -44,23 +42,21 @@ public class Center implements Serializable{
 		this.email = center.getEmail();
 		this.phone1 = center.getPhone1();
 		this.phone2 = center.getPhone2();
+		this.city = center.getCity();
 		this.address = center.getAddress();
-		this.commune = center.getCommune();
-		this.province = center.getProvince();
-		this.region = center.getRegion();
+		this.ZIPCode = center.getZIPCode();
 	}
 
 	public void setThis(HttpServletRequest request){
-		//this.id = request.getParameter("id");
+		//this.id = Long.parseLong( request.getParameter("id"));
 		this.code = request.getParameter("code");
 		this.name = request.getParameter("name");
 		this.email = request.getParameter("email");
 		this.phone1 = request.getParameter("phone1");
 		this.phone2 = request.getParameter("phone2");
+		this.city = request.getParameter("city");
 		this.address = request.getParameter("address");
-		this.commune = request.getParameter("commune");
-		this.province = request.getParameter("province");
-		this.region = request.getParameter("region");
+		this.ZIPCode = Long.parseLong( request.getParameter("ZIPCode"));
 	}
 
 	public void setThis(ResultSet rs){
@@ -71,10 +67,9 @@ public class Center implements Serializable{
 			this.email = rs.getString("email");
 			this.phone1 = rs.getString("phone1");
 			this.phone2 = rs.getString("phone2");
+			this.city = rs.getString("city");
 			this.address = rs.getString("address");
-			this.commune = rs.getString("commune");
-			this.province = rs.getString("province");
-			this.region = rs.getString("region");
+			this.ZIPCode = rs.getLong("ZIPCode");
 		} catch (SQLException e) {
 				e.printStackTrace();
 		}
@@ -136,33 +131,27 @@ public class Center implements Serializable{
 		this.address = address;
 	}
 
-	public String getCommune() {
-		return commune;
+	public String getCity() {
+		return city;
 	}
 
-	public void setCommune(String commune) {
-		this.commune = commune;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-	public String getProvince() {
-		return province;
+	public long getZIPCode() {
+		return ZIPCode;
 	}
 
-	public void setProvince(String province) {
-		this.province = province;
-	}
-
-	public String getRegion() {
-		return region;
-	}
-
-	public void setRegion(String region) {
-		this.region = region;
+	public void setZIPCode(long ZIPCode) {
+		this.ZIPCode = ZIPCode;
 	}
 
 	@Override
 	public String toString() {
-		return "Donor [ id=" + id+ ", code=" + code+", name="+name+", email="+email+", phone1="+phone1+", phone2="+phone2+" ]";
+		return String.format(
+				"Center [ id=%d, code=%s, name=%s, email=%s, phone1=%s, phone2=%s, city=%s, address=%s, ZIPCode=%d ]",
+				id, code, name, email, phone1, phone2, city, address, ZIPCode
+			);
 	}
-	
 }

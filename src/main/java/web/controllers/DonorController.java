@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.entities.Donor;
-import dao.implementation.DonorDaoImp;
-import dao.interfaces.IDonorDao;
-import web.models.DonorModel;
+import dao.entities.*;
+import dao.implementation.*;
+import dao.interfaces.*;
+import web.models.*;
 
 /**
  * Servlet implementation class UserController
@@ -19,23 +19,22 @@ import web.models.DonorModel;
 
 public class DonorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DonorDaoImp donorDao;
+	private IDao<User> dao;
     
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		donorDao = new DonorDaoImp();
+		dao = new UserDaoImp();
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DonorModel donorModel = new DonorModel();
-/*		donorModel.setDonors( (List<Donor>)(List<?>) donorDao.findAll() );
-		request.setAttribute("donors", donorModel.getDonors());*/
+		//donorModel.setDonors( (List<Donor>)(List<?>) dao.findAll() );
 		
-		request.setAttribute("donors", "EE525252"+donorDao.find("EE525252"));
+		
+		request.setAttribute("donors", dao.findAll() );
 				
 		request.getRequestDispatcher("TEST/donors.jsp").forward(request,  response);
 	}

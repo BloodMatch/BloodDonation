@@ -24,16 +24,18 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 			super.insert(donor);
 			
 			PreparedStatement ps = connection.prepareStatement
-					("INSERT INTO DONOR( CIN, BIRTHDAY, GENDER, CITY, IMAGE, BLOODID, USERID) VALUES(?,?,?,?,?,?,?) ");
+					("INSERT INTO DONOR( CIN, BIRTHDATE, GENDER, CITY, IMAGE, ZIPCODE, USERID) VALUES(?,?,?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, donor.getCin());
-			ps.setString(2, donor.getBirthDay());
+			ps.setString(2, donor.getBirthDate());
 			ps.setString(3, donor.getGender());
 			ps.setString(4, donor.getCity());
 			ps.setString(5, donor.getImage());
-			ps.setLong(6, donor.getBloodId());
+			ps.setLong(6, donor.getZIPCode());
 			ps.setLong(7, donor.getId());
-			
-			if(ps.execute()) { // 1 : one row affected
+			ps.execute();
+			ResultSet rs = ps.getGeneratedKeys();
+			if(rs.next()) { // 1 : one row affected
+				donor.setDonorId(rs.getInt(1));
 				return donor;
 			}
 			
@@ -48,31 +50,8 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 		User user = null;
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT DISTINCT * FROM DONOR WHERE UserId = ?");
+					("SELECT DISTINCT * FROM DONOR WHERE id = ?");
 			ps.setLong(1, id);
-			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
-				donor = new Donor();
-				donor.setThis(rs);
-				
-				user = super.find( id);
-				donor.setThis(user);
-				
-			}
-			ps.close();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return donor;
-	}
-
-	public Donor find(String cin) {
-		Donor donor = null;
-		User user = null;
-		try {
-			PreparedStatement ps = connection.prepareStatement
-					("SELECT DISTINCT * FROM DONOR WHERE cin = ?");
-			ps.setString(1, cin);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
 				donor = new Donor();
@@ -102,7 +81,7 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 				donor = new Donor();
 				donor.setThis(rs);
 				
-				user = super.find(donor.getId() );
+				user = super.find( donor.getId());
 				donor.setThis(user);
 				
 				donors.add(donor);
@@ -116,14 +95,17 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 
 	public Donor update(Donor donor) {
 		try {
+			super.update(donor);
 			PreparedStatement ps = connection.prepareStatement
-					("UPDATE DONOR SET BIRTHDAY=?, GENDER=?, CITY=? , IMAGE=?, BLOODID=? WHERE cin=?");
-			ps.setString(1, donor.getBirthDay());
-			ps.setString(2, donor.getGender());
-			ps.setString(3, donor.getCity());
-			ps.setString(4, donor.getImage());
-			ps.setLong(5, donor.getBloodId());
-			ps.setString(6, donor.getCin());
+					("UPDATE DONOR SET CIN=?, BIRTHDATE=?, GENDER=?, `GROUP`=?, CITY=?, ZIPCODE=? , IMAGE=? WHERE id=?");
+			ps.setString(1, donor.getCin());
+			ps.setString(2, donor.getBirthDate());
+			ps.setString(3, donor.getGender());
+			ps.setString(4, donor.getGroup());
+			ps.setString(5, donor.getCity());
+			ps.setLong(6, donor.getZIPCode());
+			ps.setString(7, donor.getImage());
+			ps.setLong(8, donor.getDonorId());
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
 				return donor;
 			}
@@ -137,11 +119,11 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 	public Boolean delete(long id) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("DELETE FROM DONOR WHERE UserId=?");
+					("DELETE FROM DONOR WHERE id=?");
 			ps.setLong(1, id);
-			
+			Long userId = this.find(id).getId();
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
-				//super.delete( id);
+				super.delete( userId);
 				return true;
 			}
 			
@@ -151,29 +133,4 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 		return false;
 	}
 
-	public Boolean delete(String cin) {
-		try {
-			PreparedStatement ps = connection.prepareStatement
-					("DELETE FROM DONOR WHERE cin=?");
-			ps.setString(1, cin);
-			//Long userId = this.find(cin).getId();
-			if(ps.executeUpdate() == 1) { // 1 : one row affected
-				//super.delete( userId);
-				return true;
-			}
-			
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	public Donor find(User user) {
-		return this.find(user.getId());
-	}
-	
-	public Donor find(Appointment appointment) {
-		return this.find(appointment.getDonorCin());
-	}
-	
 }

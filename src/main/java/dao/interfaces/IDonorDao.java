@@ -14,11 +14,6 @@ public interface IDonorDao{
 	 */
 	public Donor insert(Donor donor);
 
-	/*
-	 * Find a Donor by CIN dataBase
-	 * @return Donor
-	 */
-	public Donor find(String cin);
 	
 	/*
 	 * Update a Donor in dataBase
@@ -30,19 +25,14 @@ public interface IDonorDao{
 	 * Delete a Donor from dataBase
 	 * @return Donor
 	 */
-	public Boolean delete(String cin);
-	
-	/*
-	 * user belogs to donor 
-	 * @return Donor
-	 */
-	public Donor find(User user);
+
+	//public Donor find(User user);
 	
 	/*
 	 * apointment belogs to donor 
 	 * @return Donor
 	 */
-	public Donor find(Appointment appointment);
+	//public Donor find(Appointment appointment);
 	
 }
 

@@ -20,8 +20,8 @@ public class AnalysisDaoImp implements IAnalysisDao{
 	public Analysis insert(Analysis analysis) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("INSERT INTO ANALYSIS( CODE, DATE, RESULTS, COMMENT, APPOINTMENTID) VALUES(?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
-			ps.setLong(1, analysis.getCode());
+					("INSERT INTO ANALYSIS( CODE, `DATE`, RESULTS, COMMENT, APPOINTMENTID) VALUES(?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, analysis.getCode());
 			ps.setString(2, analysis.getDate());
 			ps.setString(3, analysis.getResults());
 			ps.setString(4, analysis.getComment());
@@ -78,8 +78,8 @@ public class AnalysisDaoImp implements IAnalysisDao{
 	public Analysis update(Analysis analysis) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("UPDATE ANALYSIS SET CODE=?, DATE=?, RESULTS=?, COMMENT=? ,APPOINTMENTID=? WHERE id=?");
-			ps.setLong(1, analysis.getCode());
+					("UPDATE ANALYSIS SET CODE=?, `DATE`=?, RESULTS=?, COMMENT=? ,APPOINTMENTID=? WHERE id=?");
+			ps.setString(1, analysis.getCode());
 			ps.setString(2, analysis.getDate());
 			ps.setString(3, analysis.getResults());
 			ps.setString(4, analysis.getComment());
@@ -110,22 +110,5 @@ public class AnalysisDaoImp implements IAnalysisDao{
 		return false;
 	}
 
-	public Analysis find(Appointment appointment) {
-		Analysis analysis = null;
-		try {
-			PreparedStatement ps = connection.prepareStatement
-					("SELECT DISTINCT * FROM ANALYSIS WHERE id AppointmentId = ?");
-			ps.setLong(1, appointment.getId());
-			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
-				analysis = new Analysis();
-				analysis.setThis(rs);
-			}
-			ps.close();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return analysis;
-	}
 
 }

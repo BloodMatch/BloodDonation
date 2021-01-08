@@ -9,7 +9,7 @@ import dao.entities.Center;
 
 public interface ICenterDao extends IDao<Center> {
     
-    public Center find(AdminCenter admincenter);
-    public Center find(Appointment appointment);
+    //public Center find(AdminCenter admincenter);
+    //public Center find(Appointment appointment);
     //public Center find(Bag bag);
 }

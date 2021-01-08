@@ -24,7 +24,7 @@ public class DbConnection {
 			// load JDBC Driver
 			Class.forName(driver);
 			connection = DriverManager.getConnection(String.format("jdbc:%s://%s:%s/%s", dbDriver, hostname, port, database), user, passwd);
-			
+			System.out.println("isClosed = " + connection.isClosed());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
