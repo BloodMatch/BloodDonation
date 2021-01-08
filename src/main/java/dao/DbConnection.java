@@ -23,11 +23,17 @@ public class DbConnection {
 		try {
 			// load JDBC Driver
 			Class.forName(driver);
-			connection = DriverManager.getConnection(String.format("jdbc:%s://%s:%s/%s", dbDriver, hostname, port, database), user, passwd);
+			connection = DriverManager.getConnection(
+					String.format("jdbc:%s://%s:%s/%s", dbDriver, hostname, port, database)
+					, user, passwd);
 			System.out.println("isClosed = " + connection.isClosed());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private DbConnection() {
+		
 	}
 	
 	public static Connection getConnection() {

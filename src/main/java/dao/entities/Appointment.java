@@ -3,7 +3,8 @@ package dao.entities;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
- 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class Appointment implements Serializable{
@@ -16,6 +17,10 @@ public class Appointment implements Serializable{
 	private String comment;
 	private long CenterId;
 	private long DonorId;
+	
+	private Donor donor;
+	private Center center;
+	private Analysis analysis; 
 
 
 	public Appointment() {
@@ -134,7 +139,32 @@ public class Appointment implements Serializable{
 	public void setCenterId(long CenterId) {
 		this.CenterId = CenterId;
 	}
+	
+	
+	public Donor getDonor(){
+		return donor;
+	}
+	
+	public void setDonor(Donor donor) {
+		this.donor = donor;
+	}
 
+	public Center getCenter(){
+		return center;
+	}
+
+	public void setCenter(Center center) {
+		this.center = center;
+	}
+	
+	public Analysis getAnalysis(){
+		return analysis;
+	}
+
+	public void setAnalysis(Analysis analysis) {
+		this.analysis = analysis;
+	}
+	
 	@Override
 	public String toString() {
 		return String.format(

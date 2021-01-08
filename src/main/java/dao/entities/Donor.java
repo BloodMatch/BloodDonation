@@ -3,6 +3,7 @@ package dao.entities;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest; 
 
@@ -17,6 +18,9 @@ public class Donor extends User implements Serializable{
 	protected String city;
 	protected long ZIPCode;
 	protected String image;
+	
+	protected List<Appointment> appointments;
+	protected List<Center> centers;
 	
 	public Donor() {
 		super();
@@ -137,6 +141,23 @@ public class Donor extends User implements Serializable{
 	public void setImage(String image) {
 		this.image = image;
 	}
+	
+	
+	public List<Appointment> getAppointments() {
+		return appointments;
+	}
+	
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
+	}	
+	
+	public List<Center> getCenters() {
+		return centers;
+	}
+	
+	public void setCenters(List<Center> centers) {
+		this.centers= centers;
+	}	
 
 	@Override
 	public String toString() {

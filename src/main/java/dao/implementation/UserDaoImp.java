@@ -14,7 +14,7 @@ import dao.entities.User;
 import dao.interfaces.IUserDao;
 
 public class UserDaoImp implements IUserDao{
-	private Connection connection = DbConnection.getConnection();
+	private final static Connection connection = DbConnection.getConnection();
 
 	public User insert(User user) {
 		try {

@@ -3,6 +3,7 @@ package dao.entities;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
  
@@ -15,6 +16,7 @@ public class Bag implements Serializable{
 	private String description;
 	private long saftyStore;
 
+	protected List<Stock> stocks;
 	
 	public Bag() {
 		super();
@@ -95,6 +97,15 @@ public class Bag implements Serializable{
 
 	public void setSaftyStore(long saftyStore) {
 		this.saftyStore = saftyStore;
+	}
+	
+
+	public List<Stock> getStocks() {
+		return stocks;
+	}
+	
+	public void setStocks(List<Stock> stocks) {
+		this.stocks = stocks;
 	}
 
 	@Override

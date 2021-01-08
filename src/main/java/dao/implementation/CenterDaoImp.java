@@ -13,10 +13,12 @@ import dao.DbConnection;
 import dao.entities.AdminCenter;
 import dao.entities.Appointment;
 import dao.entities.Center;
+import dao.entities.Donor;
+import dao.entities.Stock;
 import dao.interfaces.ICenterDao;
 
 public class CenterDaoImp implements ICenterDao{
-	private Connection connection = DbConnection.getConnection();
+	private final static Connection connection = DbConnection.getConnection();
 
 	public Center insert(Center center) {
 		try {
@@ -117,12 +119,39 @@ public class CenterDaoImp implements ICenterDao{
 		return false;
 	}
 
+	/*
+	 * RELATIONSHIPS
+	 * */
+	
 	public Center find(AdminCenter admincenter) {
 		return this.find(admincenter.getCenterId());
 	}
 
 	public Center find(Appointment appointment) {
 		return this.find(appointment.getCenterId());
+	}
+
+	public List<Center> find(Donor donor) {
+		List<Center> centers = new ArrayList<Center>();
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("select C.* from Center C , Donor D where D.id=? ORDER by abs(D.ZIPCode-C.ZIPCode) ");
+			ps.setLong(1, donor.getDonorId());
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Center center = new Center();
+				center.setThis(rs);
+				centers.add(center);
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return centers;
+	}
+
+	public Center find(Stock stock) {
+		return this.find(stock.getCenterId());
 	}
 
 }

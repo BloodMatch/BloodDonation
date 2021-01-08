@@ -16,7 +16,7 @@ import dao.entities.User;
 import dao.interfaces.IAdminCenterDao;
 
 public class AdminCenterDaoImp extends UserDaoImp implements IAdminCenterDao{
-	private Connection connection = DbConnection.getConnection();
+	private final static Connection connection = DbConnection.getConnection();
 
 	public AdminCenter insert(AdminCenter admincenter) {
 		try {
@@ -120,6 +120,35 @@ public class AdminCenterDaoImp extends UserDaoImp implements IAdminCenterDao{
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	/*
+	 * RELATIONSHIPS
+	 * */
+	
+	public List<AdminCenter> find(Center center) {
+		List<AdminCenter> admincenters = new ArrayList<AdminCenter>();
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("SELECT * FROM ADMINCENTER where CenterId=?");
+			ps.setLong(1, center.getId());
+			ResultSet rs = ps.executeQuery();
+			AdminCenter admincenter;
+			User user;
+			while(rs.next()) {
+				admincenter = new AdminCenter();
+				admincenter.setThis(rs);
+				
+				user = super.find(admincenter.getId() );
+				admincenter.setThis(user);
+				
+				admincenters.add(admincenter);
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return admincenters;
 	}
 
 	

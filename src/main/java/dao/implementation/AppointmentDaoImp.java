@@ -17,7 +17,7 @@ import dao.entities.Donor;
 import dao.interfaces.IAppointmentDao;
 
 public class AppointmentDaoImp implements IAppointmentDao{
-	private Connection connection = DbConnection.getConnection();
+	private final static Connection connection = DbConnection.getConnection();
 
 	public Appointment insert(Appointment appointment) {
 		try {
@@ -113,5 +113,52 @@ public class AppointmentDaoImp implements IAppointmentDao{
 		}
 		return false;
 	}
+	
+	/*
+	 * RELATIONSHIPS
+	 * */
 
+	public Appointment find(Analysis analysis) {
+		
+		return find(analysis.getAppointmentId());
+	}
+
+	public List<Appointment> find(Donor donor) {
+		List<Appointment> appointments = new ArrayList<Appointment>();
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("SELECT * FROM APPOINTMENT where DonorId=?");
+			ps.setLong(1, donor.getDonorId());
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Appointment appointment = new Appointment();
+				appointment.setThis(rs);
+				appointments.add(appointment);
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return appointments;
+	}
+
+	public List<Appointment> find(Center center) {
+		List<Appointment> appointments = new ArrayList<Appointment>();
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("SELECT * FROM APPOINTMENT where CenterId=?");
+			ps.setLong(1, center.getId());
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Appointment appointment = new Appointment();
+				appointment.setThis(rs);
+				appointments.add(appointment);
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return appointments;
+	}
+	
 }

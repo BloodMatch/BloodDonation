@@ -15,7 +15,7 @@ import dao.entities.Donor;
 import dao.interfaces.IBagDao;
 
 public class BagDaoImp implements IBagDao{
-	private Connection connection = DbConnection.getConnection();
+	private final static Connection connection = DbConnection.getConnection();
 
 	public Bag insert(Bag bag) {
 		try {

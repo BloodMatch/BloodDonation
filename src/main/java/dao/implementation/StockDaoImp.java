@@ -14,7 +14,7 @@ import dao.entities.Stock;
 import dao.interfaces.IStockDao;
 
 public class StockDaoImp implements IStockDao{
-	private Connection connection = DbConnection.getConnection();
+	private final static Connection connection = DbConnection.getConnection();
 
 	public Stock insert(Stock stock) {
 		try {

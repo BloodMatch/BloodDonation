@@ -35,7 +35,7 @@ public abstract class Entity<TSelf, TDao extends  IDao>{
 	}
 	
 	public boolean remove() {
-		Class<TDao> aClass;
+		
 		//(new TDao()).delete(this.getId());
 		return false;
 	}

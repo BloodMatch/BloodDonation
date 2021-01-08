@@ -1,6 +1,6 @@
 package dao.interfaces;
 
-import java.util.List;
+//import java.util.List;
 
 import dao.entities.Appointment;
 import dao.entities.Donor;
@@ -8,31 +8,25 @@ import dao.entities.User;
 
 public interface IDonorDao{
 	
-	/*
-	 * Insert new Donor into dataBase
-	 * @return Donor
-	 */
-	public Donor insert(Donor donor);
-
 	
 	/*
-	 * Update a Donor in dataBase
-	 * @return Donor
+	 * Relationships
 	 */
-	public Donor update(Donor donor);
+	
 	
 	/*
 	 * Delete a Donor from dataBase
 	 * @return Donor
 	 */
 
-	//public Donor find(User user);
+	public Donor find(User user);
 	
 	/*
 	 * apointment belogs to donor 
 	 * @return Donor
 	 */
-	//public Donor find(Appointment appointment);
+	public Donor find(Appointment appointment);
+	
 	
 }
 

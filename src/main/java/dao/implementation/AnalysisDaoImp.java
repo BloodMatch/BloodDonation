@@ -15,7 +15,7 @@ import dao.entities.Appointment;
 import dao.interfaces.IAnalysisDao;
 
 public class AnalysisDaoImp implements IAnalysisDao{
-	private Connection connection = DbConnection.getConnection();
+	private final static Connection connection = DbConnection.getConnection();
 
 	public Analysis insert(Analysis analysis) {
 		try {
@@ -108,6 +108,27 @@ public class AnalysisDaoImp implements IAnalysisDao{
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	/*
+	 * RELATIONSHIPS
+	 * */
+	public Analysis find(Appointment appointment) {
+		Analysis analysis = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("SELECT DISTINCT * FROM ANALYSIS WHERE AppointmentId = ?");
+			ps.setLong(1, appointment.getId());
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				analysis = new Analysis();
+				analysis.setThis(rs);
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return analysis; 
 	}
 
 

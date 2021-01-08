@@ -10,7 +10,7 @@ import dao.entities.Donor;
 
 public interface IAppointmentDao extends IDao<Appointment> {
 	
-	//public Appointment find(Analysis analysis);
-	//public List<Appointment> find(Donor donor);
-	//public List<Appointment> find(Center center);
+	public Appointment find(Analysis analysis);
+	public List<Appointment> find(Donor donor);
+	public List<Appointment> find(Center center);
 }

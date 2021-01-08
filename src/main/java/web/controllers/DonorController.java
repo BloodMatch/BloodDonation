@@ -33,8 +33,11 @@ public class DonorController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//donorModel.setDonors( (List<Donor>)(List<?>) dao.findAll() );
 		
+		Donor d = (new DonorDaoImp()).find(1);
+		System.out.println("Center"+ (new CenterDaoImp()).findAll());
 		
-		request.setAttribute("donors", dao.findAll() );
+		request.setAttribute("donors", (new DonorDaoImp()).findAll() );
+		
 				
 		request.getRequestDispatcher("TEST/donors.jsp").forward(request,  response);
 	}

@@ -16,7 +16,7 @@ import dao.entities.User;
 import dao.interfaces.IDonorDao;
 
 public class DonorDaoImp extends UserDaoImp implements IDonorDao{
-	private Connection connection = DbConnection.getConnection();
+	private final static Connection connection = DbConnection.getConnection();
 
 	public Donor insert(Donor donor) {
 		try {
@@ -131,6 +131,34 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	/*
+	 * RELATIONSHIPS
+	 * */
+	public Donor find(User user) {
+		Donor donor = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("SELECT DISTINCT * FROM DONOR WHERE UserId = ?");
+			ps.setLong(1, user.getId());
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				donor = new Donor();
+				donor.setThis(rs);				
+				donor.setThis(user);
+				
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return donor;
+	}
+
+	public Donor find(Appointment appointment) {
+		
+		return find(appointment.getDonorId());
 	}
 
 }

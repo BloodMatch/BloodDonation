@@ -15,7 +15,8 @@ public class Analysis implements Serializable{
 	private String comment;
 	private long AppointmentId;
 
-
+	private Appointment appointment;
+	
 	public Analysis() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -107,6 +108,15 @@ public class Analysis implements Serializable{
 
 	public void setAppointmentId(long AppointmentId) {
 		this.AppointmentId = AppointmentId;
+	}
+	
+
+	public Appointment getAppointment() {
+		return appointment;
+	}
+
+	public void setAppointment(Appointment appointment) {
+		this.appointment = appointment;
 	}
 
 	@Override

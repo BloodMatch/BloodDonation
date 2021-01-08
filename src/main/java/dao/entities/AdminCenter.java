@@ -13,6 +13,8 @@ public class AdminCenter extends User implements Serializable{
 	protected String matricule;
 	protected long CenterId;
 	
+	protected Center center;
+	
 	public AdminCenter() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -73,6 +75,15 @@ public class AdminCenter extends User implements Serializable{
 		this.CenterId = CenterId;
 	}
 
+	
+	public Center getCenter() {
+		return center;
+	}
+	
+	public void setCenter(Center center) {
+		this.center = center;
+	}
+	
 	@Override
 	public String toString() {
 		return String.format(

@@ -5,5 +5,5 @@ import dao.entities.Analysis;
 import dao.entities.Appointment;
 
 public interface IAnalysisDao extends IDao<Analysis> {
-	//public Analysis find(Appointment appointment);
+	public Analysis find(Appointment appointment);
 }

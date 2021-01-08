@@ -3,7 +3,8 @@ package dao.entities;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
- 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class Center implements Serializable{
@@ -18,6 +19,10 @@ public class Center implements Serializable{
 	private String address;
 	private long ZIPCode;
 
+	protected List<Appointment> appointments;
+	protected List<AdminCenter> adminCenters;
+	protected List<Stock> stocks;
+	
 	public Center() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -147,6 +152,32 @@ public class Center implements Serializable{
 		this.ZIPCode = ZIPCode;
 	}
 
+	
+	public List<Appointment> getAppointments() {
+		return appointments;
+	}
+	
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
+	}
+	
+	public List<AdminCenter> getAdminCenters() {
+		return adminCenters;
+	}
+	
+	public void setAdminCenters(List<AdminCenter> adminCenters) {
+		this.adminCenters = adminCenters;
+	}
+	
+
+	public List<Stock> getStocks() {
+		return stocks;
+	}
+	
+	public void setStocks(List<Stock> stocks) {
+		this.stocks = stocks;
+	}
+	
 	@Override
 	public String toString() {
 		return String.format(
