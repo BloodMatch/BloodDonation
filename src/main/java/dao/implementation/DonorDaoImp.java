@@ -25,7 +25,7 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 			PreparedStatement ps = connection.prepareStatement
 					("INSERT INTO DONOR( CIN, BIRTHDAY, GENDER, CITY, IMAGE, `GROUP`, ZIPCODE ,USERID) VALUES(?,?,?,?,?,?,?,?) ");
 			ps.setString(1, donor.getCin());
-			ps.setString(2, donor.getBirthDate());
+			ps.setString(2, donor.getBirthDay());
 			ps.setString(3, donor.getGender());
 			ps.setString(4, donor.getCity());
 			ps.setString(5, donor.getImage());

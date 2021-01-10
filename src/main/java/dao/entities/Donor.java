@@ -12,7 +12,7 @@ public class Donor extends User implements Serializable{
 	
 	protected Long donorId;
 	protected String cin;
-	protected String birthDate;
+	protected String birthDay;
 	protected String gender;
 	protected String group;
 	protected String city;
@@ -32,7 +32,7 @@ public class Donor extends User implements Serializable{
 			String cin, String birthDay, String gender, String group, String city, long zipCode, String image) {
 		super( firstName, lastName, email, password, phone, false, "donor");
 		this.cin = cin;
-		this.birthDate = birthDate;
+		this.birthDay = birthDay;
 		this.gender = gender;
 		this.group = group;
 		this.city = city;
@@ -42,7 +42,7 @@ public class Donor extends User implements Serializable{
 	
 	public void setThis(Donor donor){
 		this.cin = donor.getCin();
-		this.birthDate = donor.getBirthDate();
+		this.birthDay = donor.getBirthDay();
 		this.gender = donor.getGender();
 		this.group = donor.getGroup();
 		this.city = donor.getCity();
@@ -52,9 +52,9 @@ public class Donor extends User implements Serializable{
 
 	public void setThis(HttpServletRequest request){
 		super.setThis(request);
-		this.DonorId = Long.parseLong( request.getParameter("id"));
+		this.donorId = Long.parseLong( request.getParameter("id"));
 		this.cin = request.getParameter("cin");
-		this.birthDate = request.getParameter("birthDate");
+		this.birthDay = request.getParameter("birthDate");
 		this.gender = request.getParameter("gender");
 		this.group = request.getParameter("group");
 		this.city = request.getParameter("city");
@@ -66,7 +66,7 @@ public class Donor extends User implements Serializable{
 		try{
 			this.donorId = rs.getLong("id");
 			this.cin = rs.getString("cin");
-			this.birthDate = rs.getString("birthDate");
+			this.birthDay = rs.getString("birthDate");
 			this.gender = rs.getString("gender");
 			this.group = rs.getString("group");
 			this.city = rs.getString("city");
@@ -80,11 +80,11 @@ public class Donor extends User implements Serializable{
 	}
 
 	public long getDonorId() {
-		return DonorId;
+		return donorId;
 	}
 
 	public void setDonorId(long DonorId) {
-		this.DonorId = DonorId;
+		this.donorId = DonorId;
 	}
 
 	public String getCin() {
@@ -95,12 +95,12 @@ public class Donor extends User implements Serializable{
 		this.cin = cin;
 	}
 
-	public String getBirthDate() {
-		return birthDate;
+	public String getBirthDay() {
+		return birthDay;
 	}
 
 	public void setBirthDay(String birthDate) {
-		this.birthDate = birthDate;
+		this.birthDay = birthDate;
 	}
 
 	public String getGender() {
@@ -120,11 +120,11 @@ public class Donor extends User implements Serializable{
 	}
 	
 	public long getZIPCode() {
-		return ZIPCode;
+		return zipCode;
 	}
 
 	public void setZIPCode(long ZIPCode) {
-		this.ZIPCode = ZIPCode;
+		this.zipCode = ZIPCode;
 	}
 	
 	public String getImage() {
@@ -133,14 +133,6 @@ public class Donor extends User implements Serializable{
 
 	public void setImage(String image) {
 		this.image = image;
-	}
-
-	public Long getDonorId() {
-		return donorId;
-	}
-
-	public void setDonorId(Long donorId) {
-		this.donorId = donorId;
 	}
 
 	public String getGroup() {
@@ -159,9 +151,9 @@ public class Donor extends User implements Serializable{
 		this.zipCode = zipCode;
 	}
 	
-	public void setCenters(List<Center> centers) {
+	/*public void setCenters(List<Center> centers) {
 		this.centers= centers;
-	}	
+	}*/
 
 	@Override
 	public String toString() {

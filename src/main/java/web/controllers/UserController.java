@@ -9,10 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import dao.entities.Donor;
 import dao.entities.User;
-import dao.implementation.BloodDaoImp;
 import dao.implementation.DonorDaoImp;
 import dao.implementation.UserDaoImp;
-import dao.interfaces.IBloodDao;
 import dao.interfaces.IDonorDao;
 import dao.interfaces.IUserDao;
 import dao.interfaces.IDao;
@@ -24,14 +22,12 @@ public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private IUserDao userDao;
 	private IDonorDao donorDao;
-	private IBloodDao bloodDao;
     
 	@Override
 	public void init() throws ServletException {
 		super.init();
 		userDao = new UserDaoImp();
 		donorDao = new DonorDaoImp();
-		bloodDao = new BloodDaoImp();
 	}
 
 	

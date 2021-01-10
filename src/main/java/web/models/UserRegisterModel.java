@@ -3,7 +3,6 @@ package web.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.entities.Blood;
 
 public class UserRegisterModel {
 	
@@ -21,9 +20,6 @@ public class UserRegisterModel {
 	
 	private boolean error = false;
 	private String errorMsg = "";
-
-
-	private List<Blood> bloods = new ArrayList<Blood>();
 	
 	
 	public String getRcin() {
@@ -160,15 +156,5 @@ public class UserRegisterModel {
 
 	public void setErrorMsg(String errorMsg) {
 		this.errorMsg = errorMsg;
-	}
-
-
-	public List<Blood> getBloods() {
-		return bloods;
-	}
-
-
-	public void setBloods(List<Blood> bloods) {
-		this.bloods = bloods;
 	}
 }
