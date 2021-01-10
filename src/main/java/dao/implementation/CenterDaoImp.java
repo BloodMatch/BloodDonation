@@ -13,24 +13,25 @@ import dao.DbConnection;
 import dao.entities.AdminCenter;
 import dao.entities.Appointment;
 import dao.entities.Center;
+import dao.entities.Donor;
+import dao.entities.Stock;
 import dao.interfaces.ICenterDao;
 
 public class CenterDaoImp implements ICenterDao{
-	private Connection connection = DbConnection.getConnection();
+	private final static Connection connection = DbConnection.getConnection();
 
 	public Center insert(Center center) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("INSERT INTO CENTER( CODE, NAME, EMAIL, PHONE1, PHONE2, ADDRESS, COMMUNE, PROVINCE, REGION) VALUES(?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
+					("INSERT INTO CENTER( CODE, NAME, EMAIL, PHONE1, PHONE2, ADDRESS, CITY, ZIPCODE) VALUES(?,?,?,?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, center.getCode());
 			ps.setString(2, center.getName());
 			ps.setString(3, center.getEmail());
 			ps.setString(4, center.getPhone1());
 			ps.setString(5, center.getPhone2());
 			ps.setString(6, center.getAddress());
-			ps.setString(7, center.getCommune());
-			ps.setString(8, center.getProvince());
-			ps.setString(9, center.getRegion());
+			ps.setString(7, center.getCity());
+			ps.setLong(8, center.getZIPCode());
 			ps.execute();
 			ResultSet rs = ps.getGeneratedKeys();
 			if(rs.next()) { // 1 : one row affected
@@ -83,17 +84,16 @@ public class CenterDaoImp implements ICenterDao{
 	public Center update(Center center) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("UPDATE CENTER SET CODE=?, NAME=?, EMAIL=?, PHONE1=? ,PHONE2=?, ADDRESS=?, COMMUNE=?, PROVINCE=?, REGION=? WHERE id=?");
+					("UPDATE CENTER SET CODE=?, NAME=?, EMAIL=?, PHONE1=? ,PHONE2=?, ADDRESS=?, CITY=?, ZIPCODE=? WHERE id=?");
 			ps.setString(1, center.getCode());
 			ps.setString(2, center.getName());
 			ps.setString(3, center.getEmail());
 			ps.setString(4, center.getPhone1());
 			ps.setString(5, center.getPhone2());
 			ps.setString(6, center.getAddress());
-			ps.setString(7, center.getCommune());
-			ps.setString(8, center.getProvince());
-			ps.setString(9, center.getRegion());
-			ps.setLong(10, center.getId());
+			ps.setString(7, center.getCity());
+			ps.setLong(8, center.getZIPCode());
+			ps.setLong(9, center.getId());
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
 				return center;
 			}
@@ -119,12 +119,39 @@ public class CenterDaoImp implements ICenterDao{
 		return false;
 	}
 
+	/*
+	 * RELATIONSHIPS
+	 * */
+	
 	public Center find(AdminCenter admincenter) {
 		return this.find(admincenter.getCenterId());
 	}
 
 	public Center find(Appointment appointment) {
 		return this.find(appointment.getCenterId());
+	}
+
+	public List<Center> find(Donor donor) {
+		List<Center> centers = new ArrayList<Center>();
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("select C.* from Center C , Donor D where D.id=? ORDER by abs(D.ZIPCode-C.ZIPCode) ");
+			ps.setLong(1, donor.getDonorId());
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Center center = new Center();
+				center.setThis(rs);
+				centers.add(center);
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return centers;
+	}
+
+	public Center find(Stock stock) {
+		return this.find(stock.getCenterId());
 	}
 
 }

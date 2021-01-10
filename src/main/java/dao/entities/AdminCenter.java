@@ -9,8 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 
 public class AdminCenter extends User implements Serializable{
 	
+	protected long AdminCenterId;
 	protected String matricule;
 	protected long CenterId;
+	
+	protected Center center;
 	
 	public AdminCenter() {
 		super();
@@ -25,23 +28,35 @@ public class AdminCenter extends User implements Serializable{
 	}
 	
 	public void setThis(AdminCenter donor){
+		this.AdminCenterId = donor.getAdminCenterId();
 		this.matricule = donor.getMatricule();
 		this.CenterId = donor.getCenterId();
 	}
 
 	public void setThis(HttpServletRequest request){
 		super.setThis(request);
+		this.AdminCenterId = Long.parseLong( request.getParameter("id"));
 		this.matricule = request.getParameter("matricule");
 		this.CenterId = Long.parseLong( request.getParameter("CenterId"));
 	}
 
 	public void setThis(ResultSet rs){
 		try{
+			this.AdminCenterId = rs.getLong("id");
 			this.matricule = rs.getString("matricule");
 			this.CenterId = rs.getLong("CenterId");
+			this.id = rs.getLong("userId");
 		} catch (SQLException e) {
 				e.printStackTrace();
 		}
+	}
+
+	public long getAdminCenterId() {
+		return AdminCenterId;
+	}
+
+	public void setAdminCenterId(long AdminCenterId) {
+		this.AdminCenterId = AdminCenterId;
 	}
 
 	public String getMatricule() {
@@ -60,9 +75,21 @@ public class AdminCenter extends User implements Serializable{
 		this.CenterId = CenterId;
 	}
 
+	
+	public Center getCenter() {
+		return center;
+	}
+	
+	public void setCenter(Center center) {
+		this.center = center;
+	}
+	
 	@Override
 	public String toString() {
-		return "AdminCenter [ matricule=" + matricule + ", CenterId=" + CenterId + " >> "+ super.toString() +"]";
+		return String.format(
+			"AdminCenter [ AdminCenterId=%d, matricule=%s, CenterId=%d >> %s ]",
+				AdminCenterId, matricule, CenterId, super.toString()
+		);
 	}
 	
 }

@@ -47,6 +47,7 @@ public class User implements Serializable{
 	}
 
 	public void setThis(HttpServletRequest request){
+		this.id = Long.parseLong( request.getParameter("uid"));
 		this.firstName = request.getParameter("firstName");
 		this.lastName = request.getParameter("lastName");
 		this.email = request.getParameter("email");
@@ -137,8 +138,10 @@ public class User implements Serializable{
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", passwd=" + passwd + ", phone=" + phone + ", active=" + active + ", role=" + role + "]";
+		return String.format(
+			"User [ id=%d, firstName=%s, lastName=%s, email=%s, passwd=%s, phone=%s, active=%s, role=%s ]",
+			 id, firstName, lastName, email, passwd, phone, active, role
+		);
 	}
 	
 }

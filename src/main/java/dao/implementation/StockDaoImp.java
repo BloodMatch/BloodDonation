@@ -10,26 +10,25 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 import dao.DbConnection;
-import dao.entities.Bag;
-import dao.entities.Donor;
-import dao.interfaces.IBagDao;
+import dao.entities.Stock;
+import dao.interfaces.IStockDao;
 
-public class BagDaoImp implements IBagDao{
+public class StockDaoImp implements IStockDao{
 	private final static Connection connection = DbConnection.getConnection();
 
-	public Bag insert(Bag bag) {
+	public Stock insert(Stock stock) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("INSERT INTO BAG( TYPE, `GROUP`, DESCRIPTION, SAFTYSTORE) VALUES(?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
-			ps.setString(1, bag.getType());
-			ps.setString(2, bag.getGroup());
-			ps.setString(3, bag.getDescription());
-			ps.setLong(4, bag.getSaftyStore());
+					("INSERT INTO STOCK( QUANTITY, REQUIRED, CENTERID, BAGID) VALUES(?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
+			ps.setLong(1, stock.getQuantity());
+			ps.setBoolean(2, stock.getRequired());
+			ps.setLong(3, stock.getCenterId());
+			ps.setLong(4, stock.getBagId());
 			ps.execute();
 			ResultSet rs = ps.getGeneratedKeys();
 			if(rs.next()) { // 1 : one row affected
-				bag.setId(rs.getInt(1));
-				return bag;
+				stock.setId(rs.getInt(1));
+				return stock;
 			}
 			
 		}catch(SQLException e) {
@@ -38,54 +37,51 @@ public class BagDaoImp implements IBagDao{
 		return null;
 	}
 
-	public Bag find(long id) {
-		Bag bag = null;
+	public Stock find(long id) {
+		Stock stock = null;
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT DISTINCT * FROM BAG WHERE id = ?");
+					("SELECT DISTINCT * FROM STOCK WHERE id = ?");
 			ps.setLong(1, id);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
-				bag = new Bag();
-				bag.setThis(rs);
+				stock = new Stock();
+				stock.setThis(rs);
 			}
 			ps.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return bag;
+		return stock;
 	}
 
-	public List<Bag> findAll() {
-		List<Bag> bags = new ArrayList<Bag>();
+	public List<Stock> findAll() {
+		List<Stock> stocks = new ArrayList<Stock>();
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT * FROM BAG");
+					("SELECT * FROM STOCK");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				Bag bag = new Bag();
-				bag.setThis(rs);
-				bags.add(bag);
+				Stock stock = new Stock();
+				stock.setThis(rs);
+				stocks.add(stock);
 			}
 			ps.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return bags;
+		return stocks;
 	}
 
-
-	public Bag update(Bag bag) {
+	public Stock update(Stock stock) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("UPDATE BAG SET TYPE=?, `GROUP`=?, DESCRIPTION=?, SAFTYSTORE=? WHERE id=?");
-			ps.setString(1, bag.getType());
-			ps.setString(2, bag.getGroup());
-			ps.setString(3, bag.getDescription());
-			ps.setLong(4, bag.getSaftyStore());
-			ps.setLong(5, bag.getId());
+					("UPDATE STOCK SET QUANTITY=?, REQUIRED=? WHERE id=?");
+			ps.setLong(1, stock.getQuantity());
+			ps.setBoolean(2, stock.getRequired());
+			ps.setLong(3, stock.getId());
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
-				return bag;
+				return stock;
 			}
 			
 		}catch(SQLException e) {
@@ -97,7 +93,7 @@ public class BagDaoImp implements IBagDao{
 	public Boolean delete(long id) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("DELETE FROM BAG WHERE id=?");
+					("DELETE FROM STOCK WHERE id=?");
 			ps.setLong(1, id);
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
 				return true;

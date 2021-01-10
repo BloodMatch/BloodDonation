@@ -17,18 +17,19 @@ import dao.entities.Donor;
 import dao.interfaces.IAppointmentDao;
 
 public class AppointmentDaoImp implements IAppointmentDao{
-	private Connection connection = DbConnection.getConnection();
+	private final static Connection connection = DbConnection.getConnection();
 
 	public Appointment insert(Appointment appointment) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("INSERT INTO APPOINTMENT( STATE, DATE, SATISFACTION, COMMENT, DONORCIN, CENTERID) VALUES(?,?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
+					("INSERT INTO APPOINTMENT( STATE, DONATIONTYPE, `TIME`, SATISFACTION, COMMENT, DONORID, CENTERID) VALUES(?,?,?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, appointment.getState());
-			ps.setString(2, appointment.getDate());
-			ps.setLong(3, appointment.getSatisfaction());
-			ps.setString(4, appointment.getComment());
-			ps.setString(5, appointment.getDonorCin());
-			ps.setLong(6, appointment.getCenterId());
+			ps.setString(2, appointment.getDonationType());
+			ps.setString(3, appointment.getTime());
+			ps.setLong(4, appointment.getSatisfaction());
+			ps.setString(5, appointment.getComment());
+			ps.setLong(6, appointment.getDonorId());
+			ps.setLong(7, appointment.getCenterId());
 			ps.execute();
 			ResultSet rs = ps.getGeneratedKeys();
 			if(rs.next()) { // 1 : one row affected
@@ -81,12 +82,13 @@ public class AppointmentDaoImp implements IAppointmentDao{
 	public Appointment update(Appointment appointment) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("UPDATE APPOINTMENT SET STATE=?, DATE=?, SATISFACTION=?, COMMENT=? WHERE id=?");
+					("UPDATE APPOINTMENT SET STATE=?, DONATIONTYPE=?, `TIME`=?, SATISFACTION=?, COMMENT=? WHERE id=?");
 			ps.setString(1, appointment.getState());
-			ps.setString(2, appointment.getDate());
-			ps.setLong(3, appointment.getSatisfaction());
-			ps.setString(4, appointment.getComment());
-			ps.setLong(5, appointment.getId());
+			ps.setString(2, appointment.getDonationType());
+			ps.setString(3, appointment.getTime());
+			ps.setLong(4, appointment.getSatisfaction());
+			ps.setString(5, appointment.getComment());
+			ps.setLong(6, appointment.getId());
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
 				return appointment;
 			}
@@ -111,17 +113,22 @@ public class AppointmentDaoImp implements IAppointmentDao{
 		}
 		return false;
 	}
+	
+	/*
+	 * RELATIONSHIPS
+	 * */
 
 	public Appointment find(Analysis analysis) {
-		return this.find(analysis.getAppointmentId());
+		
+		return find(analysis.getAppointmentId());
 	}
 
 	public List<Appointment> find(Donor donor) {
 		List<Appointment> appointments = new ArrayList<Appointment>();
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT * FROM APPOINTMENT WHERE DonorId=?");
-			ps.setLong(1, donor.getId());
+					("SELECT * FROM APPOINTMENT where DonorId=?");
+			ps.setLong(1, donor.getDonorId());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Appointment appointment = new Appointment();
@@ -139,7 +146,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 		List<Appointment> appointments = new ArrayList<Appointment>();
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT * FROM APPOINTMENT WHERE CenterId=?");
+					("SELECT * FROM APPOINTMENT where CenterId=?");
 			ps.setLong(1, center.getId());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
@@ -153,5 +160,5 @@ public class AppointmentDaoImp implements IAppointmentDao{
 		}
 		return appointments;
 	}
-
+	
 }

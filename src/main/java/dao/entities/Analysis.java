@@ -9,19 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 public class Analysis implements Serializable{
 	
 	private long id;
-	private long code;
+	private String code;
 	private String date;
 	private String results;
 	private String comment;
 	private long AppointmentId;
 
-
+	private Appointment appointment;
+	
 	public Analysis() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Analysis( long code, String date, String results, String comment, long AppointmentId) {
+	public Analysis( String code, String date, String results, String comment, long AppointmentId) {
 		super();
 		this.code = code;
 		this.date = date;
@@ -41,7 +42,7 @@ public class Analysis implements Serializable{
 
 	public void setThis(HttpServletRequest request){
 		//this.id = request.getParameter("id");
-		this.code = Long.parseLong(request.getParameter("code"));
+		this.code = request.getParameter("code");
 		this.date = request.getParameter("date");
 		this.results = request.getParameter("results");
 		this.comment = request.getParameter("comment");
@@ -51,7 +52,7 @@ public class Analysis implements Serializable{
 	public void setThis(ResultSet rs){
 		try{
 			this.id = rs.getLong("id");
-			this.code = rs.getLong("code");
+			this.code = rs.getString("code");
 			this.date = rs.getString("date");
 			this.results = rs.getString("results");
 			this.comment = rs.getString("comment");
@@ -69,11 +70,11 @@ public class Analysis implements Serializable{
 		this.id = id;
 	}
 
-	public long getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(long code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
@@ -108,10 +109,22 @@ public class Analysis implements Serializable{
 	public void setAppointmentId(long AppointmentId) {
 		this.AppointmentId = AppointmentId;
 	}
+	
+
+	public Appointment getAppointment() {
+		return appointment;
+	}
+
+	public void setAppointment(Appointment appointment) {
+		this.appointment = appointment;
+	}
 
 	@Override
 	public String toString() {
-		return "Donor [ id=" + id+ ", code=" + code+", date="+date+", results="+results+", comment="+comment+", AppointmentId="+AppointmentId+" ]";
+		return String.format(
+				"Analysis [ id=%d, code=%s, date=%s, results=%s, comment=%s, AppointmentId=%d ]",
+				id, code, date, results, comment, AppointmentId
+			);
 	}
 	
 }

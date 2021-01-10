@@ -15,13 +15,13 @@ import dao.entities.Appointment;
 import dao.interfaces.IAnalysisDao;
 
 public class AnalysisDaoImp implements IAnalysisDao{
-	private Connection connection = DbConnection.getConnection();
+	private final static Connection connection = DbConnection.getConnection();
 
 	public Analysis insert(Analysis analysis) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("INSERT INTO ANALYSIS( CODE, DATE, RESULTS, COMMENT, APPOINTMENTID) VALUES(?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
-			ps.setLong(1, analysis.getCode());
+					("INSERT INTO ANALYSIS( CODE, `DATE`, RESULTS, COMMENT, APPOINTMENTID) VALUES(?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, analysis.getCode());
 			ps.setString(2, analysis.getDate());
 			ps.setString(3, analysis.getResults());
 			ps.setString(4, analysis.getComment());
@@ -78,8 +78,8 @@ public class AnalysisDaoImp implements IAnalysisDao{
 	public Analysis update(Analysis analysis) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("UPDATE ANALYSIS SET CODE=?, DATE=?, RESULTS=?, COMMENT=? ,APPOINTMENTID=? WHERE id=?");
-			ps.setLong(1, analysis.getCode());
+					("UPDATE ANALYSIS SET CODE=?, `DATE`=?, RESULTS=?, COMMENT=? ,APPOINTMENTID=? WHERE id=?");
+			ps.setString(1, analysis.getCode());
 			ps.setString(2, analysis.getDate());
 			ps.setString(3, analysis.getResults());
 			ps.setString(4, analysis.getComment());
@@ -110,11 +110,14 @@ public class AnalysisDaoImp implements IAnalysisDao{
 		return false;
 	}
 
+	/*
+	 * RELATIONSHIPS
+	 * */
 	public Analysis find(Appointment appointment) {
 		Analysis analysis = null;
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT DISTINCT * FROM ANALYSIS WHERE id AppointmentId = ?");
+					("SELECT DISTINCT * FROM ANALYSIS WHERE AppointmentId = ?");
 			ps.setLong(1, appointment.getId());
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
@@ -125,7 +128,8 @@ public class AnalysisDaoImp implements IAnalysisDao{
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return analysis;
+		return analysis; 
 	}
+
 
 }

@@ -16,7 +16,7 @@ import dao.entities.User;
 import dao.interfaces.IUserDao;
 
 public class UserDaoImp implements IUserDao{
-	private Connection connection = DbConnection.getConnection();
+	private final static Connection connection = DbConnection.getConnection();
 
 	public User register(User user) {
 		try {
@@ -35,7 +35,11 @@ public class UserDaoImp implements IUserDao{
 				user.setId(this.lastUserId());
 				return user;
 			}
+<<<<<<< HEAD
 			ps.close();
+=======
+
+>>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -55,6 +59,7 @@ public class UserDaoImp implements IUserDao{
 				user.setThis(rs);
 			}
 			ps.close();
+
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -81,9 +86,10 @@ public class UserDaoImp implements IUserDao{
 
 	public List<User> all() {
 		List<User> users = new ArrayList<User>();
+
+		System.out.println("getConnection()");
 		try {
-			PreparedStatement ps = connection.prepareStatement
-					("SELECT * FROM USER");
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM USER");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				User user = new User();
@@ -91,6 +97,7 @@ public class UserDaoImp implements IUserDao{
 				users.add(user);
 			}
 			ps.close();
+
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -113,7 +120,11 @@ public class UserDaoImp implements IUserDao{
 				ps.close();
 				return user;
 			}
+<<<<<<< HEAD
 			ps.close();
+=======
+
+>>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
