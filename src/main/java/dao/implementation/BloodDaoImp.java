@@ -64,7 +64,4 @@ public class BloodDaoImp implements IBloodDao{
 		return false;
 	}
 
-	public Blood find(Donor donor) {
-		return this.find(donor.getBloodId());
-	}
 }

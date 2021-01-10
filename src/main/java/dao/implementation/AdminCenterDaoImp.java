@@ -21,7 +21,7 @@ public class AdminCenterDaoImp extends UserDaoImp implements IAdminCenterDao{
 	public AdminCenter insert(AdminCenter admincenter) {
 		try {
 			
-			super.insert(admincenter);
+			super.register(admincenter);
 			
 			PreparedStatement ps = connection.prepareStatement
 					("INSERT INTO ADMINCENTER( MATRICULE, CENTERID, USERID) VALUES(?,?,?) ");

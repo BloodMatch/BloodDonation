@@ -62,9 +62,6 @@ public class UserController extends HttpServlet {
 			if(userMod == null) {
 				response.sendRedirect(contextPath+"/register");
 			}else{
-				userMod.setBloods(bloodDao.all());
-				
-				request.setAttribute("bloods", userMod.getBloods());
 				request.getRequestDispatcher("register2.jsp").forward(request, response);
 			}
 			
@@ -81,17 +78,17 @@ public class UserController extends HttpServlet {
 		if(contextPath.concat("/login").equals(reqURI)) {
 	
 			UserModel userMod = new UserModel();
-			userMod.setEmail((String)request.getParameter("email"));
-			String password = (String)request.getParameter("password");
+			userMod.setEmail(request.getParameter("email"));
+			String password = request.getParameter("passwd");
 
 			User user = userDao.login(userMod.getEmail(), password);
 			
 			if(user != null) {
-				
 				session.setAttribute("isLoged", user);
 				
 				response.sendRedirect(request.getContextPath()+"/"+user.getRole());
 			}else {
+				// Alert msg case it faild
 				userMod.setError(true);
 				userMod.setErrorMsg("<strong>Incorrect password or email</strong> please try again !");
 				request.setAttribute("user", userMod);
@@ -105,61 +102,63 @@ public class UserController extends HttpServlet {
 			userMod.setRfirstName(request.getParameter("firstName"));
 			userMod.setRlastName(request.getParameter("lastName"));
 			userMod.setRemail(request.getParameter("email"));
-			userMod.setRpassword(request.getParameter("password"));
+			userMod.setRpassword(request.getParameter("passwd"));
 			
-			session.setAttribute("registerUser", userMod);
-			response.sendRedirect(contextPath.concat("/register2"));
+			User newUser = userDao.findByEmail(userMod.getRemail());
+			if(newUser == null) {
+				session.setAttribute("registerUser", userMod);
+				response.sendRedirect(contextPath.concat("/register2"));
+			}else {
+				userMod.setRemail("");
+				userMod.setRpassword("");
+				userMod.setError(true);
+				userMod.setErrorMsg("<strong>This email already used</strong> please enter another email !");
+				request.setAttribute("user", userMod);
+				request.getRequestDispatcher("register.jsp").forward(request,  response);
+			}
 		}
 		
 		if(contextPath.concat("/register2").equals(reqURI)) {
+			// firstName lastName email and password
 			UserRegisterModel userMod = (UserRegisterModel)session.getAttribute("registerUser");
 			
 			if(userMod != null) {
 				// setting up the model for the view
-				userMod.setCIN(request.getParameter("cin"));
+				userMod.setRcin(request.getParameter("cin"));
 				userMod.setRbirthday(request.getParameter("birthday"));
 				userMod.setRgender(request.getParameter("gender"));
 				userMod.setRcity(request.getParameter("city"));
 				userMod.setRphone(request.getParameter("phone"));
-				userMod.setRbloodType(Integer.parseInt(request.getParameter("bloodType")));
-				// creating Donor orbjetc to register User in database
+				userMod.setRgroup(request.getParameter("group"));
+				userMod.setRzipCode(Long.parseLong(request.getParameter("zipCode")));
+				String image = "default-avatar.jpg";
+				
+				// All donor Attributes 
 				Donor donor = new Donor(
-					userMod.getRfirstName(), 
-					userMod.getRlastName(),
-					userMod.getRemail(),
-					userMod.getRpassword(),
-					userMod.getRphone(),
-					false
+						userMod.getRfirstName(), userMod.getRlastName(),
+						userMod.getRemail(), userMod.getRpassword(),
+						userMod.getRphone() , userMod.getRcin(), 
+						userMod.getRbirthday(), userMod.getRgender(),
+						userMod.getRgroup(), userMod.getRcity(),
+						userMod.getRzipCode(), image
 				);
-				// registing the user
-				User newUser = userDao.register(donor);
-
-				if(newUser != null) {
-					//Setting up donor data to add it in database
-					donor.setId(newUser.getId());
-					donor.setCIN(userMod.getCIN());
-					donor.setBirthday(userMod.getRbirthday());
-					donor.setGender(userMod.getRgender());
-					donor.setCity(userMod.getRcity());
-					donor.setBloodid(userMod.getRbloodType());
+				
+				Donor newDonor = donorDao.insert(donor);
+				if(newDonor != null) {
 					
-					if(donorDao.create(donor) != null) {
-						session.setAttribute("registerUser", null);
-						System.out.println("Donor added successfully !");
-						response.sendRedirect(contextPath.concat("/login"));
-					}else {
-						
-						System.out.println("Donor faild !");
-					}
+					session.setAttribute("registerUser", null);
+					System.out.println("Donor added successfully !");
+					response.sendRedirect(contextPath.concat("/login"));
 					
 				}else{
-				
-					System.out.println("User faild !");
+					
+					System.out.println("Donor faild !");
+					
 				}
-				
+					
 			}else{
 				response.sendRedirect(contextPath.concat("/register"));
-			}			
+			}		
 		}
 	}
 }

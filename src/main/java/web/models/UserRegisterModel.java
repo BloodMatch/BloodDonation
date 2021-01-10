@@ -7,7 +7,7 @@ import dao.entities.Blood;
 
 public class UserRegisterModel {
 	
-	private String CIN = "";
+	private String rcin= "";
 	private String remail = "";
 	private String rfirstName = "";
 	private String rlastName = "";
@@ -16,17 +16,23 @@ public class UserRegisterModel {
 	private String rcity = "";
 	private String rbirthday = "";
 	private String rgender = "";
-	private Integer rbloodType;
+	private String rgroup = "";
+	private Long rzipCode;
+	
+	private boolean error = false;
+	private String errorMsg = "";
+
+
 	private List<Blood> bloods = new ArrayList<Blood>();
 	
 	
-	public String getCIN() {
-		return CIN;
+	public String getRcin() {
+		return rcin;
 	}
 
 
-	public void setCIN(String cIN) {
-		CIN = cIN;
+	public void setRcin(String cin) {
+		this.rcin = cin;
 	}
 
 
@@ -112,21 +118,48 @@ public class UserRegisterModel {
 	}
 
 
-	public Integer getRbloodType() {
-		return rbloodType;
+	public String getRgroup() {
+		return rgroup;
 	}
 
 
-	public void setRbloodType(Integer rbloodType) {
-		this.rbloodType = rbloodType;
+	public void setRgroup(String rgroup) {
+		this.rgroup = rgroup;
 	}
 
+	public Long getRzipCode() {
+		return rzipCode;
+	}
+
+
+	public void setRzipCode(Long rzipCode) {
+		this.rzipCode = rzipCode;
+	}
 
 	@Override
 	public String toString() {
-		return "UserRegisterModel [CIN=" + CIN + ", Remail=" + remail + ", RfirstName=" + rfirstName + ", RlastName="
+		return "UserRegisterModel [CIN=" + rcin + ", Remail=" + remail + ", RfirstName=" + rfirstName + ", RlastName="
 				+ rlastName + ", Rphone=" + rphone + ", Rpassword=" + rpassword + ", Rcity=" + rcity + ", Rbirthday="
-				+ rbirthday + ", Rgender=" + rgender + ", RbloodType=" + rbloodType + "]";
+				+ rbirthday + ", Rgender=" + rgender + ", RbloodType=" + rgroup + "]";
+	}
+	
+	public boolean isError() {
+		return error;
+	}
+
+
+	public void setError(boolean error) {
+		this.error = error;
+	}
+
+
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+
+
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
 	}
 
 

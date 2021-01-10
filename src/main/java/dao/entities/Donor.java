@@ -9,39 +9,44 @@ import javax.servlet.http.HttpServletRequest;
 
 public class Donor extends User implements Serializable{
 	
+	protected Long donorId;
 	protected String cin;
 	protected String birthDay;
 	protected String gender;
-	protected String profession;
+	protected String group;
 	protected String city;
+	protected long zipCode;
 	protected String image;
-	protected long BloodId;
 	
 	public Donor() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Donor (String firstName, String lastName, String email, String password, String phone	) {
+		super( firstName, lastName, email, password, phone, false, "donor");
+	}
 
 	public Donor(String firstName, String lastName, String email, String password, String phone,
-			String cin, String birthDay, String gender, String profession, String city, String image, long BloodId) {
-		super( firstName, lastName, email, password, phone, false, "Donor");
+			String cin, String birthDay, String gender, String group, String city, long zipCode, String image) {
+		super( firstName, lastName, email, password, phone, false, "donor");
 		this.cin = cin;
 		this.birthDay = birthDay;
 		this.gender = gender;
-		this.profession = profession;
+		this.group = group;
 		this.city = city;
+		this.zipCode = zipCode;
 		this.image = image;
-		this.BloodId = BloodId;
 	}
 	
 	public void setThis(Donor donor){
 		this.cin = donor.getCin();
 		this.birthDay = donor.getBirthDay();
 		this.gender = donor.getGender();
-		this.profession = donor.getProfession();
+		this.group = donor.getGroup();
 		this.city = donor.getCity();
+		this.zipCode = donor.getZipCode();
 		this.image = donor.getImage();
-		this.BloodId = donor.getBloodId();
 	}
 
 	public void setThis(HttpServletRequest request){
@@ -49,22 +54,24 @@ public class Donor extends User implements Serializable{
 		this.cin = request.getParameter("cin");
 		this.birthDay = request.getParameter("birthDay");
 		this.gender = request.getParameter("gender");
-		this.profession = request.getParameter("profession");
+		this.group = request.getParameter("group");
 		this.city = request.getParameter("city");
+		this.zipCode = Long.parseLong(request.getParameter("zipCode"));
 		this.image = request.getParameter("image");
-		this.BloodId = Long.parseLong( request.getParameter("BloodId"));
 	}
 
 	public void setThis(ResultSet rs){
 		try{
+			this.donorId = rs.getLong("id");
 			this.cin = rs.getString("cin");
 			this.birthDay = rs.getString("birthDay");
 			this.gender = rs.getString("gender");
-			this.profession = rs.getString("profession");
+			this.group = rs.getString("group");
 			this.city = rs.getString("city");
+			this.zipCode = rs.getLong("ZIPCode");
 			this.image = rs.getString("image");
 			this.id = rs.getLong("userId");
-			this.BloodId = rs.getLong("BloodId");
+			
 		} catch (SQLException e) {
 				e.printStackTrace();
 		}
@@ -94,14 +101,6 @@ public class Donor extends User implements Serializable{
 		this.gender = gender;
 	}
 
-	public String getProfession() {
-		return profession;
-	}
-
-	public void setProfession(String profession) {
-		this.profession = profession;
-	}
-
 	public String getCity() {
 		return city;
 	}
@@ -117,19 +116,35 @@ public class Donor extends User implements Serializable{
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
-	public long getBloodId() {
-		return BloodId;
+
+	public Long getDonorId() {
+		return donorId;
 	}
 
-	public void setBloodId(long BloodId) {
-		this.BloodId = BloodId;
+	public void setDonorId(Long donorId) {
+		this.donorId = donorId;
+	}
+
+	public String getGroup() {
+		return group;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
+	}
+
+	public Long getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(Long zipCode) {
+		this.zipCode = zipCode;
 	}
 
 	@Override
 	public String toString() {
-		return "Donor [ cin=" + cin + ", birthDay=" + birthDay + ", gender=" + gender
-				+ ", profession="+ profession + ", BloodId=" + BloodId + ", city=" + city + ", image=" + image + " >> "+ super.toString() +"]";
+		return "Donor [donorId=" + donorId + ", cin=" + cin + ", birthDay=" + birthDay + ", gender=" + gender
+				+ ", group=" + group + ", city=" + city + ", zipCode=" + zipCode + ", image=" + image + "]";
 	}
 	
 }

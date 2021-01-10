@@ -25,7 +25,7 @@ public class UserDaoImp implements IUserDao{
 			ps.setString(1, user.getFirstName());
 			ps.setString(2,	user.getLastName());
 			ps.setString(3, user.getEmail());
-			ps.setString(4, user.getPassword());
+			ps.setString(4, user.getPasswd());
 			ps.setString(5, user.getPhone());
 			ps.setBoolean(6, user.getActive());
 			ps.setString(7, user.getRole());
@@ -70,14 +70,7 @@ public class UserDaoImp implements IUserDao{
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
 				user = new User();
-				user.setId(rs.getLong("id"));
-				user.setFirstName(rs.getString("firstName")); 
-				user.setLastName(rs.getString("lastName")); 
-				user.setEmail(rs.getString("email"));
-				user.setPassword(rs.getString("passwd"));
-				user.setPhone(rs.getString("phone"));
-				user.setActive(rs.getBoolean("active"));
-				user.setRole(rs.getString("role"));
+				user.setThis(rs);
 			}
 			ps.close();
 		}catch(SQLException e) {
@@ -86,7 +79,7 @@ public class UserDaoImp implements IUserDao{
 		return user;
 	}
 
-	public List<User> findAll() {
+	public List<User> all() {
 		List<User> users = new ArrayList<User>();
 		try {
 			PreparedStatement ps = connection.prepareStatement
@@ -146,7 +139,7 @@ public class UserDaoImp implements IUserDao{
 	public User login(String email, String password) {
 		User user = this.findByEmail(email);
 		if(user != null) {
-			if(user.getPassword().equals(Hash.makeHash(password))) {
+			if(user.getPasswd().equals(Hash.makeHash(password))) {
 				return user;
 			};
 		}
@@ -158,7 +151,7 @@ public class UserDaoImp implements IUserDao{
 		return null;
 	}
 
-	public Long lastUserId() {
+	private Long lastUserId() {
 		Long lastId = null;
 		try {
 			PreparedStatement ps = connection.prepareStatement
@@ -173,4 +166,5 @@ public class UserDaoImp implements IUserDao{
 		}
 		return lastId;
 	}
+
 }

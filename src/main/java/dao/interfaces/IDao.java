@@ -26,7 +26,7 @@ public interface IDao <T> {
 	 * Update a Record in dataBase
 	 * @return User
 	 */
-	public T update(T user);
+	public T update(T t);
 	
 	/*
 	 * Delete a Record from dataBase

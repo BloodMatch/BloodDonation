@@ -31,7 +31,7 @@
                             <div class="row my-3">
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>		    
+                                    <input type="password" name="passwd" id="password" class="form-control" placeholder="Password" required>		    
                                 </div>
                             </div>
             

@@ -1,8 +1,6 @@
 package dao.entities;
 
 import java.io.Serializable;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import business.Hash;
 import java.sql.ResultSet;
@@ -32,7 +30,7 @@ public class User implements Serializable{
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.password = Hash.makeHash(password);
+		this.passwd = Hash.makeHash(passwd);
 		this.phone = phone;
 		this.active = active;
 		this.role = role;

@@ -20,7 +20,7 @@
 			<a class="btn btn-outline-signIn text-white" href="${rootUrl}/login">Sign in</a>
 		</li>
 		
-		<li class="nav-item">
+		<li class="nav-item" id="signUp">
 			<a class="btn btn-signUp text-white" href="${rootUrl }/register">Sign up</a>
 		</li>
 	</ul>
@@ -85,7 +85,7 @@
 </c:set>
 
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top layout-color">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="AppNavBar">
         <div class="container-fluid">
            	<a class="navbar-brand white" href="${rootUrl}/home">
                 <img src="./assets/Site-logo.svg" alt="Blood Donation Logo" class="logo"/>

@@ -25,6 +25,13 @@
 				<div class="container">
 					<p class="text-muted steps">STEP 01/02 <br> <strong>Personal Info</strong></p>
 				</div>
+				<c:if test="${user.error}"> 
+					<div class="container">
+	               		<div id="alertMsg" class="alert alert-danger alert-dismissible fade show" role="alert">
+						  ${user.errorMsg}
+						</div>
+					</div>                	
+               	</c:if>
 				<div class="row justify-content-center align-items-center">
 					<div class="col-sm-8">
 						<h2>Register Donor Account!</h2>
@@ -54,7 +61,7 @@
 							<div class="row my-3">
 								<div class="form-group mt-3">
 									<label for="password">Create password <sapn class="text-danger">*</sapn></label>
-									<input type="password" name="password" id="password" value="${user.rpassword }" class="form-control" placeholder="Password" required>		    
+									<input type="password" name="passwd" id="password" value="${user.rpassword }" class="form-control" placeholder="Password" required>		    
 								</div>
 							</div>
 			

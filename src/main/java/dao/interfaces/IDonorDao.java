@@ -3,10 +3,11 @@ package dao.interfaces;
 import java.util.List;
 
 import dao.entities.Appointment;
+import dao.entities.Center;
 import dao.entities.Donor;
 import dao.entities.User;
 
-public interface IDonorDao{
+public interface IDonorDao extends IDao<Donor>{
 	
 	/*
 	 * Insert new Donor into dataBase
