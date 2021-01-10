@@ -18,38 +18,46 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top layout-colorLanding">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top layout-color" id="AppNavBar">
             <div class="container-fluid">
                    <a class="navbar-brand white" href="${rootUrl}/home">
                     <img src="./assets/Site-logo.svg" alt="Blood Donation Logo" class="logo"/>
                 </a>
               
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#mobile" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             
                 <div class="collapse navbar-collapse justify-content-between" id="mobile">
                     <ul class="navbar-nav">
-                        <li class="nav-item hovred">
-                            <a class="nav-link text-white" href="home.jsp">Home</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-white text-center" href="#">Donate</a>
                         </li>
                         
-                        <li class="nav-item hovred">
-                            <a class="nav-link text-white" href="faq.jsp">FAQ</a>
-                        </li>
-                        
-                        <li class="nav-item hovred">
-                            <a class="nav-link text-white" href="about.jsp">About</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-white text-center" href="#">Center</a>
                         </li>
                     </ul>
-                    
+                  
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-outline-signIn text-white" href="${rootUrl}/login">Sign in</a>
+                            <a class="nav-link text-white text-center mt-2" href="#"><h6>BLOOD TYPE <br> O-</h6></a>
                         </li>
                         
-                        <li class="nav-item" id="signUp">
-                            <a class="btn btn-signUp text-white" href="register.jsp">Sign up</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-white text-center mt-2" href="#"><h6>CENTER <br> 4</h6> </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white text-center" href="#" id="profileNav" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="rounded-circle z-depth-2" alt="50x50" src="./assets/avatar.png" data-holder-rendered="true" height="50" width="50"> Aniss Nahim
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-left dropdown-nav-donor" aria-labelledby="profileNav">
+                              <a class="dropdown-item" href="#"><i class="far fa-user"></i> Profile</a>
+                              <a class="dropdown-item" href="#"><i class="fas fa-user-edit"></i> Edit Profile</a>
+                              <a class="dropdown-item" href="#"><i class="fas fa-lock"></i> Change Password</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -57,90 +65,14 @@
         </nav>
     </header>
     <main>
-        <section class="first-section">
+        <section id="home-donor">
             <div class="container">
-                <div class="row justify-content-around">
-                    <div class="col-sm-6">
-                        <a href="${rootUrl}/register" class="text-dark text-decoration-none"><i class="fas fa-angle-left"></i> Back</a>
-                    </div>
-                    <div class="col-sm-6 go-right">
-                        <p class="text-muted steps">STEP 02/02 <br> <strong>Residency Info.</strong></p>
+                <div class="row justify-content-end">
+                    <div class="col-sm-12">
+                        <h1 class="text-white"><strong>GIVE BLOOD</strong></h1>
+                        <a href="#" class="btn btn-lg appointement-btn mt-3"> Schedule NEW  APPOINTMENT</a>
                     </div>
                 </div>
-                <div class="row">
-                    <h2>Complete Your Profile !</h2>
-                    <div class="text-muted font-weight-lighter">For the purpose of industry regulation, your details are required.</div>
-                </div>
-                <hr/>
-                <form action="${rootUrl}/register2" method="POST">
-                    <div class="row my-5">
-                        <div class="col-sm-12 col-md-6">
-                            <div class="form-group mt-4">
-                                <label for="cin">CIN <sapn class="text-danger">*</sapn></label>
-                                <input type="text" name="cin" id="cin" value="" class="form-control form-control-lg" placeholder="Please enter cin" required autofocus>		    
-                            </div>
-                            
-                             <div class="form-group mt-4">
-                                <label for="Phone">Phone (optional)</label>
-                                <input type="text" name="phone" id="Phone" value="" class="form-control form-control-lg" placeholder="Please enter phone" required autofocus>		    
-                            </div>
-                           <div class="row">
-                               <div class="col-sm-6">
-                                    <div class="form-group mt-4">
-                                        <label for="gender">Gender <sapn class="text-danger">*</sapn></label>
-                                        <select name="gender" class="form-control form-control-lg" id="gender">
-                                            <option selected>Gender</option>
-                                            <option vlaue="F">Female</option>
-                                            <option value="M">Male</option>
-                                        </select>  
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group mt-4">
-                                        <label for="group">Blood Type (optional)</label>
-                                        <select name="group" class="form-control form-control-lg" id="group">
-                                            <option selected>blood type</option>
-                                            <option value="A+">A+</option>
-                                            <option value="A-">A-</option>
-                                            <option value="B+">B+</option>
-                                            <option value="B-">B-</option>
-                                            <option value="AB+">AB+</option>
-                                            <option value="AB-">AB-</option>
-                                            <option value="O+">O+</option>
-                                            <option value="O-">O-</option>
-                                        </select> 
-                                    </div>
-                               </div>
-                           </div>
-                        </div>
-       
-                        <div class="col-sm-12 col-md-6">
-                        
-                             <div class="form-group mt-4">
-                                <label for="birthday">Birthday <sapn class="text-danger">*</sapn></label>
-                                <input type="date" name="birthday" id="birthday" value="" class="form-control form-control-lg" placeholder="Please enter birthday" required autofocus>		    
-                            </div>
-                            
-                            <div class="form-group mt-4">
-                                <label for="birthday">City of residence <sapn class="text-danger">*</sapn></label>
-                                <input type="text" name="city" id="city" value="" class="form-control form-control-lg" placeholder="Please enter city" required autofocus>		    
-                            </div>
-       
-                                <div class="form-group mt-4">
-                                <label for="zipCode">ZIP Code <sapn class="text-danger">*</sapn></label>
-                                <input type="number" name="zipCode" id="zipCode" value="" class="form-control form-control-lg" placeholder="Please enter zip code" required autofocus>		    
-                            </div>
-                          
-                            <div class="row mt-4">
-                                <button class="btn btn-blood btn-lg btn-block" type="submit">Register Account</button>			    	
-                            </div>
-       
-                            <div class="text-center my-3">
-                                <p class="text-muted font-weight-lighter"><i class="fas fa-lock"></i> Your Info is safely secured</p>
-                            </div>
-                        </div>
-                    </div>
-                </form>
             </div>
         </section>
     </main>

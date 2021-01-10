@@ -5,12 +5,22 @@
 </c:set>
 
 <c:set var ="content" scope="session">
-	<section  class="first-section">
+	<section id="home-donor">
+		<div class="container">
+			<div class="row justify-content-end">
+				<div class="col-sm-12">
+					<h1 class="text-white"><strong>GIVE BLOOD</strong></h1>
+					<a href="#" class="btn btn-lg appointement-btn mt-3"> Schedule NEW  APPOINTMENT</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section class="mt-4">
 		<div class="container">
 			<h2>Hey ${user.firstName} welcome back !</h2>			
 		</div>
 	</section>
-	
 </c:set>
 
 <%@ include file="../layouts/app.view.jsp" %>

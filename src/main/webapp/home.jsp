@@ -6,13 +6,16 @@
 
 <c:set var = "content" scope = "session"> 
 		<section id="home-section">
-	        <div class="container mt-5">
-	        	<h2>Bienvenu sur notre Centre de transtfusion en ligne !</h2>
+			<div class="container">
+                <div class="col-sm-4">
+                    <h1 class="text-white"><strong>BLOOD <br> DONATION</strong></h1>
+                    <p class="lead text-white">Give Blood <i class="fas fa-tint text-white"></i> Save Live</p>
+                </div>
+                <div class="d-flex">
+                       <a class="btn btn-landing-blood btn-lg" href="${rootUrl}/login">Sign in</a>
+                       <a class="btn btn-outline-landing-blood btn-lg" href="${rootUrl}/register">Sign up</a>
+                </div>		
 	        </div>
-	        <div class="d-flex justify-content-center p-3">
-	       		<a class="btn btn-outline-dark m-2" href="${rootUrl}/register">Sign in</a>
-	       		<a class="btn btn-outline-success m-2" href="${rootUrl}/login">Sign up</a>
-	        </div>		
 		</section>
         <section class="mt-5">
         	<div class="container">

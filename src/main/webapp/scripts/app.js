@@ -9,6 +9,7 @@ setTimeout(function(){
 const navbar = {
 	init : function(){
 		this.cachDOM();
+
 		this.styling();
 	},
 
@@ -19,12 +20,9 @@ const navbar = {
 
 	styling : function(){
 		if(location.pathname == "/BloodDonation/" || location.pathname == "/BloodDonation/home"){
-			
 			this.navBar.classList.add('layout-colorLanding');
-			console.log(this.navBar.classList);
 			this.signUpBtn.style.display = 'none';
 		}else{
-			console.log('hi');
 			this.navBar.classList.add('layout-color');
 		}
 	}

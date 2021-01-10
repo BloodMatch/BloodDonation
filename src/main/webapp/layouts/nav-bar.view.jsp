@@ -28,29 +28,35 @@
 
 <c:set var="donorNav" scope="session">
 	<ul class="navbar-nav">
-		<li class="nav-item hovred">
-			<a class="nav-link text-white" href="${rootUrl}/home">Appointments</a>
+		<li class="nav-item">
+			<a class="nav-link text-white text-center" href="#">Donate</a>
 		</li>
 		
-		<li class="nav-item hovred">
-			<a class="nav-link text-white" href="${rootUrl}/faq">Analyses</a>
-		</li>
-		
-		<li class="nav-item hovred">
-			<a class="nav-link text-white" href="${rootUrl}/about">We Need Blood</a>
+		<li class="nav-item">
+			<a class="nav-link text-white text-center" href="#">Center</a>
 		</li>
 	</ul>
-	
+  
 	<ul class="navbar-nav">
 		<li class="nav-item">
-			<a class="btn text-white" href="">${sessionScope.isLoged.firstName} ${sessionScope.isLoged.lastName}</a>
+			<a class="nav-link text-white text-center mt-2" href="#"><h6>BLOOD TYPE <br> O-</h6></a>
 		</li>
 		
 		<li class="nav-item">
-			<a class="btn text-white" href="">${sessionScope.isLoged.role}</a>
+			<a class="nav-link text-white text-center mt-2" href="#"><h6>CENTER <br> 4</h6> </a>
 		</li>
-		<li class="nav-item">
-			<%@ include file="../logout.jsp"%>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle text-white text-center" href="#" id="profileNav" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<img class="rounded-circle z-depth-2" alt="50x50" src="./assets/avatar.png" data-holder-rendered="true" height="50" width="50">
+				 ${sessionScope.isLoged.firstName} ${sessionScope.isLoged.lastName}
+			</a>
+			<div class="dropdown-menu dropdown-menu-left dropdown-nav-donor" aria-labelledby="profileNav">
+			  <a class="dropdown-item" href="#"><i class="far fa-user"></i> Profile</a>
+			  <a class="dropdown-item" href="#"><i class="fas fa-user-edit"></i> Edit Profile</a>
+			  <a class="dropdown-item" href="#"><i class="fas fa-lock"></i> Change Password</a>
+			  <div class="dropdown-divider"></div>
+			  <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> <%@ include file="../logout.jsp"%></a>
+			</div>
 		</li>
 	</ul>
 </c:set>

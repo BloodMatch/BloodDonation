@@ -127,10 +127,21 @@ section.first-section{
 section#home-section{
 	display : flex;
 	flex-direction: column;
-	justify-content: center;
+    justify-content: flex-end;
+    background: url('../assets/landingPage.svg') no-repeat center center;
+    background-size: cover;
 	height: 100vh;
 }
 
+section#home-section div{
+   margin-bottom: 3rem;
+}
+
+section#home-section div h1{
+    letter-spacing: .8rem;
+}
+
+/*----------------- home navbar --------------------*/
 .btn-landing-blood, .btn-outline-landing-signIn{
     margin-right: 1rem;
     color: #D27373;
@@ -165,5 +176,16 @@ section#home-section{
 }
 
 .layout-colorLanding{
-    background-color: rgba(255, 1, 35, 0.55)
+    background-color: rgba(255, 1, 35, 0.75)
+}
+
+/*----------------- Donor space styles ------------------*/
+section#home-donor{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    height: 100vh;
+    background: url(../assets/donor/donorHome.svg) no-repeat center center;
+    background-size: cover;
 }
