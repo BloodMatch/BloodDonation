@@ -23,17 +23,12 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 			User newUser = super.register(donor);
 			
 			PreparedStatement ps = connection.prepareStatement
-<<<<<<< HEAD
 					("INSERT INTO DONOR( CIN, BIRTHDAY, GENDER, CITY, IMAGE, `GROUP`, ZIPCODE ,USERID) VALUES(?,?,?,?,?,?,?,?) ");
-=======
-					("INSERT INTO DONOR( CIN, BIRTHDATE, GENDER, CITY, IMAGE, ZIPCODE, USERID) VALUES(?,?,?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 			ps.setString(1, donor.getCin());
 			ps.setString(2, donor.getBirthDate());
 			ps.setString(3, donor.getGender());
 			ps.setString(4, donor.getCity());
 			ps.setString(5, donor.getImage());
-<<<<<<< HEAD
 			ps.setString(6, donor.getGroup());
 			ps.setLong(7, donor.getZipCode());
 			ps.setLong(8, newUser.getId());
@@ -41,14 +36,6 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
 				donor.setDonorId(this.lastDonorId());
 				donor.setId(newUser.getId());
-=======
-			ps.setLong(6, donor.getZIPCode());
-			ps.setLong(7, donor.getId());
-			ps.execute();
-			ResultSet rs = ps.getGeneratedKeys();
-			if(rs.next()) { // 1 : one row affected
-				donor.setDonorId(rs.getInt(1));
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 				return donor;
 			}
 			
@@ -110,7 +97,6 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 		try {
 			super.update(donor);
 			PreparedStatement ps = connection.prepareStatement
-<<<<<<< HEAD
 					("UPDATE DONOR SET BIRTHDAY=?, GENDER=?, CITY=? , IMAGE=?, `GROUP`=? WHERE id=?");
 			ps.setString(1, donor.getBirthDay());
 			ps.setString(2, donor.getGender());
@@ -118,17 +104,6 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 			ps.setString(4, donor.getImage());
 			ps.setString(5, donor.getGroup());
 			ps.setLong(6, donor.getDonorId());
-=======
-					("UPDATE DONOR SET CIN=?, BIRTHDATE=?, GENDER=?, `GROUP`=?, CITY=?, ZIPCODE=? , IMAGE=? WHERE id=?");
-			ps.setString(1, donor.getCin());
-			ps.setString(2, donor.getBirthDate());
-			ps.setString(3, donor.getGender());
-			ps.setString(4, donor.getGroup());
-			ps.setString(5, donor.getCity());
-			ps.setLong(6, donor.getZIPCode());
-			ps.setString(7, donor.getImage());
-			ps.setLong(8, donor.getDonorId());
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
 				return donor;
 			}

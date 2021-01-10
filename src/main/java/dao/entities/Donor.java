@@ -10,26 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 
 public class Donor extends User implements Serializable{
 	
-<<<<<<< HEAD
 	protected Long donorId;
-=======
-	protected long DonorId;
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 	protected String cin;
 	protected String birthDate;
 	protected String gender;
 	protected String group;
 	protected String city;
-<<<<<<< HEAD
 	protected long zipCode;
 	protected String image;
-=======
-	protected long ZIPCode;
-	protected String image;
-	
-	protected List<Appointment> appointments;
-	protected List<Center> centers;
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 	
 	public Donor() {
 		super();
@@ -41,23 +29,14 @@ public class Donor extends User implements Serializable{
 	}
 
 	public Donor(String firstName, String lastName, String email, String password, String phone,
-<<<<<<< HEAD
 			String cin, String birthDay, String gender, String group, String city, long zipCode, String image) {
 		super( firstName, lastName, email, password, phone, false, "donor");
-=======
-			String cin, String birthDate, String gender, String group, String city, long ZIPCode) {
-		super( firstName, lastName, email, password, phone, false, "Donor");
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 		this.cin = cin;
 		this.birthDate = birthDate;
 		this.gender = gender;
 		this.group = group;
 		this.city = city;
-<<<<<<< HEAD
 		this.zipCode = zipCode;
-=======
-		this.ZIPCode = ZIPCode;
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 		this.image = image;
 	}
 	
@@ -67,11 +46,7 @@ public class Donor extends User implements Serializable{
 		this.gender = donor.getGender();
 		this.group = donor.getGroup();
 		this.city = donor.getCity();
-<<<<<<< HEAD
 		this.zipCode = donor.getZipCode();
-=======
-		this.ZIPCode = donor.getZIPCode();
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 		this.image = donor.getImage();
 	}
 
@@ -83,38 +58,22 @@ public class Donor extends User implements Serializable{
 		this.gender = request.getParameter("gender");
 		this.group = request.getParameter("group");
 		this.city = request.getParameter("city");
-<<<<<<< HEAD
 		this.zipCode = Long.parseLong(request.getParameter("zipCode"));
 		this.image = request.getParameter("image");
-=======
-		this.ZIPCode = Long.parseLong( request.getParameter("ZIPCode"));
-		this.image = request.getParameter("image");
-		
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 	}
 
 	public void setThis(ResultSet rs){
 		try{
-<<<<<<< HEAD
 			this.donorId = rs.getLong("id");
-=======
-			this.DonorId = rs.getLong("id");
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 			this.cin = rs.getString("cin");
 			this.birthDate = rs.getString("birthDate");
 			this.gender = rs.getString("gender");
 			this.group = rs.getString("group");
 			this.city = rs.getString("city");
-<<<<<<< HEAD
 			this.zipCode = rs.getLong("ZIPCode");
 			this.image = rs.getString("image");
 			this.id = rs.getLong("userId");
 			
-=======
-			this.ZIPCode = rs.getLong("ZIPCode");
-			this.image = rs.getString("image");
-			this.id = rs.getLong("userId");
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 		} catch (SQLException e) {
 				e.printStackTrace();
 		}
@@ -152,17 +111,6 @@ public class Donor extends User implements Serializable{
 		this.gender = gender;
 	}
 
-<<<<<<< HEAD
-=======
-	public String getGroup() {
-		return group;
-	}
-
-	public void setProfession(String group) {
-		this.group = group;
-	}
-
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 	public String getCity() {
 		return city;
 	}
@@ -186,7 +134,6 @@ public class Donor extends User implements Serializable{
 	public void setImage(String image) {
 		this.image = image;
 	}
-<<<<<<< HEAD
 
 	public Long getDonorId() {
 		return donorId;
@@ -210,20 +157,6 @@ public class Donor extends User implements Serializable{
 
 	public void setZipCode(Long zipCode) {
 		this.zipCode = zipCode;
-=======
-	
-	
-	public List<Appointment> getAppointments() {
-		return appointments;
-	}
-	
-	public void setAppointments(List<Appointment> appointments) {
-		this.appointments = appointments;
-	}	
-	
-	public List<Center> getCenters() {
-		return centers;
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 	}
 	
 	public void setCenters(List<Center> centers) {
@@ -232,15 +165,8 @@ public class Donor extends User implements Serializable{
 
 	@Override
 	public String toString() {
-<<<<<<< HEAD
 		return "Donor [donorId=" + donorId + ", cin=" + cin + ", birthDay=" + birthDay + ", gender=" + gender
 				+ ", group=" + group + ", city=" + city + ", zipCode=" + zipCode + ", image=" + image + "]";
-=======
-		return String.format(
-			"Donor [ DonorId=%d, cin=%s, birthDate=%s, gender=%s, group=%s, city=%s, ZIPCode=%d, image=%s >> %s ]",
-				DonorId, cin, birthDate, gender, group, city, ZIPCode, image, super.toString()
-		);
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 	}
 	
 }

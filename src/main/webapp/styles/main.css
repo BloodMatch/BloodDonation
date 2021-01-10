@@ -189,3 +189,32 @@ section#home-donor{
     background: url(../assets/donor/donorHome.svg) no-repeat center center;
     background-size: cover;
 }
+
+/*----------------- Donor space styles ------------------*/
+section#home-donor{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    height: 100vh;
+    background: url(../assets/donor/donorHome.svg) no-repeat center center;
+    background-size: cover;
+    text-align: right;
+    padding-bottom: 8rem;
+}
+
+.appointement-btn{
+    color: white;
+    background-color: #FC4961;
+}
+
+.appointement-btn:hover{
+    color: rgb(223, 223, 223);
+}
+
+.dropdown-nav-donor{
+    background-color: #312526;
+}
+
+.dropdown-nav-donor a{
+    color: white;
+}

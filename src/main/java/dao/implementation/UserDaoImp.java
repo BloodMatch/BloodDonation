@@ -35,11 +35,7 @@ public class UserDaoImp implements IUserDao{
 				user.setId(this.lastUserId());
 				return user;
 			}
-<<<<<<< HEAD
 			ps.close();
-=======
-
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -120,11 +116,7 @@ public class UserDaoImp implements IUserDao{
 				ps.close();
 				return user;
 			}
-<<<<<<< HEAD
 			ps.close();
-=======
-
->>>>>>> cb70154b3648260af89a25c99a8b9ecbed7ac3d8
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
