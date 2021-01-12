@@ -68,7 +68,6 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 		return donor;
 	}
 	
-
 	public List<Donor> findAll() {
 		List<Donor> donors = new ArrayList<Donor>();
 		try {
@@ -131,29 +130,6 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 		return false;
 	}
 	
-	/*
-	 * RELATIONSHIPS
-	 * */
-	public Donor find(User user) {
-		Donor donor = null;
-		try {
-			PreparedStatement ps = connection.prepareStatement
-					("SELECT DISTINCT * FROM DONOR WHERE UserId = ?");
-			ps.setLong(1, user.getId());
-			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
-				donor = new Donor();
-				donor.setThis(rs);				
-				donor.setThis(user);
-				
-			}
-			ps.close();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return donor;
-	}
-	
 	private Long lastDonorId() {
 		Long lastId = null;
 		try {
@@ -170,6 +146,27 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 		return lastId;
 	}
 
+	/*
+	 * RELATIONSHIPS
+	 * */
+	public Donor find(User user) {
+		Donor donor = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("SELECT DISTINCT * FROM DONOR WHERE UserId = ?");
+			ps.setLong(1, user.getId());
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				donor = new Donor();
+				donor.setThis(rs);	
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return donor;
+	}
+	
 	public Donor find(Appointment appointment) {
 		
 		return find(appointment.getDonorId());

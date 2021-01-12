@@ -14,27 +14,27 @@
   	<filter-class>web.middleware.AuthGuard</filter-class>
   </filter>
   
+   <filter-mapping>
+  	<filter-name>AuthGuard</filter-name>
+  	<servlet-name>DonorController</servlet-name>
+  </filter-mapping>
+  
   <filter>
   	<display-name>IsDonor</display-name>
   	<filter-name>IsDonor</filter-name>
   	<filter-class>web.middleware.IsDonor</filter-class>
   </filter>
   
+   <filter-mapping>
+  	<filter-name>IsDonor</filter-name>
+  	<servlet-name>DonorController</servlet-name>
+  </filter-mapping>
+  
   <filter>
   	<display-name>AlreadyLoged</display-name>
   	<filter-name>AlreadyLoged</filter-name>
   	<filter-class>web.middleware.AlreadyLoged</filter-class>
   </filter>
-  
-  <filter-mapping>
-  	<filter-name>AuthGuard</filter-name>
-  	<servlet-name>DonorController</servlet-name>
-  </filter-mapping>
-  
-  <filter-mapping>
-  	<filter-name>IsDonor</filter-name>
-  	<servlet-name>DonorController</servlet-name>
-  </filter-mapping>
   
   <filter-mapping>
   	<filter-name>AlreadyLoged</filter-name>
@@ -47,17 +47,36 @@
   	<servlet-class>web.controllers.UserController</servlet-class>
   </servlet>
   
+  <servlet-mapping>
+  	<servlet-name>UserController</servlet-name>
+  	<url-pattern>/login</url-pattern>
+  	<url-pattern>/register</url-pattern>
+  	<url-pattern>/register2</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
   	<display-name>HomeController</display-name>
   	<servlet-name>HomeController</servlet-name>
   	<servlet-class>web.controllers.HomeController</servlet-class>
   </servlet>
   
+  <servlet-mapping>
+  	<servlet-name>HomeController</servlet-name>
+  	<url-pattern>/home</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
   	<display-name>DonorController</display-name>
   	<servlet-name>DonorController</servlet-name>
   	<servlet-class>web.controllers.DonorController</servlet-class>
   </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>DonorController</servlet-name>
+  	<url-pattern>/donor/profile</url-pattern>
+  	<url-pattern>/donor</url-pattern>
+  	<url-pattern>/logout</url-pattern>
+  </servlet-mapping>
   
   <servlet>
   	<display-name>NotFoundController</display-name>
@@ -69,28 +88,4 @@
   	<servlet-name>NotFoundController</servlet-name>
   	<url-pattern>/not</url-pattern>
   </servlet-mapping>
-  
-  <servlet-mapping>
-  	<servlet-name>UserController</servlet-name>
-  	<url-pattern>/login</url-pattern>
-  	<url-pattern>/register</url-pattern>
-  	<url-pattern>/register2</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-  	<servlet-name>DonorController</servlet-name>
-  	<url-pattern>/logout</url-pattern>
-  	<url-pattern>/donor</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-  	<servlet-name>HomeController</servlet-name>
-  	<url-pattern>/home</url-pattern>
-  </servlet-mapping>
-  
-    <servlet-mapping>
-  	<servlet-name>DonorController</servlet-name>
-  	<url-pattern>/donor</url-pattern>
-  </servlet-mapping>
-  
 </web-app>

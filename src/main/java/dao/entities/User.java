@@ -3,6 +3,8 @@ package dao.entities;
 import java.io.Serializable;
 
 import business.Hash;
+import dao.implementation.DonorDaoImp;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -19,6 +21,8 @@ public class User implements Serializable{
 	protected String phone;
 	protected Boolean active;
 	protected String role;
+	
+	protected Donor donor;
 	
 	public User() {
 		super();
@@ -142,6 +146,14 @@ public class User implements Serializable{
 			"User [ id=%d, firstName=%s, lastName=%s, email=%s, passwd=%s, phone=%s, active=%s, role=%s ]",
 			 id, firstName, lastName, email, passwd, phone, active, role
 		);
+	}
+	
+	/*
+	 * RelationShips
+	 * 
+	 */
+	public Donor donor() {
+		return (new DonorDaoImp()).find(this);
 	}
 	
 }

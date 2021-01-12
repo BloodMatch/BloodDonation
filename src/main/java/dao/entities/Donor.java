@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest; 
+import javax.servlet.http.HttpServletRequest;
+
+import dao.implementation.UserDaoImp; 
 
 
 public class Donor extends User implements Serializable{
@@ -54,7 +56,7 @@ public class Donor extends User implements Serializable{
 		super.setThis(request);
 		this.donorId = Long.parseLong( request.getParameter("id"));
 		this.cin = request.getParameter("cin");
-		this.birthDay = request.getParameter("birthDate");
+		this.birthDay = request.getParameter("birthDay");
 		this.gender = request.getParameter("gender");
 		this.group = request.getParameter("group");
 		this.city = request.getParameter("city");
@@ -66,7 +68,7 @@ public class Donor extends User implements Serializable{
 		try{
 			this.donorId = rs.getLong("id");
 			this.cin = rs.getString("cin");
-			this.birthDay = rs.getString("birthDate");
+			this.birthDay = rs.getString("birthDay");
 			this.gender = rs.getString("gender");
 			this.group = rs.getString("group");
 			this.city = rs.getString("city");
@@ -110,6 +112,15 @@ public class Donor extends User implements Serializable{
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	
+	public String getGroup() {
+		return group;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
+	}
+
 
 	public String getCity() {
 		return city;
@@ -119,28 +130,12 @@ public class Donor extends User implements Serializable{
 		this.city = city;
 	}
 	
-	public long getZIPCode() {
-		return zipCode;
-	}
-
-	public void setZIPCode(long ZIPCode) {
-		this.zipCode = ZIPCode;
-	}
-	
 	public String getImage() {
 		return image;
 	}
 
 	public void setImage(String image) {
 		this.image = image;
-	}
-
-	public String getGroup() {
-		return group;
-	}
-
-	public void setGroup(String group) {
-		this.group = group;
 	}
 
 	public Long getZipCode() {
@@ -159,6 +154,14 @@ public class Donor extends User implements Serializable{
 	public String toString() {
 		return "Donor [donorId=" + donorId + ", cin=" + cin + ", birthDay=" + birthDay + ", gender=" + gender
 				+ ", group=" + group + ", city=" + city + ", zipCode=" + zipCode + ", image=" + image + "]";
+	}
+	
+	/**
+	 * RelationShips
+	 *
+	 */
+	public User user() {
+		return (new UserDaoImp()).find(this);
 	}
 	
 }

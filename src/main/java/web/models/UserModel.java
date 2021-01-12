@@ -14,7 +14,22 @@ public class UserModel {
 	private Boolean error = false;
 	private String errorMsg = "";
 	
+	public UserModel() {
+		
+	}
 	
+	public UserModel(Long id, String email, String firstName, String lastName, String phone, String role,
+			Boolean active) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phone = phone;
+		this.role = role;
+		this.active = active;
+	}
+
 	public Long getId() {
 		return id;
 	}

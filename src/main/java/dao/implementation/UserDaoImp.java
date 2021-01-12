@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 import dao.DbConnection;
+import dao.entities.Donor;
 import dao.entities.User;
 import dao.interfaces.IUserDao;
 
@@ -170,4 +171,10 @@ public class UserDaoImp implements IUserDao{
 		return lastId;
 	}
 
+	/*
+	 * RelationShips
+	 */
+	public User find(Donor donor) {
+		return this.find(donor.getDonorId());
+	}
 }

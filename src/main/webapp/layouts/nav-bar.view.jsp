@@ -29,33 +29,33 @@
 <c:set var="donorNav" scope="session">
 	<ul class="navbar-nav">
 		<li class="nav-item">
-			<a class="nav-link text-white text-center" href="#">Donate</a>
+			<a class="nav-link text-white text-center" href="${rootUrl}/donor/donate">Donate</a>
 		</li>
 		
 		<li class="nav-item">
-			<a class="nav-link text-white text-center" href="#">Center</a>
+			<a class="nav-link text-white text-center" href="${rootUrl}/donor/center">Center</a>
 		</li>
 	</ul>
   
 	<ul class="navbar-nav">
 		<li class="nav-item">
-			<a class="nav-link text-white text-center mt-2" href="#"><h6>BLOOD TYPE <br> O-</h6></a>
+			<a class="nav-link text-white text-center mt-2 border-left" href="#"><h6>BLOOD TYPE <br> ${donor.group}</h6></a>
 		</li>
 		
 		<li class="nav-item">
-			<a class="nav-link text-white text-center mt-2" href="#"><h6>CENTER <br> 4</h6> </a>
+			<a class="nav-link text-white text-center mt-2 border-left" href="#"><h6>UNITS DONATED <br> 4</h6> </a>
 		</li>
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle text-white text-center" href="#" id="profileNav" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<img class="rounded-circle z-depth-2" alt="50x50" src="./assets/avatar.png" data-holder-rendered="true" height="50" width="50">
+				<img class="rounded-circle z-depth-2" alt="50x50" src="${rootUrl}/assets/avatar.png" data-holder-rendered="true" height="50" width="50">
 				 ${sessionScope.isLoged.firstName} ${sessionScope.isLoged.lastName}
 			</a>
 			<div class="dropdown-menu dropdown-menu-left dropdown-nav-donor" aria-labelledby="profileNav">
-			  <a class="dropdown-item" href="#"><i class="far fa-user"></i> Profile</a>
+			  <a class="dropdown-item" href="${rootUrl}/donor/profile"><i class="far fa-user"></i> Profile</a>
 			  <a class="dropdown-item" href="#"><i class="fas fa-user-edit"></i> Edit Profile</a>
 			  <a class="dropdown-item" href="#"><i class="fas fa-lock"></i> Change Password</a>
 			  <div class="dropdown-divider"></div>
-			  <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> <%@ include file="../logout.jsp"%></a>
+			  <%@ include file="../logout.jsp"%>
 			</div>
 		</li>
 	</ul>
@@ -94,7 +94,7 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="AppNavBar">
         <div class="container-fluid">
            	<a class="navbar-brand white" href="${rootUrl}/home">
-                <img src="./assets/Site-logo.svg" alt="Blood Donation Logo" class="logo"/>
+                <img src="${rootUrl}/assets/Site-logo.svg" alt="Blood Donation Logo" class="logo"/>
             </a>
           
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

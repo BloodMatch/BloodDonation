@@ -1,5 +1,5 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"  %>
-
+<c:set var="rootUrl" value="${pageContext.request.contextPath}"/>
 <c:set var="title" scope="session">
 	Donneur
 </c:set>
@@ -10,7 +10,7 @@
 			<div class="row justify-content-end">
 				<div class="col-sm-12">
 					<h1 class="text-white"><strong>GIVE BLOOD</strong></h1>
-					<a href="#" class="btn btn-lg appointement-btn mt-3"> Schedule NEW  APPOINTMENT</a>
+					<a href="${rootUrl}/doner/donate" class="btn btn-lg appointement-btn mt-3"> Schedule NEW  APPOINTMENT</a>
 				</div>
 			</div>
 		</div>

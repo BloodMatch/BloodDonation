@@ -218,3 +218,8 @@ section#home-donor{
 .dropdown-nav-donor a{
     color: white;
 }
+
+.border-left{
+	border-left: 1px solid white;
+	margin-right: 60px !important;
+}
