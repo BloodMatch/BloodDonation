@@ -1,0 +1,225 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.login-section{
+    margin: 0;
+    padding: 0;
+    height: 90vh;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+.login-container{
+    height: 100%;
+}
+
+.bg-login-page{
+    background: url('../assets/image-login.svg') no-repeat left bottom;
+    background-size: contain;
+}
+
+.btn-blood{
+    background-color: #FC4961;
+    color: white;
+}
+
+.btn-blood:hover{
+    color: rgb(240, 240, 240) !important;
+}
+
+.go-right{
+    text-align: right !important;
+}
+
+.go-left{
+    text-align: left !important;
+}
+
+.go-center{
+    text-align: center !important;
+}
+/*------------------NavBar Styling------------------------*/
+.layout-color, .navbar-toggler-icon{
+    background-color: #312526;
+    color: #FFF3F3;
+}
+
+.logo{
+    height: 40px;
+    width: 150px;
+}
+
+.hovred{
+    box-sizing: border-box !important;
+    padding: 0;
+}
+
+.hovred:hover{
+    border-bottom: 2px solid #FFF3F3;
+}
+
+.btn-outline-signIn{
+    border: 2px solid #FFF3F3;
+    border-radius: 20px;
+    margin-right: 1rem;
+}
+
+.btn-outline-signIn:hover{
+    color : #312526 !important;
+    background-color:  #FFF3F3;
+}
+
+.btn-signUp{
+    color: #312526 !important;
+    background-color: #FFF3F3;
+    border-radius: 20px;
+}
+
+/*-----------------Footer styling--------------------*/
+footer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+}
+
+/*--------------------Register Style------------------*/
+.registration-section{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+.bg-register-page{
+    background-color: #FC4961;
+    color: white;
+}
+
+.left-side{
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding: 5rem;
+    line-height: 3rem;
+    text-align: justify;
+}
+
+.steps{
+    text-align: right;
+}
+
+section.first-section{
+	padding-top : 7rem !important; 
+}
+
+section#home-section{
+	display : flex;
+	flex-direction: column;
+    justify-content: flex-end;
+    background: url('../assets/landingPage.svg') no-repeat center center;
+    background-size: cover;
+	height: 100vh;
+}
+
+section#home-section div{
+   margin-bottom: 3rem;
+}
+
+section#home-section div h1{
+    letter-spacing: .8rem;
+}
+
+/*----------------- home navbar --------------------*/
+.btn-landing-blood, .btn-outline-landing-signIn{
+    margin-right: 1rem;
+    color: #D27373;
+    background-color: #FFF3F3;
+    border-radius: 50px;
+    padding: 7px 70px;
+    box-sizing: border-box;
+    transition: background-color .5s, color .5s ease-in;
+}
+
+.btn-landing-blood:hover{
+    color: #FFF3F3;
+    background-color:transparent;
+    border: 2px solid  #FFF3F3;
+}
+
+.btn-outline-landing-blood{
+    color:  #FFF3F3;
+    border: 2px solid  #FFF3F3;
+    border-radius: 50px;
+    padding: 7px 70px;
+    transition: background-color .5s, color .5s ease-in;
+}
+
+.btn-outline-landing-blood:hover{
+    background-color: #FFF3F3;
+    color: #D27373;
+}
+
+.btn-outline-landing-signIn{
+    padding: 0;
+}
+
+.layout-colorLanding{
+    background-color: rgba(255, 1, 35, 0.75)
+}
+
+/*----------------- Donor space styles ------------------*/
+section#home-donor{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    height: 100vh;
+    background: url(../assets/donor/donorHome.svg) no-repeat center center;
+    background-size: cover;
+}
+
+/*----------------- Donor space styles ------------------*/
+section#home-donor{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    height: 100vh;
+    background: url(../assets/donor/donorHome.svg) no-repeat center center;
+    background-size: cover;
+    text-align: right;
+    padding-bottom: 8rem;
+}
+
+.appointement-btn{
+    color: white;
+    background-color: #FC4961;
+}
+
+.appointement-btn:hover{
+    color: rgb(223, 223, 223);
+}
+
+.dropdown-nav-donor{
+    background-color: #312526;
+}
+
+.dropdown-nav-donor a{
+    color: white;
+}
+
+.border-left{
+	border-left: 1px solid white;
+	margin-right: 60px !important;
+}
