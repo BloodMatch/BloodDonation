@@ -18,8 +18,9 @@ import dao.interfaces.IAppointmentDao;
 
 public class AppointmentDaoImp implements IAppointmentDao{
 	private final static Connection connection = DbConnection.getConnection();
-
+	
 	public Appointment insert(Appointment appointment) {
+		
 		try {
 			PreparedStatement ps = connection.prepareStatement
 					("INSERT INTO APPOINTMENT( STATE, DONATIONTYPE, `TIME`, SATISFACTION, COMMENT, DONORID, CENTERID) VALUES(?,?,?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
@@ -66,6 +67,25 @@ public class AppointmentDaoImp implements IAppointmentDao{
 		try {
 			PreparedStatement ps = connection.prepareStatement
 					("SELECT * FROM APPOINTMENT");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Appointment appointment = new Appointment();
+				appointment.setThis(rs);
+				appointments.add(appointment);
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return appointments;
+	}
+	
+	public List<Appointment> findWhere(String column, String value) {
+		List<Appointment> appointments = new ArrayList<Appointment>();
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("SELECT * FROM APPOINTMENT WHERE"+column+" = ? ");
+			ps.setString(1, value);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Appointment appointment = new Appointment();
