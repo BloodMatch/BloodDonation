@@ -65,10 +65,8 @@ public class UserDaoImp implements IUserDao{
 	public User findByEmail(String email) {
 		User user = null;
 		try {
-			System.out.println("before ");
 			PreparedStatement ps = connection.prepareStatement
 					("SELECT DISTINCT * FROM USER WHERE email = ?");
-			System.out.println("after");
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
@@ -77,7 +75,7 @@ public class UserDaoImp implements IUserDao{
 			}
 			ps.close();
 		}catch(SQLException e) {
-			e.printStackTrace();
+			e.getStackTrace();
 		}
 		return user;
 	}

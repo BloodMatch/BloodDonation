@@ -5,12 +5,7 @@ import java.sql.DriverManager;
 
 public class DbConnection {
 	
-	/*
-	 *	DbConnection create single connection with
-	 *	Mysql DataBase using JDBC driver
-	 */
-	
-	final private static String driver = "com.mysql.jdbc.Driver";
+	final private static String driver = "com.mysql.cj.jdbc.Driver";
 	final private static String dbDriver = "mysql";
 	final private static String hostname = "localhost";
 	final private static String port = "3306";
@@ -21,8 +16,7 @@ public class DbConnection {
 	
 	static {
 		try {
-			// load JDBC Driver
-			Class.forName(driver);
+			Class.forName(driver).newInstance();
 			connection = DriverManager.getConnection(
 					String.format("jdbc:%s://%s:%s/%s", dbDriver, hostname, port, database)
 					, user, passwd);

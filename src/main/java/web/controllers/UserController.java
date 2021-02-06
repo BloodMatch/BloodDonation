@@ -14,7 +14,6 @@ import dao.implementation.DonorDaoImp;
 import dao.implementation.UserDaoImp;
 import dao.interfaces.IDonorDao;
 import dao.interfaces.IUserDao;
-import dao.interfaces.IDao;
 import web.models.UserModel;
 import web.models.UserRegisterModel;
 
