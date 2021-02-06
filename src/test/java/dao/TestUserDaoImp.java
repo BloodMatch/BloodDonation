@@ -25,8 +25,9 @@ public class TestUserDaoImp {
 		User user1 = this.userDaoImp.find(id1);
 		// user two exists
 		User user2 = this.userDaoImp.find(id2);
+		System.out.println(user2);
 		assertEquals(null, user1);
-		assertEquals(user2.getId(), id2);
+		assertEquals(user2.getId(), 2);
 	}
 
 }

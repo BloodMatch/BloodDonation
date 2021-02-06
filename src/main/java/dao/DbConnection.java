@@ -10,7 +10,7 @@ public class DbConnection {
 	 *	Mysql DataBase using JDBC driver
 	 */
 	
-	final private static String driver = "com.mysql.cj.jdbc.Driver";
+	final private static String driver = "com.mysql.jdbc.Driver";
 	final private static String dbDriver = "mysql";
 	final private static String hostname = "localhost";
 	final private static String port = "3306";
@@ -26,7 +26,6 @@ public class DbConnection {
 			connection = DriverManager.getConnection(
 					String.format("jdbc:%s://%s:%s/%s", dbDriver, hostname, port, database)
 					, user, passwd);
-			System.out.println("isClosed = " + connection.isClosed());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

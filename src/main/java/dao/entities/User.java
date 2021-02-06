@@ -22,8 +22,6 @@ public class User implements Serializable{
 	protected Boolean active;
 	protected String role;
 	
-	protected Donor donor;
-	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -72,7 +70,8 @@ public class User implements Serializable{
 			this.active = rs.getBoolean("active");
 			this.role = rs.getString("role");
 		} catch (SQLException e) {
-				e.printStackTrace();
+			System.out.println("user not Okay");
+			e.printStackTrace();
 		}	
 	}
 

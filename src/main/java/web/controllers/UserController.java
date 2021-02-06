@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import dao.entities.Donor;
 import dao.entities.User;
 import dao.implementation.DonorDaoImp;
@@ -76,7 +77,7 @@ public class UserController extends HttpServlet {
 			UserModel userMod = new UserModel();
 			userMod.setEmail(request.getParameter("email"));
 			String password = request.getParameter("passwd");
-
+			
 			User user = userDao.login(userMod.getEmail(), password);
 			
 			if(user != null) {

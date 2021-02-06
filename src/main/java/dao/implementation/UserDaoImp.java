@@ -8,7 +8,6 @@ import business.Hash;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.ResultSet;
 
 import dao.DbConnection;
@@ -66,8 +65,10 @@ public class UserDaoImp implements IUserDao{
 	public User findByEmail(String email) {
 		User user = null;
 		try {
+			System.out.println("before ");
 			PreparedStatement ps = connection.prepareStatement
 					("SELECT DISTINCT * FROM USER WHERE email = ?");
+			System.out.println("after");
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
@@ -142,6 +143,7 @@ public class UserDaoImp implements IUserDao{
 	
 	public User login(String email, String password) {
 		User user = this.findByEmail(email);
+		System.out.println(user);
 		if(user != null) {
 			if(user.getPasswd().equals(Hash.makeHash(password))) {
 				return user;
