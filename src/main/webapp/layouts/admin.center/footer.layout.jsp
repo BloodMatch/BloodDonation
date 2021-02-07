@@ -3,17 +3,17 @@
         <nav>
             <ul class="footer-menu">
                 <li>
-                    <a href="../../home">
+                    <a href="home">
                         Home
                     </a>
                 </li>
                 <li>
-                    <a href="../../center">
+                    <a href="center">
                         Center
                     </a>
                 </li>
                 <li>
-                    <a href="../../about">
+                    <a href="about">
                         About
                     </a>
                 </li>
@@ -24,8 +24,8 @@
                 </li>
             </ul>
             <p class="copyright text-center">
-                © 2021
-                | Give Blood <img src="../../assets/icons/blood-drop.svg" title="logo" alt="Blood" height="20"/> Give Life | made by IWIM Students
+                © 2021 
+                | Give Blood <i class="fas fa-tint text-danger"></i> Give Life | made by IWIM Students
             </p>
         </nav>
     </div>

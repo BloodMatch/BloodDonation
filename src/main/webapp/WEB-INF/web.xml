@@ -89,4 +89,20 @@
   	<servlet-name>NotFoundController</servlet-name>
   	<url-pattern>/not</url-pattern>
   </servlet-mapping>
+  
+  <!-- Admin Center Servlets -->
+  <servlet>
+  	<display-name>DashboardController</display-name>
+  	<servlet-name>DashboardController</servlet-name>
+  	<servlet-class>web.controllers.acenter.DashboardController</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<display-name>AppointmentController</display-name>
+  	<servlet-name>AppointmentController</servlet-name>
+  	<servlet-class>web.controllers.acenter.AppointmentController</servlet-class>
+  </servlet>
+  
+  
+  
 </web-app>

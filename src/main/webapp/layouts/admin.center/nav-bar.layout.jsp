@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg " color-on-scroll="500">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#pablo">Dashboard</a>
+        <a class="navbar-brand" href="center/dashboard">Dashboard</a>
         <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar burger-lines"></span>
             <span class="navbar-toggler-bar burger-lines"></span>
@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="nav navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href="../../center/dashboard" class="nav-link" data-toggle="dropdown">
+                    <a href="center/dashboard" class="nav-link" data-toggle="dropdown">
                         <i class="nc-icon nc-palette"></i>
                         <span class="d-lg-none">Dashboard</span>
                     </a>
@@ -29,7 +29,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="../../center" class="nav-link">
+                    <a href="center" class="nav-link">
                         <i class="nc-icon nc-circle"></i>
                         <span class="d-lg-block">Center</span>
                     </a>
@@ -37,7 +37,7 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#pablo">
+                    <a class="nav-link" href="center/acount">
                         <span class="no-icon">Account</span>
                     </a>
                 </li>
@@ -55,7 +55,7 @@
                     </div>
                 </li>-->
                 <li class="nav-item">
-                    <a class="nav-link" href="#pablo">
+                    <a class="nav-link" href="logout">
                         <span class="no-icon">Log out</span>
                     </a>
                 </li>

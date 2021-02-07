@@ -64,6 +64,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 
 	public List<Appointment> findAll() {
 		List<Appointment> appointments = new ArrayList<Appointment>();
+		
 		try {
 			PreparedStatement ps = connection.prepareStatement
 					("SELECT * FROM APPOINTMENT");
@@ -71,6 +72,28 @@ public class AppointmentDaoImp implements IAppointmentDao{
 			while(rs.next()) {
 				Appointment appointment = new Appointment();
 				appointment.setThis(rs);
+				appointments.add(appointment);
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return appointments;
+	}
+	
+	public List<Appointment> findAll(String col, String val) {
+		List<Appointment> appointments = new ArrayList<Appointment>();
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("SELECT * FROM APPOINTMENT WHERE "+col+" = ?");
+			ps.setString(1, val);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Appointment appointment = new Appointment();
+				appointment.setThis(rs);
+				appointment.setDonor();
+				appointment.setCenter();
+				appointment.setAnalysis();
 				appointments.add(appointment);
 			}
 			ps.close();
@@ -90,6 +113,9 @@ public class AppointmentDaoImp implements IAppointmentDao{
 			while(rs.next()) {
 				Appointment appointment = new Appointment();
 				appointment.setThis(rs);
+				appointment.setDonor();
+				appointment.setCenter();
+				appointment.setAnalysis();
 				appointments.add(appointment);
 			}
 			ps.close();

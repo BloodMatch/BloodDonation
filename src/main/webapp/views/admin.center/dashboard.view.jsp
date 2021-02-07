@@ -1,16 +1,16 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"  %>
 
 <c:set var = "pageName" scope = "session"> 
-    home
+    dashboard
 </c:set>
 
 <c:set var = "title" scope = "session"> 
-    home
+    Dashboard
 </c:set>
 
 <c:set var = "content" scope = "session"> 
-  <h1>CENTER</h1>
+  <h1>DashBoard</h1>
 </c:set>
 
 
-<%@ include file="layouts/app.layout.jsp"%>
+<%@ include file="app.jsp"%>

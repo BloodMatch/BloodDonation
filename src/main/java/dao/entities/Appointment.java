@@ -7,9 +7,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class Appointment implements Serializable{
+import dao.implementation.*;
+
+public class Appointment extends Entity<Appointment, AppointmentDaoImp> implements Serializable{
 	
-	private long id;
 	private String state;
 	private String donationType;
 	private String time;
@@ -25,6 +26,7 @@ public class Appointment implements Serializable{
 
 	public Appointment() {
 		super();
+		idao = new AppointmentDaoImp();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -38,7 +40,7 @@ public class Appointment implements Serializable{
 		this.DonorId = DonorId;
 		this.CenterId = CenterId;
 	}
-
+	
 	public void setThis(Appointment appointment){
 		//this.id = appointment.getId();
 		this.state = appointment.getState();
@@ -74,14 +76,6 @@ public class Appointment implements Serializable{
 		} catch (SQLException e) {
 				e.printStackTrace();
 		}
-	}
-	
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getState() {
@@ -145,14 +139,23 @@ public class Appointment implements Serializable{
 		return donor;
 	}
 	
+	public void setDonor() {
+		this.donor = (new DonorDaoImp()).find(this);
+	}
+	
 	public void setDonor(Donor donor) {
 		this.donor = donor;
 	}
+	
 
 	public Center getCenter(){
 		return center;
 	}
 
+	public void setCenter() {
+		this.center = (new CenterDaoImp()).find(this);
+	}
+	
 	public void setCenter(Center center) {
 		this.center = center;
 	}
@@ -161,6 +164,10 @@ public class Appointment implements Serializable{
 		return analysis;
 	}
 
+	public void setAnalysis() {
+		this.analysis = (new AnalysisDaoImp()).find(this);
+	}
+	
 	public void setAnalysis(Analysis analysis) {
 		this.analysis = analysis;
 	}
