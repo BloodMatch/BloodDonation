@@ -6,8 +6,8 @@
 
 <script>
 	const btnLogout = document.getElementById('logout-btn');
-	btnLogout.addEventListener('click', function(event){
-		event.preventDefault();
+	btnLogout.addEventListener('click', function(e){
+		e.preventDefault();
 		document.getElementById('logout-form').submit();
 	})
 </script>

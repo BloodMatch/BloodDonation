@@ -73,9 +73,9 @@
   
   <servlet-mapping>
   	<servlet-name>DonorController</servlet-name>
+  	<url-pattern>/logout</url-pattern>
   	<url-pattern>/donor/profile</url-pattern>
   	<url-pattern>/donor</url-pattern>
-  	<url-pattern>/logout</url-pattern>
   </servlet-mapping>
   
   <servlet>

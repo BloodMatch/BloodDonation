@@ -141,7 +141,6 @@ public class UserDaoImp implements IUserDao{
 	
 	public User login(String email, String password) {
 		User user = this.findByEmail(email);
-		System.out.println(user);
 		if(user != null) {
 			if(user.getPasswd().equals(Hash.makeHash(password))) {
 				return user;
