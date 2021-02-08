@@ -10,7 +10,7 @@
 			<div class="row justify-content-end">
 				<div class="col-sm-12">
 					<h1 class="text-white"><strong>GIVE BLOOD</strong></h1>
-					<a href="${rootUrl}/doner/donate" class="btn btn-lg appointement-btn mt-3"> Schedule NEW  APPOINTMENT</a>
+					<a href="${rootUrl}/donor/menu" class="btn btn-lg appointement-btn mt-3"> Schedule NEW  APPOINTMENT</a>
 				</div>
 			</div>
 		</div>

@@ -82,7 +82,7 @@ public class UserController extends HttpServlet {
 			if(user != null) {
 				session.setAttribute("isLoged", user);
 				
-				response.sendRedirect(request.getContextPath()+"/"+user.getRole());
+				response.sendRedirect(request.getContextPath()+"/"+user.getRole()+"/home");
 			}else {
 				// Alert msg case it faild
 				userMod.setError(true);

@@ -215,7 +215,7 @@ section#home-donor{
     background-color: #312526;
 }
 
-.dropdown-nav-donor a{
+.dropdown-nav-donor a, .dropdown-nav-donor button{
     color: white;
 }
 

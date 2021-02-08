@@ -7,7 +7,7 @@
 <c:set var ="content" scope="session">
     <section class="first-section">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-sm-12 col-md-6">
                     <div class="card mb-3 bg-gray border-0">
                         <div class="card-body">
@@ -34,7 +34,7 @@
                                     <p class="text-muted">Choose a time, location and donation type</p>
                                 </div>
                             </div>
-                            <a href="#" class="btn stretched-link right"><i class="fas fa-angle-right"></i></a>
+                            <a href="${rootUrl}/donor/schedule" class="btn stretched-link right"><i class="fas fa-angle-right"></i></a>
                         </div>
                     </div>
                     <div class="card bg-gray border-0">
@@ -58,8 +58,8 @@
                         <div class="card-body">
                           <h5 class="card-title">Each donation can impact up to three lives.</h5>
                           <p class="card-text text-muted font-weight-lighter">Every  seconds someone needs blood.</p>
-                          <img src="./assets/donor/firstDonation.svg" class="img-fluid" alt="Person donating blood">
-                          <a href="#Schedile" class="btn btn-lg btn-block my-3 btn-blood">Schedule NEW  APPOINTMENT</a>
+                          <img src="${rootUrl}/assets/donor/firstDonation.svg" class="img-fluid" alt="Person donating blood">
+                          <a href="${rootUrl}/donor/appointment" class="btn btn-lg btn-block my-3 btn-blood">Schedule NEW  APPOINTMENT</a>
                         </div>
                     </div>
                 </div>

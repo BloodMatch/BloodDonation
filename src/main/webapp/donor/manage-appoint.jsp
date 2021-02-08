@@ -71,3 +71,6 @@
             </div>
         </div>
     </section>
+</c:set>
+
+<%@ include file="../layouts/app.view.jsp" %>

@@ -51,27 +51,33 @@ public class DonorController extends HttpServlet {
 		request.setAttribute("donor", donorMod);
 		request.setAttribute("user",userMod);
 		
-		if(contextPath.concat("/donor").equals(reqURI)) {
-			request.getRequestDispatcher("donor/home.jsp").forward(request, response);			
+		if(contextPath.concat("/donor/home").equals(reqURI)) {
+			request.getRequestDispatcher("home.jsp").forward(request, response);			
 		}
 		
 		if(contextPath.concat("/donor/profile").equals(reqURI)) {
 			request.getRequestDispatcher("profile.jsp").forward(request, response);
 		}
+		
+		if(contextPath.concat("/donor/menu").equals(reqURI)) {
+			request.getRequestDispatcher("menu.jsp").forward(request, response);			
+		}
+		
+		if(contextPath.concat("/donor/schedule").equals(reqURI)) {
+			request.getRequestDispatcher("appointment.jsp").forward(request, response);			
+		}
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		if(request.getContextPath().concat("/logout").equals(request.getRequestURI())) {
-			System.out.println("login out");
+		if(request.getContextPath().concat("/donor/logout").equals(request.getRequestURI())) {
 			HttpSession session = request.getSession();
 			UserModel userMod = new UserModel();
 			User user = (User)session.getAttribute("isLoged");
 			userMod.setEmail(user.getEmail());
 			session.setAttribute("isLoged", null);
 			request.setAttribute("user", userMod);
-			request.getRequestDispatcher("login.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/login");
 		}
 	}
 
