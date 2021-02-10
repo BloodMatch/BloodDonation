@@ -14,10 +14,10 @@
         <div class="container">
             <div class="row text-center">
                 <div class="col-sm-12 col-md-4">
-                    <p class="blood-color"> Friday, 12 Ferbruary 2021 | 08:00 PM - 12:30 PM </p>
+                    <p class="blood-color"> ${appoint.lastAppoint.time} </p>
                 </div>
                 <div class="col-sm-12 col-md-4">
-                    Power Red 
+                    ${appoint.lastAppoint.donationType}
                 </div>
                 <div class="col-sm-12 col-md-4">
                     <p class="text-right">Pending <i class="far fa-clock"></i></p>
@@ -25,35 +25,35 @@
             </div>
         </div>
         <div class="container">
-            <div class="row text-center align-items-center">
+            <div class="row align-items-center">
                 <div class="col-sm-12 col-md-8">
-                    <div class="card">
+                    <div class="card p-3">
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col-1">
                                     <i class="fas fa-hospital blood-color fa-3x"></i>
                                 </div>
                                 <div class="col-7">
-                                    <h4> Center Rabat agdal </h4>
-                                    <p class="lead text-left"> Address address address address address address address address address address address address address </p>
+                                    <h4> ${center.name } </h4>
+                                    <p class="lead text-left"> ${center.address} </p>
                                 </div>
                                 <div class="col-3">
-                                    <p><i class="fas fa-at"></i> email@email.com</p>
-                                    <p><i class="fas fa-phone-alt"></i> +212 645127832</p>
-                                    <p><i class="fas fa-at"></i> email@email.com</p>
+                                    <p><i class="fas fa-at"></i> ${center.email}</p>
+                                    <p><i class="fas fa-phone-alt"></i> ${center.phone1}</p>
+                                    <p><i class="fas fa-phone-alt"></i> ${center.phone2}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-4">
-                    <form action=""></form>
+                    <form action="${rootUrl}/donor/schedule/cancal" method="Post">
                         <div class="card bg-gray border-0 mb-3">
                             <div class="card-body text-center">
-                                <h1 class="display-1">24</h1>
+                                <h1 class="display-1">${daysLeft}</h1>
                                 <p class="text-muted">Days left</p>
                             </div>
-                            <input type="text" hidden value="">
+                            <input type="hidden" name="appointId" value="${appoint.lastAppoint.id }">
                             <button type="submit" class="btn btn-block btn-blood mt-3">Cancel Appointment </button>
                         </div>  
                     </form>

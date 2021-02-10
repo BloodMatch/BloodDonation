@@ -34,7 +34,7 @@
                                     <h4 class="d-flex justify-content-between mb-3"> <i class="fas fa-home"></i> ${donor.zipCode } </h4>
                                </div>
                                <div class="col-sm-4">
-                                   something
+                                   
                                </div>
                            </div>
                         </div>

@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dao.implementation.AppointmentDaoImp;
 import dao.implementation.UserDaoImp; 
 
 
@@ -162,6 +163,10 @@ public class Donor extends User implements Serializable{
 	 */
 	public User user() {
 		return (new UserDaoImp()).find(this);
+	}
+	
+	public List<Appointment>appointments(){
+		return (new AppointmentDaoImp()).find(this);
 	}
 	
 }

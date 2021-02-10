@@ -62,34 +62,32 @@
                             </div>
                         </div>
 				    </div>
-                </div>
-
-                 <div class="col-sm-12 col-md-6">
+                 	<div class="col-sm-12 col-md-6">
                  
-                 	 <div class="form-group mt-4">
-                         <label for="birthday">Birthday <sapn class="text-danger">*</sapn></label>
-                         <input type="date" name="birthday" id="birthday" value="" class="form-control form-control-lg" placeholder="Please enter birthday" required autofocus>		    
-                     </div>
-                     
-                     <div class="form-group mt-4">
-                         <label for="birthday">City of residence <sapn class="text-danger">*</sapn></label>
-                         <input type="text" name="city" id="city" value="" class="form-control form-control-lg" placeholder="Please enter city" required autofocus>		    
-                     </div>
-
-                   	  <div class="form-group mt-4">
-                         <label for="zipCode">ZIP Code <sapn class="text-danger">*</sapn></label>
-                         <input type="number" name="zipCode" id="zipCode" value="" class="form-control form-control-lg" placeholder="Please enter zip code" required autofocus>		    
-                     </div>
-                   
-                     <div class="row mt-4">
-                         <button class="btn btn-blood btn-lg btn-block" type="submit">Register Account</button>			    	
-                     </div>
-
-                     <div class="text-center my-3">
-                         <p class="text-muted font-weight-lighter"><i class="fas fa-lock"></i> Your Info is safely secured</p>
-                     </div>
-                 </div>
-             </div>
+	                 	 <div class="form-group mt-4">
+	                         <label for="birthday">Birthday <sapn class="text-danger">*</sapn></label>
+	                         <input type="date" name="birthday" id="birthday" value="" class="form-control form-control-lg" placeholder="Please enter birthday" required autofocus>		    
+	                     </div>
+	                     
+	                     <div class="form-group mt-4">
+	                         <label for="birthday">City of residence <sapn class="text-danger">*</sapn></label>
+	                         <input type="text" name="city" id="city" value="" class="form-control form-control-lg" placeholder="Please enter city" required autofocus>		    
+	                     </div>
+	
+	                   	  <div class="form-group mt-4">
+	                         <label for="zipCode">ZIP Code <sapn class="text-danger">*</sapn></label>
+	                         <input type="number" name="zipCode" id="zipCode" value="" class="form-control form-control-lg" placeholder="Please enter zip code" required autofocus>		    
+	                     </div>
+	                   
+	                     <div class="row mt-4">
+	                         <button class="btn btn-blood btn-lg btn-block" type="submit">Register Account</button>			    	
+	                     </div>
+	
+	                     <div class="text-center my-3">
+	                         <p class="text-muted font-weight-lighter"><i class="fas fa-lock"></i> Your Info is safely secured</p>
+	                     </div>
+                 	</div>
+                </div>
          </form>
      </div>
  </section>

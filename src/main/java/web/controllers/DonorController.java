@@ -62,10 +62,6 @@ public class DonorController extends HttpServlet {
 		if(contextPath.concat("/donor/menu").equals(reqURI)) {
 			request.getRequestDispatcher("menu.jsp").forward(request, response);			
 		}
-		
-		if(contextPath.concat("/donor/schedule").equals(reqURI)) {
-			request.getRequestDispatcher("appointment.jsp").forward(request, response);			
-		}
 	}
 
 	
@@ -74,8 +70,8 @@ public class DonorController extends HttpServlet {
 			HttpSession session = request.getSession();
 			UserModel userMod = new UserModel();
 			User user = (User)session.getAttribute("isLoged");
-			userMod.setEmail(user.getEmail());
 			session.setAttribute("isLoged", null);
+			userMod.setEmail(user.getEmail());
 			request.setAttribute("user", userMod);
 			response.sendRedirect(request.getContextPath()+"/login");
 		}

@@ -128,7 +128,7 @@ section#home-section{
 	display : flex;
 	flex-direction: column;
     justify-content: flex-end;
-    background: url('/assets/landingPage.svg') no-repeat center center;
+    background: url('../assets/landingPage.svg') no-repeat center center;
     background-size: cover;
 	height: 100vh;
 }

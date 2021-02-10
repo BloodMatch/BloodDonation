@@ -7,6 +7,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dao.implementation.AppointmentDaoImp;
+import dao.implementation.CenterDaoImp;
+import dao.implementation.DonorDaoImp;
+
 public class Appointment implements Serializable{
 	
 	private long id;
@@ -173,4 +177,17 @@ public class Appointment implements Serializable{
 		);
 	}
 	
+	/* Business */
+	public static List<Center> availableCenters(String date, String city){
+		return (new AppointmentDaoImp()).freeCenters(date, city);
+	}
+	
+	/* Relationships */
+	public Donor donor() {
+		return (new DonorDaoImp()).find(this);
+	}
+	
+	public Center center() {
+		return (new CenterDaoImp()).find(this);
+	}
 }

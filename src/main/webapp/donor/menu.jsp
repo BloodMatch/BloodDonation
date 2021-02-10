@@ -48,7 +48,7 @@
                                     <p class="text-muted"> Reschedule, cancel </p>
                                 </div>
                             </div>
-                            <a href="#" class="btn stretched-link right"><i class="fas fa-angle-right"></i></a>
+                            <a href="${rootUrl}/donor/manage" class="btn stretched-link right"><i class="fas fa-angle-right"></i></a>
                         </div>
                     </div>
                 </div>

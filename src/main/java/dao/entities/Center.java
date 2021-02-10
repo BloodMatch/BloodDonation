@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dao.implementation.CenterDaoImp;
+
 public class Center implements Serializable{
 	
 	private long id;
@@ -184,5 +186,9 @@ public class Center implements Serializable{
 				"Center [ id=%d, code=%s, name=%s, email=%s, phone1=%s, phone2=%s, city=%s, address=%s, ZIPCode=%d ]",
 				id, code, name, email, phone1, phone2, city, address, ZIPCode
 			);
+	}
+	
+	public static List<String> getOtherCities(String city){
+		return (new CenterDaoImp()).getOtherCities(city);
 	}
 }
