@@ -7,50 +7,49 @@
         </div>
         <ul class="nav">
         	<li class="nav-item active">
-				<h5 class="title" style="margin-left:10px;">General</h5>
+				<h4 class="title px-2">General</h4>
 			</li>
-            <li class="nav-item">
-                <a class="nav-link" href="center/dashboard">
-                    <i class="nc-icon nc-chart-pie-35"></i>
-                    <p>Dashboard</p>
+            <%--<li class="nav-item">
+                <a class="nav-link" href="center/task" title="Daily Tasks">
+                    <i class="nc-icon nc-atom"></i>
+                    <p>Daily Tasks</p>
                 </a>
-            </li>
+            </li>--%>
             <li>
-                <a class="nav-link" href="center/appointment?state=pending">
+                <a class="nav-link" href="center/appointment?state=pending" title="Pending Appointments">
                     <i class="nc-icon nc-atom"></i>
                     <p>Pending Appointments</p>
                 </a>
             </li>
             <li>
-                <a class="nav-link" href="center/appointment?state=scheduled">
+                <a class="nav-link" href="center/appointment?state=scheduled" title="Scheduled Appointment">
                     <i class="nc-icon nc-atom"></i>
                     <p>Scheduled Appointment</p>
                 </a>
             </li>
             <li>
-                <a class="nav-link" href="center/appointment?state=done">
+                <a class="nav-link" href="center/appointment?state=done" title="Donations">
                     <i class="nc-icon nc-atom"></i>
                     <p>Donations</p>
                 </a>
             </li>
             <li>
-                <a class="nav-link" href="center/demand?state=pending">
+                <a class="nav-link" href="center/demand?state=pending" title="Blood Demands">
                     <i class="nc-icon nc-atom"></i>
                     <p>Blood Demands</p>
                 </a>
             </li>
             <li>
                 <a class="nav-link" href="center/demand?state=accepted" title="Hospitals facturation">
-                    <i class=" nc-icon fas fa-hospital text-white fa-2x"></i>
+                    <i class="nc-icon nc-atom"></i>
                     <p> Hospitals facturation</p>
                 </a>
             </li>
-            <hr class="dashed">
-			<li class="nav-item active">
-				<h5 class="title" style="margin-left:10px;">Insights</h5>
+            <li class="nav-item active">
+				<h4 class="title px-2">Insights</h4>
 			</li>
             <li>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="center/inventory">
                     <i class="nc-icon nc-atom"></i>
                     <p>Blood inventory</p>
                 </a>
@@ -58,10 +57,9 @@
             <li>
                 <a class="nav-link" href="#">
                     <i class="nc-icon nc-atom"></i>
-                    <p>donation frequesncy</p>
+                    <p>statistics </p>
                 </a>
             </li>
-
             <li class="nav-item active active-pro">
                 <a class="nav-link active" href="javascript:;">
                     <i class="nc-icon nc-app"></i>

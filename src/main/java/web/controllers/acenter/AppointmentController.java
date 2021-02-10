@@ -8,7 +8,7 @@ import dao.implementation.AppointmentDaoImp;
 import web.controllers.ServletController;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/center/appointment/*"})
+@WebServlet(urlPatterns = { "/center/appointment", "/center/appointment/analysis"})
 public class AppointmentController extends ServletController {
 	
 	AppointmentDaoImp appointmentDao;
@@ -21,31 +21,35 @@ public class AppointmentController extends ServletController {
 		router.setBaseURL("/center/appointment");
 		
 		appointmentDao = new AppointmentDaoImp();
-		router.get("", () ->  this.show() );
+		
+		router.get("", () ->  this.show(req.getParameter("state")) );
 		/*router.group("", ()-> { 
 		});*/
+		router.post("@approve", 	() ->  this.approve( req.getParameter("id") ));
+		router.post("@approveAll", 	() ->  this.approveAll( req.getParameterValues("ids") ));
 		
+		router.post("@decline", 	() ->  this.decline( req.getParameter("id") ));
+		router.post("@declineAll", 	() ->  this.declineAll( req.getParameterValues("ids") ));
 		
-		router.post("@approve", 	() ->  this.approve() );
-		router.post("@approveAll", 	() ->  this.approveAll() );
+		router.post("@revoke", 		() ->  this.revoke( req.getParameter("id") ));
+		router.post("@revokeAll", 	() ->  this.revokeAll( req.getParameterValues("ids") ));
 		
-		router.post("@decline", 	() ->  this.decline() );
-		router.post("@declineAll", 	() ->  this.declineAll() );
+		router.post("@done", 		() ->  this.done( req.getParameter("id") ));
+		router.post("@doneAll", 	() ->  this.doneAll( req.getParameterValues("ids") ));
 		
-		router.post("@revoke", 		() ->  this.revoke() );
-		router.post("@revokeAll", 	() ->  this.revokeAll() );
+		router.get("/analysis", 	() ->  this.analysis(req.getParameter("id")) );
 	}
 
-	public void show() {
+	public void show(String state) {
 		
 		System.out.println("getServletPath : "+req.getServletPath());
 		System.out.println("getContextPath : "+req.getContextPath());
 		System.out.println("getPathInfo : "+req.getPathInfo());
 		
-		if ( req.getParameter("state") == null )
+		if ( state == null )
 			servlet("/center/dashboard");
 		else {
-			switch ( req.getParameter("state") ) {
+			switch ( state ) {
 		        case "pending":
 		        		pending();
 		        	break;
@@ -62,79 +66,108 @@ public class AppointmentController extends ServletController {
 	}
 	
 	private void pending() {
-		req.setAttribute("appointmentsList", appointmentDao.findAll("state", "pending"));
+		req.setAttribute("appointmentsList", appointmentDao.findAll("state", "Pending"));
     	view("admin.center/appointment/pending");
 	}
 	
 	private void scheduled() {
-		req.setAttribute("appointmentsList", appointmentDao.findAll("state", "approved"));
+		req.setAttribute("bookedAppointmentsList", appointmentDao.findAll("state", "Booked"));
+		req.setAttribute("arrivedAppointmentsList", appointmentDao.findAll("state", "Arrived"));
 		view("admin.center/appointment/scheduled");
 	}
 	
 	private void donations() {
-		req.setAttribute("appointmentsList", appointmentDao.findAll("state", "done"));
+		req.setAttribute("appointmentsList", appointmentDao.findAll("state", "Fulfilled"));
 		view("admin.center/appointment/donations");
 	}
 	
-	private void approve() {
-		appointment =  appointmentDao.find( Long.parseLong( req.getParameter("id")) );
+	private void approve(String id) {
+		appointment =  appointmentDao.find( Long.parseLong( id) );
 		
-		appointment.setState("approved");
+		appointment.setState("Booked");
 		appointment.save();
 		
-		servlet("/center/appointment?state=pending");
+		redirect(req.getHeader("referer"));
 	}
 
-	private void approveAll() {
+	private void approveAll(String [] idss) {
 		// TODO Auto-generated method stub
 		if( req.getParameterValues("ids") != null )			
-			for(String appointmentId: req.getParameterValues("idss")){  
+			for(String appointmentId: idss){  
 				System.out.println(appointmentId);
 				appointment =  appointmentDao.find( Long.parseLong( appointmentId) );
-				appointment.setState("approved");
+				appointment.setState("Booked");
 				appointment.save();
 		    }
-		servlet("/center/appointment?state=pending");
+
+		redirect(req.getHeader("referer"));
 	}
 
-	private void decline() {
-		appointment =  appointmentDao.find( Long.parseLong( req.getParameter("id")) );
+	private void decline(String id) {
+		appointment =  appointmentDao.find( Long.parseLong( id ));
 		
-		appointment.setState("declined");
+		appointment.setState("Declined");
 		appointment.save();
 		
-		servlet("/center/appointment?state=pending");
+		redirect(req.getHeader("referer"));
 	}
 
-	private void declineAll() {
+	private void declineAll(String [] ids) {
 		if( req.getParameterValues("ids") != null )			
-			for(String appointmentId: req.getParameterValues("ids")){  
+			for(String appointmentId: ids){  
 				System.out.println(appointmentId);
 				appointment =  appointmentDao.find( Long.parseLong( appointmentId) );
-				appointment.setState("declined");
+				appointment.setState("Declined");
 				appointment.save();
 		    }
-		servlet("/center/appointment?state=pending");
+
+		redirect(req.getHeader("referer"));
 	}
 
-	private void revoke() {
-		appointment =  appointmentDao.find( Long.parseLong( req.getParameter("id")) );
+	private void revoke(String id) {
+		appointment =  appointmentDao.find( Long.parseLong( id ));
 		
-		appointment.setState("revoked");
+		appointment.setState("Revoked");
 		appointment.save();
 		
-		servlet("/center/appointment?state=scheduled");
+		redirect(req.getHeader("referer"));
 	}
 	
-	private void revokeAll() {
+	private void revokeAll(String [] ids) {
 		if( req.getParameterValues("ids") != null )			
-			for(String appointmentId: req.getParameterValues("ids")){  
+			for(String appointmentId: ids){  
 				System.out.println(appointmentId);
 				appointment =  appointmentDao.find( Long.parseLong( appointmentId) );
-				appointment.setState("revoked");
+				appointment.setState("Revoked");
 				appointment.save();
 		    }
-		servlet("/center/appointment?state=scheduled");
+
+		redirect(req.getHeader("referer"));
+	}
+	
+	private void done(String id) {
+		appointment =  appointmentDao.find( Long.parseLong( id ));
+		
+		appointment.setState("Fulfilled");
+		appointment.save();
+		
+		redirect(req.getHeader("referer"));
+	}
+	
+	private void doneAll(String [] ids) {
+		if( req.getParameterValues("ids") != null )			
+			for(String appointmentId: ids){  
+				System.out.println(appointmentId);
+				appointment =  appointmentDao.find( Long.parseLong( appointmentId) );
+				appointment.setState("Fulfilled");
+				appointment.save();
+		    }
+
+		redirect(req.getHeader("referer"));
+	}
+	
+	private void analysis(String id) {
+		view("admin.center/appointment/analysis");
 	}
 	
 }

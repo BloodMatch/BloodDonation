@@ -64,6 +64,7 @@ public class StockDaoImp implements IStockDao{
 			while(rs.next()) {
 				Stock stock = new Stock();
 				stock.setThis(rs);
+				stock.setBag();
 				stocks.add(stock);
 			}
 			ps.close();

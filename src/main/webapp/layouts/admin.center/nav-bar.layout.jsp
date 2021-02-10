@@ -10,7 +10,7 @@
             <ul class="nav navbar-nav mr-auto">
                 <li class="nav-item">
                     <a href="center/dashboard" class="nav-link" data-toggle="dropdown">
-                        <i class="nc-icon nc-palette"></i>
+                        <i class="fa fa-dashboard" title="dashboard"></i>
                         <span class="d-lg-none">Dashboard</span>
                     </a>
                 </li>

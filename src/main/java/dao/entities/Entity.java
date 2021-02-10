@@ -5,14 +5,13 @@ import java.sql.ResultSet;
 import javax.servlet.http.HttpServletRequest;
 
 import dao.interfaces.IDao;
+import dao.interfaces.IEntity;
 
-public abstract class Entity<TSelf, TDao extends  IDao>{
+public abstract class Entity<TSelf, TDao extends  IDao> implements IEntity<TSelf>{
 	
 	protected TDao  idao;
 	protected long id;
-	public abstract void setThis(TSelf t);
-	public abstract void setThis(HttpServletRequest request);
-	public abstract void setThis(ResultSet rs);
+	
 	
 	public long getId() {
 		return id;
@@ -25,7 +24,6 @@ public abstract class Entity<TSelf, TDao extends  IDao>{
 	public void add() {
 		idao.insert( this);
 	}
-	
 	
 	public void save() {
 		idao.update( this);

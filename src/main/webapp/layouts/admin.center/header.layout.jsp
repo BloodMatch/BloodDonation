@@ -1,4 +1,3 @@
-
 <link rel="apple-touch-icon" sizes="76x76" href="assets/icons/blood-drop.svg">
 <link rel="icon" type="image/png" href="assets/BS3/img/favicon.ico">
 

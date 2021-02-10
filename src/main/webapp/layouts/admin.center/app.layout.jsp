@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<c:set var="rootUrl" value="${pageContext.request.contextPath}"/>
+<c:set var="rootUrl" value="${pageContext.request.contextPath}" scope="application"/>
 <html>
 
 
@@ -9,8 +9,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>${title} page </title>
         <base href="${rootUrl}/" />
-        <%@ include file="header.layout.jsp"%>
-        <%@ include file="../header.view.jsp"%>
+        <%@ include file="header.layout.jsp"%>	
+        
     </head>
 <body>
     <div class="wrapper">

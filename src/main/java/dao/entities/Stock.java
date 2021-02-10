@@ -6,7 +6,11 @@ import java.sql.SQLException;
  
 import javax.servlet.http.HttpServletRequest;
 
-public class Stock implements Serializable{
+import dao.implementation.BagDaoImp;
+import dao.implementation.CenterDaoImp;
+import dao.implementation.StockDaoImp;
+
+public class Stock extends Entity<Stock, StockDaoImp> implements Serializable{
 	
 	private long id;
 	private long quantity;
@@ -14,9 +18,12 @@ public class Stock implements Serializable{
 	private long CenterId;
 	private long BagId;
 
+	private Bag bag;
+	private Center center;
 
 	public Stock() {
 		super();
+		idao = new StockDaoImp();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -96,6 +103,30 @@ public class Stock implements Serializable{
 
 	public void setBagId(long BagId) {
 		this.BagId = BagId;
+	}
+	
+	public Bag getBag() {
+		return bag;
+	}
+	
+	public void setBag() {
+		this.bag = (new BagDaoImp()).find(this);
+	}
+	
+	public void setBag(Bag bag) {
+		this.bag = bag;
+	}
+	
+	public Center getCenter() {
+		return center;
+	}
+	
+	public void setCenter() {
+		this.center= (new CenterDaoImp()).find(this);
+	}
+	
+	public void setCenter(Center center) {
+		this.center = center;
 	}
 
 	@Override

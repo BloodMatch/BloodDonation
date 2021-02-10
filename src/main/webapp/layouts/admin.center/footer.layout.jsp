@@ -25,7 +25,7 @@
             </ul>
             <p class="copyright text-center">
                 © 2021 
-                | Give Blood <i class="fas fa-tint text-danger"></i> Give Life | made by IWIM Students
+                | Give Blood <i class="fa fa-tint text-danger"></i> Give Life | made by IWIM Students
             </p>
         </nav>
     </div>

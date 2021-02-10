@@ -9,8 +9,8 @@ import dao.implementation.AppointmentDaoImp;
 import web.controllers.ServletController;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/center/dashboard", "/center/dashboard/task"})
-public class DashboardController extends ServletController {
+@WebServlet(urlPatterns = { "/center/taskddd"})
+public class TaskController extends ServletController {
 	
 	//AppointmentDaoImp appointmentDao;
 	
@@ -18,15 +18,14 @@ public class DashboardController extends ServletController {
 	public void init() throws ServletException {
 		super.init();
 
-		router.setBaseURL("/center/dashboard");
+		router.setBaseURL("/center/task");
 		
 		router.get("", () ->  this.show() );
-		router.post("/task@launch", 	() ->  this.launch( req.getParameter("tasksId") ) );
+		router.post("@launch", 	() ->  this.launch( req.getParameter("tasksId") ) );
 	}
 	
-	public void show() {
-		
-		view("admin.center/dashboard/index");
+	private void show() {
+		view("admin.center/tasks");
 	}
 	
 	private void launch(String Tid) {

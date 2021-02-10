@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dao.implementation.AppointmentDaoImp;
+import dao.implementation.DonorDaoImp;
 import dao.implementation.UserDaoImp; 
 
 
@@ -20,6 +22,10 @@ public class Donor extends User implements Serializable{
 	protected String city;
 	protected long zipCode;
 	protected String image;
+	
+	protected User user;
+	protected List<Appointment> appointments;
+	
 	
 	public Donor() {
 		super();
@@ -121,7 +127,6 @@ public class Donor extends User implements Serializable{
 		this.group = group;
 	}
 
-
 	public String getCity() {
 		return city;
 	}
@@ -146,9 +151,18 @@ public class Donor extends User implements Serializable{
 		this.zipCode = zipCode;
 	}
 	
-	/*public void setCenters(List<Center> centers) {
-		this.centers= centers;
-	}*/
+	
+	public List<Appointment> getAppointments(){
+		return appointments;
+	}
+	
+	public void setAppointments() {
+		this.appointments= (new AppointmentDaoImp()).find(this);
+	}
+	
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
+	}
 
 	@Override
 	public String toString() {

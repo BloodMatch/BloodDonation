@@ -103,6 +103,30 @@
   	<servlet-class>web.controllers.acenter.AppointmentController</servlet-class>
   </servlet>
   
+  <servlet>
+  	<display-name>DemandController</display-name>
+  	<servlet-name>DemandController</servlet-name>
+  	<servlet-class>web.controllers.acenter.DemandController</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<display-name>TaskController</display-name>
+  	<servlet-name>TaskController</servlet-name>
+  	<servlet-class>web.controllers.acenter.TaskController</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<display-name>ProfileController</display-name>
+  	<servlet-name>ProfileController</servlet-name>
+  	<servlet-class>web.controllers.acenter.ProfileController</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<display-name>InventoryController</display-name>
+  	<servlet-name>InventoryController</servlet-name>
+  	<servlet-class>web.controllers.acenter.InventoryController</servlet-class>
+  </servlet>
+ 
   
   
 </web-app>

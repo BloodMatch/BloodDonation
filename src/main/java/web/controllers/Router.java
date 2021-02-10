@@ -51,7 +51,7 @@ public class Router {
 	public void handleGET(ServletController serveletCntrl) {
 		System.out.println("[GET] : "+serveletCntrl.req.getServletPath());
 		mapGET.get(
-				serveletCntrl.req.getServletPath() 
+				serveletCntrl.req.getServletPath()
 			).run();
 	}
 	
@@ -59,7 +59,7 @@ public class Router {
 		System.out.println("[POST] : "+serveletCntrl.req.getServletPath() +"@"+ serveletCntrl.req.getParameter("action"));
 		mapPOST.get(
 				serveletCntrl.req.getServletPath() +
-				"@"+ serveletCntrl.req.getParameter("action") 
+				"@"+ serveletCntrl.req.getParameter("action")
 			).run();
 	}
 	

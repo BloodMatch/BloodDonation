@@ -146,7 +146,6 @@ public class Appointment extends Entity<Appointment, AppointmentDaoImp> implemen
 	public void setDonor(Donor donor) {
 		this.donor = donor;
 	}
-	
 
 	public Center getCenter(){
 		return center;
