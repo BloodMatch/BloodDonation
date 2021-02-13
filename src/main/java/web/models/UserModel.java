@@ -11,7 +11,6 @@ public class UserModel {
 	private String role = "";
 	private Boolean active = false;
 	
-	private Boolean error = false;
 	private String errorMsg = "";
 	
 	public UserModel() {
@@ -82,14 +81,6 @@ public class UserModel {
 	
 	public void setActive(Boolean active) {
 		this.active = active;
-	}
-
-	public Boolean getError() {
-		return error;
-	}
-
-	public void setError(Boolean error) {
-		this.error = error;
 	}
 
 	public String getErrorMsg() {

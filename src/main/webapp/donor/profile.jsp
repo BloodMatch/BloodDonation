@@ -13,14 +13,14 @@
                     <div class="bar"></div>
                     <div class="container">
                         <div class="row">
-                           <h2 class="">${user.firstName} ${user.lastName}</h2>
+                           <h2>${user.firstName} ${user.lastName}</h2>
                            <div class="row mt-4 text-center">
                                <div class="col-sm-8">
-                                    <h4 class="d-flex justify-content-between mb-5"> <i class="fas fa-id-card"></i> ${donor.cin } </h4>
-                                    <h4 class="d-flex justify-content-between mb-5"> <i class="fas fa-at"></i> ${user.email } </h4>
-                                    <h4 class="d-flex justify-content-between mb-5"> <i class="fas fa-phone-alt"></i> ${user.phone } </h4>
-                                    <h4 class="d-flex justify-content-between mb-5"> <i class="fas fa-calendar-day"></i> ${donor.birthDay } </h4>
-                                    <h4 class="d-flex justify-content-between mb-5"> <i class="fas fa-venus-mars"></i>
+                                    <h5 class="d-flex justify-content-between mb-5"> <i class="fas fa-id-card"></i> ${donor.cin } </h5>
+                                    <h5 class="d-flex justify-content-between mb-5"> <i class="fas fa-at"></i> ${user.email } </h5>
+                                    <h5 class="d-flex justify-content-between mb-5"> <i class="fas fa-phone-alt"></i> ${user.phone } </h5>
+                                    <h5 class="d-flex justify-content-between mb-5"> <i class="fas fa-calendar-day"></i> ${donor.birthDay } </h5>
+                                    <h5 class="d-flex justify-content-between mb-5"> <i class="fas fa-venus-mars"></i>
                                     	<c:choose>
 							        		<c:when test="${donor.gender == 'M' }">
 												Male
@@ -29,12 +29,26 @@
 												Female
 											</c:when>
 										</c:choose>
-                                    </h4>
-                                    <h4 class="d-flex justify-content-between mb-5"> <i class="fas fa-map-marker-alt"></i> ${donor.city } </h4>
-                                    <h4 class="d-flex justify-content-between mb-3"> <i class="fas fa-home"></i> ${donor.zipCode } </h4>
+                                    </h5>
+                                    <h5 class="d-flex justify-content-between mb-5"> <i class="fas fa-map-marker-alt"></i> ${donor.city } </h5>
+                                    <h5 class="d-flex justify-content-between mb-3"> <i class="fas fa-home"></i> ${donor.zipCode } </h5>
                                </div>
                                <div class="col-sm-4">
-                                   
+                                   <div class="row mb-5">
+                                   		 <h5>
+                                   		 	<i class="fas fa-tint text-danger"></i> ${donor.group }
+                                   		 </h5>
+                                   </div>
+                                   <div class="row mb-5 justify-content-end">
+                                   		<div class="col-10">
+	                                   		<a href="${rootUrl}/donor/profile/edit" class="btn btn-success"><i class="fas fa-edit"></i> Edit profile</a>                                   		
+                                   		</div>
+                                   </div>
+                                   <div class="row mb-5 justify-content-end">
+                                   		<div class="col-10">
+	                                   		<a href="${rootUrl}/donor/password" class="btn btn-primary"><i class="fas fa-key"></i> Change password</a>                                   		
+                                   		</div>
+                                   </div>
                                </div>
                            </div>
                         </div>

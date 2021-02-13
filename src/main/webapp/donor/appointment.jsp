@@ -72,7 +72,7 @@
 		                                    <input class="form-control form-control-lg" name="centerId" id="centerId" type="hidden">
 		                                </div>
 		                                 <div class="form-group">
-		                                    <input class="form-control form-control-lg" name="donationDate" value="${appoint.dateFiltredInput }"  type="hidden">
+		                                    <input class="form-control form-control-lg" name="donationDate" value="${appoint.dateFiltredInput}"  type="hidden">
 		                                </div>
 		                            </div>
 		                        </div>
@@ -80,78 +80,40 @@
                     	</div>
                     </div>
                     <div class="container mb-5" id="schedule">
-                    	<c:choose>
-			        		<c:when test="${ appoint.availableCenters.size() != 0 }">
-								<c:forEach items="${appoint.availableCenters}" var="center">
-		                    		 <div class="card mb-3" id="${center.id}">
-			                            <div class="card-body">
-			                                <div class="d-flex justify-content-between">
-			                                    <h4>${center.name}</h4>
-			                                    <button class="btn appointement-btn submitSchedule">Schedule now</button>
-			                                </div>
-			                                <div class="my-3">
-			                                    <p class="lead"> ${center.address }</p>
-			                                    <div class="row justify-content-between">
-			                                    	<div class="col-4"><i class="fas fa-phone-alt"></i> ${center.email }</div>
-			                                    	<div class="col-4"><i class="fas fa-at"></i> ${center.phone1 }</div>
-			                                    	<div class="col-4"><i class="fas fa-at"></i> ${center.phone2 }</div>
-			                                    </div>
-			                                </div>
-			                                <hr>
-			                                <p class="blood-color"> ${appoint.dateFiltredInput } | 09:00 PM - 12:00 PM  and 14:00 PM - 17:00 PM</p>
-			                            </div>
-			                        </div>
-		                    	</c:forEach>
-							</c:when>
-							<c:otherwise>
-								<div class="alert alert-danger mt-5" role="alert">
-								   No Appointments are Available, Please choose an other Date !
-								</div>
-							</c:otherwise>
-						</c:choose>
+		        		<c:if test="${not empty appoint.availableCenters}">
+							<c:forEach items="${appoint.availableCenters}" var="center">
+	                    		 <div class="card mb-3" id="${center.id}">
+		                            <div class="card-body">
+		                                <div class="d-flex justify-content-between">
+		                                    <h4>${center.name}</h4>
+		                                    <button class="btn appointement-btn submitSchedule">Schedule now</button>
+		                                </div>
+		                                <div class="my-3">
+		                                    <p class="lead"> ${center.address }</p>
+		                                    <div class="row justify-content-between">
+		                                    	<div class="col-4"><i class="fas fa-phone-alt"></i> ${center.email }</div>
+		                                    	<div class="col-4"><i class="fas fa-at"></i> ${center.phone1 }</div>
+		                                    	<div class="col-4"><i class="fas fa-at"></i> ${center.phone2 }</div>
+		                                    </div>
+		                                </div>
+		                                <hr>
+		                                <p class="blood-color"> ${appoint.dateFiltredInput } | 09:00 PM - 12:00 PM  and 14:00 PM - 17:00 PM</p>
+		                            </div>
+		                        </div>
+	                    	</c:forEach>
+						</c:if>
+                    	<c:if test="${empty appoint.availableCenters }">
+							<div class="alert alert-danger mt-5" role="alert">
+							   No Appointments are Available, Please choose an other Date !
+							</div>
+						</c:if>
                     	
                     </div>
                 </div>
             </div>
         </div>
     </section>
-     <script>
-      	const radioDate = document.getElementById('radioBox');
-      	const dateRadioBox = document.getElementById('dateRadioBox');
-      	const input = document.getElementById('donationDate');
-      	
-     	// container
-      	const schedule = document.getElementById('schedule');
-      	// form
-      	const form = document.getElementById('scheduleForm');
-      	const center = document.getElementById('centerId');
-      	
-      	input.addEventListener('change', function(){
-      		form.elements[2].value = input.value;
-      	})
-      	
-    	// disable enable input date if checked
-      	radioDate.addEventListener('click', function(e){
-      		if(e.target.getAttribute('name') === 'option'){
-      			if(dateRadioBox.checked){
-      				input.removeAttribute('disabled');
-          		}else{
-          			form.elements[2].value = "";
-          			input.setAttribute('disabled', true);
-          		}
-      		}
-      	});
-      	
-      	
-      	schedule.addEventListener('click', function(e){
-      		if(e.target.classList.contains("submitSchedule")){
-      			center.value = e.target.parentElement.parentElement.parentElement.id;
-      			form.submit();
-      		}
-      	})
-      	
-      	
-      </script>
+     <script type="text/javascript" src="${rootUrl}/scripts/schedule.js" defer></script>
 </c:set>
 
 <%@ include file="../layouts/app.view.jsp" %>

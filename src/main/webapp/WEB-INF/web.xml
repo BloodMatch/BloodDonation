@@ -78,6 +78,8 @@
   	<url-pattern>/donor/home</url-pattern>
   	<url-pattern>/donor/menu</url-pattern>
   	<url-pattern>/donor/profile</url-pattern>
+  	<url-pattern>/donor/profile/edit</url-pattern>
+  	<url-pattern>/donor/password</url-pattern>
   	<url-pattern>/donor/logout</url-pattern>
   </servlet-mapping>
   

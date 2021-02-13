@@ -84,8 +84,7 @@ public class UserController extends HttpServlet {
 				
 				response.sendRedirect(request.getContextPath()+"/"+user.getRole()+"/home");
 			}else {
-				// Alert msg case it faild
-				userMod.setError(true);
+				// Alert message case it failed
 				userMod.setErrorMsg("<strong>Incorrect password or email</strong> please try again !");
 				request.setAttribute("user", userMod);
 				request.getRequestDispatcher("login.jsp").forward(request,  response);
@@ -107,8 +106,8 @@ public class UserController extends HttpServlet {
 			}else {
 				userMod.setRemail("");
 				userMod.setRpassword("");
-				userMod.setError(true);
 				userMod.setErrorMsg("<strong>This email already used</strong> please enter another email !");
+				
 				request.setAttribute("user", userMod);
 				request.getRequestDispatcher("register.jsp").forward(request,  response);
 			}
@@ -138,23 +137,28 @@ public class UserController extends HttpServlet {
 						userMod.getRgroup(), userMod.getRcity(),
 						userMod.getRzipCode(), image
 				);
-				
-				Donor newDonor = donorDao.insert(donor);
-				if(newDonor != null) {
+				try {
 					
+					Donor newDonor = donorDao.insert(donor);
 					session.setAttribute("registerUser", null);
-					System.out.println("Donor added successfully !");
-					response.sendRedirect(contextPath.concat("/login"));
+					request.setAttribute("email", newDonor.getEmail());
+					response.sendRedirect(contextPath.concat("/login"));		
 					
-				}else{
+				}catch(Exception e) {
+					userMod.setErrorMsg("<strong>Phone or Cin alredy exits</strong> please check that you are entring the right informations !");
+					request.setAttribute("user", userMod);
 					
-					System.out.println("Donor faild !");
+					request.getRequestDispatcher("register2.jsp").forward(request, response);
 					
 				}
-					
-			}else{
-				response.sendRedirect(contextPath.concat("/register"));
-			}		
+			}else {
+				userMod = new UserRegisterModel();
+				userMod.setErrorMsg("<strong>Error occurred </strong> please try again later !");
+				System.out.println(userMod.getErrorMsg());
+				request.setAttribute("user", userMod);
+				
+				request.getRequestDispatcher("register.jsp").forward(request, response);
+			}
 		}
 	}
 }

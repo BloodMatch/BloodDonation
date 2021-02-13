@@ -21,6 +21,12 @@
                 <div class="text-muted font-weight-lighter">For the purpose of industry regulation, your details are required.</div>
             </div>
             <hr/>
+            
+            <c:if test="${not empty user.errorMsg}"> 
+              	<div id="alertMsg" class="alert alert-danger alert-dismissible fade show" role="alert">
+				  	${user.errorMsg}
+				</div>                	
+            </c:if>
             <form action="${rootUrl}/register2" method="POST">
                  <div class="row my-5">
                     <div class="col-sm-12 col-md-6">

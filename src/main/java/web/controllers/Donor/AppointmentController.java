@@ -169,7 +169,7 @@ public class AppointmentController extends HttpServlet {
 			Long appointId = Long.parseLong(request.getParameter("id"));
 			String comment = request.getParameter("comment");
 			Integer rating = Integer.parseInt(request.getParameter("rating"));
-			System.out.println(rating);
+
 			Appointment appoint = Appointment.find(appointId);
 			appoint.setComment(comment);
 			appoint.setSatisfaction(rating);

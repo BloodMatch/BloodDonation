@@ -12,7 +12,6 @@ import dao.entities.Appointment;
 import dao.entities.Center;
 import dao.entities.Donor;
 import dao.entities.User;
-import dao.implementation.UserDaoImp;
 import web.models.CenterModel;
 import web.models.DonorModel;
 import web.models.UserModel;
@@ -21,39 +20,29 @@ import web.models.Donor.AppointmentModel;
 
 public class DonorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserDaoImp userDao;
 	private User Auth;
+	private Donor donor;
 
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		userDao = new UserDaoImp();
-		
 	}
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String contextPath = request.getContextPath();
 		String reqURI = request.getRequestURI();
-		HttpSession session = request.getSession();
-		Auth = (User)session.getAttribute("isLoged");
 		
-		Donor donor = Auth.donor();
+		// Model needed
+		AppointmentModel appointMod = new AppointmentModel();
+		CenterModel centerMod = new CenterModel();
 		
-		UserModel userMod = new UserModel(
-				Auth.getId(), Auth.getEmail(), Auth.getFirstName(),
-				Auth.getLastName(), Auth.getPhone(), Auth.getRole(), Auth.getActive()
-			);
+		// User date
+		this.setAuth(request);
+		request.setAttribute("donor", this.getDonorModel());
+		request.setAttribute("user",this.getUserModel());
 		
-		DonorModel donorMod = new DonorModel(
-					donor.getDonorId(), donor.getCin(), donor.getBirthDay(),
-					donor.getGender(), donor.getGroup(), donor.getCity(),
-					donor.getZipCode(), donor.getImage()
-				);
-		
-		request.setAttribute("donor", donorMod);
-		request.setAttribute("user",userMod);
 		
 		if(contextPath.concat("/donor/home").equals(reqURI)) {
 			request.getRequestDispatcher("home.jsp").forward(request, response);			
@@ -63,13 +52,18 @@ public class DonorController extends HttpServlet {
 			request.getRequestDispatcher("profile.jsp").forward(request, response);
 		}
 		
+		if(contextPath.concat("/donor/profile/edit").equals(reqURI)) {
+			request.getRequestDispatcher("../edit-profile.jsp").forward(request, response);;
+		}
+		
+		if(contextPath.concat("/donor/password").equals(reqURI)) {
+			request.getRequestDispatcher("edit-password.jsp").forward(request, response);;
+		}
+		
 		if(contextPath.concat("/donor/menu").equals(reqURI)) {
-			// Model needed
-			AppointmentModel appointMod = new AppointmentModel();
-			CenterModel centerMod = new CenterModel();
 			
 			Appointment ap = Appointment.lastDonation(donor.getDonorId());
-			System.out.println(ap);
+			
 			if(ap != null) {
 				Center center  = Center.find(ap.getCenterId());
 				appointMod.clone(ap);
@@ -86,15 +80,63 @@ public class DonorController extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getContextPath().concat("/donor/logout").equals(request.getRequestURI())) {
+		String contextPath = request.getContextPath();
+		String reqURI = request.getRequestURI();
+		
+		// User Data
+		this.setAuth(request);
+		
+		// Models
+		UserModel userMod = new UserModel();
+		
+		//POST edit profile
+		if(contextPath.concat("/donor/profile/edit").equals(reqURI)) {
+			request.getParameter("firstName");
+			request.getParameter("lastName");
+			request.getParameter("email");
+			request.getParameter("phone");
+			request.getParameter("birthday");
+			request.getParameter("city");
+			request.getParameter("zipCode");
+			
+			try {
+				
+			}catch(Exception e) {
+				
+			}
+		}
+		
+		// POST logout 
+		if(contextPath.concat("/donor/logout").equals(reqURI)) {
 			HttpSession session = request.getSession();
-			UserModel userMod = new UserModel();
-			User user = (User)session.getAttribute("isLoged");
 			session.setAttribute("isLoged", null);
-			userMod.setEmail(user.getEmail());
+			userMod.setEmail(Auth.getEmail());
+			
 			request.setAttribute("user", userMod);
+			
 			response.sendRedirect(request.getContextPath()+"/login");
 		}
+	}
+	
+	private void setAuth(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Auth = (User)session.getAttribute("isLoged");
+		donor = Auth.donor();
+	}
+	
+	private UserModel getUserModel() {
+		return new UserModel(
+				Auth.getId(), Auth.getEmail(), Auth.getFirstName(),
+				Auth.getLastName(), Auth.getPhone(), Auth.getRole(), Auth.getActive()
+			);
+	}
+	
+	private DonorModel getDonorModel() {
+		return new DonorModel(
+				donor.getDonorId(), donor.getCin(), donor.getBirthDay(),
+				donor.getGender(), donor.getGroup(), donor.getCity(),
+				donor.getZipCode(), donor.getImage()
+			);
 	}
 
 }
