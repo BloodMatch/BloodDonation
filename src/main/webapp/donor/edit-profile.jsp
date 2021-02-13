@@ -23,7 +23,7 @@
                         <div class="row mt-5">
                             <div class="col-md-4 col-sm-6">
                                  <div class="form-group">
-									<label for="cin"><i class="fas fa-id-card"></i> Cin <sapn class="text-danger">*</sapn></label>
+									<label for="cin"><i class="fas fa-id-card"></i> Cin </label>
 									<input class="form-control" placeholder="${donor.cin}" disabled/>
                                  </div>
                             </div>
@@ -43,7 +43,7 @@
                         <div class="row mt-5">
                             <div class="col-md-4 col-sm-6">
                                  <div class="form-group">
-									<label for="group"><i class="fas fa-tint text-danger"></i> Blood Type <sapn class="text-danger">*</sapn></label>
+									<label for="group"><i class="fas fa-tint text-danger"></i> Blood Type </label>
 									<input class="form-control" placeholder="${donor.group}" disabled/>
                                  </div>
                             </div>
@@ -60,7 +60,7 @@
                                  </div>
                             </div>
                         </div>
-                         <div class="row mt-5">
+                        <div class="row mt-5">
                             <div class="col-md-4 col-sm-6">
                                  <div class="form-group">
 									<label for="birthday"><i class="fas fa-calendar-day"></i> Birthday <sapn class="text-danger">*</sapn></label>
@@ -79,6 +79,15 @@
 									<input class="form-control" id="zipCode" name="zipCode" value="${donor.zipCode}" type="number" required/>
                                  </div>
                             </div>
+                        </div>
+                        <hr>
+                         <div class="row justify-content-between">
+                         	<div class="col-md-2 col-sm-6 text-center">
+                                 <a href="${rootUrl}/donor/profile" class="btn btn-light">Cancel</a>
+                            </div>
+                             <div class="col-md-2 col-sm-6 text-center">
+								<input class="btn btn-success" value="Save" type="submit"/>
+                            </div>                            
                         </div>
                         </form>
                     </div>

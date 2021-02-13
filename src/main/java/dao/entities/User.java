@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import business.Hash;
 import dao.implementation.DonorDaoImp;
+import dao.implementation.UserDaoImp;
+import dao.interfaces.IDonorDao;
+import dao.interfaces.IUserDao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +24,10 @@ public class User implements Serializable{
 	protected String phone;
 	protected Boolean active;
 	protected String role;
+	
+	//DAOS
+	private static IUserDao userDao = new UserDaoImp();
+	private static IDonorDao donorDao = new DonorDaoImp();
 	
 	public User() {
 		super();
@@ -138,13 +145,12 @@ public class User implements Serializable{
 	public void setRole(String role) {
 		this.role = role;
 	}
-
-	@Override
-	public String toString() {
-		return String.format(
-			"User [ id=%d, firstName=%s, lastName=%s, email=%s, passwd=%s, phone=%s, active=%s, role=%s ]",
-			 id, firstName, lastName, email, passwd, phone, active, role
-		);
+	
+	/*
+	 * Business
+	 * */
+	public static User update(User user) {
+		return userDao.update(user);
 	}
 	
 	/*
@@ -152,7 +158,7 @@ public class User implements Serializable{
 	 * 
 	 */
 	public Donor donor() {
-		return (new DonorDaoImp()).find(this);
+		return donorDao.find(this);
 	}
 	
 }

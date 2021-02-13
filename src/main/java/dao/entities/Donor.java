@@ -9,8 +9,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import dao.implementation.AppointmentDaoImp;
+import dao.implementation.DonorDaoImp;
 import dao.implementation.UserDaoImp;
 import dao.interfaces.IAppointmentDao;
+import dao.interfaces.IDonorDao;
 import dao.interfaces.IUserDao; 
 
 
@@ -30,6 +32,7 @@ public class Donor extends User implements Serializable{
 
 	//Dao
 	private static IUserDao userDao = new UserDaoImp();
+	private static IDonorDao donorDao = new DonorDaoImp();
 	private static IAppointmentDao appointDao = new AppointmentDaoImp();
 	
 	public Donor() {
@@ -164,6 +167,23 @@ public class Donor extends User implements Serializable{
 	public void setAppointments(List<Appointment> appointments) {
 		this.appointments = appointments;
 	}
+	
+	/*
+	 * Business
+	 */
+	
+	public Donor save() {
+		try {
+			return donorDao.insert(this);			
+		}catch(Exception e) {
+			return null;
+		}
+	}
+	
+	public static Donor update(Donor donor) {
+		return donorDao.update(donor);
+	}
+	
 
 	/**
 	 * RelationShips

@@ -1,7 +1,8 @@
 package web.models;
 
+import dao.entities.User;
 
-public class UserModel {
+public class UserModel implements Model<User>{
 	
 	private Long id;
 	private String email = "";
@@ -27,6 +28,16 @@ public class UserModel {
 		this.phone = phone;
 		this.role = role;
 		this.active = active;
+	}
+	
+	public void clone(User user) {
+		this.id = user.getId();
+		this.email = user.getEmail();
+		this.firstName = user.getFirstName();
+		this.lastName = user.getLastName();
+		this.phone = user.getPhone();
+		this.role = user.getRole();
+		this.active = user.getActive();
 	}
 
 	public Long getId() {

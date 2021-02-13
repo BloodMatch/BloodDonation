@@ -190,17 +190,14 @@ public class AppointmentController extends HttpServlet {
 	}
 	
 	private UserModel getUserModel() {
-		return new UserModel(
-				Auth.getId(), Auth.getEmail(), Auth.getFirstName(),
-				Auth.getLastName(), Auth.getPhone(), Auth.getRole(), Auth.getActive()
-			);
+		UserModel userMod = new UserModel();
+		userMod.clone(Auth);
+		return userMod;
 	}
 	
 	private DonorModel getDonorModel() {
-		return new DonorModel(
-				donor.getDonorId(), donor.getCin(), donor.getBirthDay(),
-				donor.getGender(), donor.getGroup(), donor.getCity(),
-				donor.getZipCode(), donor.getImage()
-			);
+		DonorModel donorMod = new DonorModel();
+		donorMod.clone(donor);
+		return donorMod;
 	}
 }

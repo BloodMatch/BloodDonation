@@ -52,7 +52,7 @@
 			</a>
 			<div class="dropdown-menu dropdown-menu-left dropdown-nav-donor" aria-labelledby="profileNav">
 			  <a class="dropdown-item" href="${rootUrl}/donor/profile"><i class="far fa-user"></i> Profile</a>
-			  <a class="dropdown-item" href="#"><i class="fas fa-user-edit"></i> Edit Profile</a>
+			  <a class="dropdown-item" href="${rootUrl}/donor/profile/edit"><i class="fas fa-user-edit"></i> Edit Profile</a>
 			  <a class="dropdown-item" href="#"><i class="fas fa-lock"></i> Change Password</a>
 			  <div class="dropdown-divider"></div>
 			  <%@ include file="../logout.jsp"%>

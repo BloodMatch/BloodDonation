@@ -91,18 +91,34 @@ public class DonorController extends HttpServlet {
 		
 		//POST edit profile
 		if(contextPath.concat("/donor/profile/edit").equals(reqURI)) {
-			request.getParameter("firstName");
-			request.getParameter("lastName");
-			request.getParameter("email");
-			request.getParameter("phone");
-			request.getParameter("birthday");
-			request.getParameter("city");
-			request.getParameter("zipCode");
+			// Parameters
+			Auth.setFirstName(request.getParameter("firstName"));
+			Auth.setLastName(request.getParameter("lastName"));
+			Auth.setEmail(request.getParameter("email"));
+			Auth.setPhone(request.getParameter("phone"));
+			
+			donor.setCity(request.getParameter("city"));
+			donor.setBirthDay(request.getParameter("birthday"));
+			donor.setZipCode(Long.parseLong(request.getParameter("zipCode")));
 			
 			try {
+				Auth = User.update(Auth);
+				donor = Donor.update(donor);
 				
+				request.setAttribute("donor", this.getDonorModel());
+				request.setAttribute("user",this.getUserModel());
+				
+				response.sendRedirect(contextPath.concat("/donor/profile"));
 			}catch(Exception e) {
+				this.setAuth(request);
 				
+				userMod = this.getUserModel();
+				userMod.setErrorMsg("<strong>Phone alredy exits</strong> please enter an other phone !");
+				
+				request.setAttribute("donor", this.getDonorModel());
+				request.setAttribute("user", userMod);
+				
+				request.getRequestDispatcher("../edit-profile.jsp").forward(request, response);
 			}
 		}
 		
@@ -125,18 +141,15 @@ public class DonorController extends HttpServlet {
 	}
 	
 	private UserModel getUserModel() {
-		return new UserModel(
-				Auth.getId(), Auth.getEmail(), Auth.getFirstName(),
-				Auth.getLastName(), Auth.getPhone(), Auth.getRole(), Auth.getActive()
-			);
+		UserModel userMod = new UserModel();
+		userMod.clone(Auth);
+		return userMod;
 	}
 	
 	private DonorModel getDonorModel() {
-		return new DonorModel(
-				donor.getDonorId(), donor.getCin(), donor.getBirthDay(),
-				donor.getGender(), donor.getGroup(), donor.getCity(),
-				donor.getZipCode(), donor.getImage()
-			);
+		DonorModel donorMod = new DonorModel();
+		donorMod.clone(donor);
+		return donorMod;
 	}
 
 }
