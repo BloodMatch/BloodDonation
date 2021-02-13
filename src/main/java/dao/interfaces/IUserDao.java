@@ -45,4 +45,9 @@ public interface IUserDao extends IAuth {
 	
 	public User find(Donor donor);
 	
+	/*
+	 * Business 
+	 */
+	public User changePassword(User user, String password);
+	
 }

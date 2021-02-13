@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import business.Hash;
 import dao.entities.Appointment;
 import dao.entities.Center;
 import dao.entities.Donor;
@@ -131,6 +132,29 @@ public class DonorController extends HttpServlet {
 			request.setAttribute("user", userMod);
 			
 			response.sendRedirect(request.getContextPath()+"/login");
+		}
+		
+		// POST change password
+		if(contextPath.concat("/donor/password").equals(reqURI)) {
+			//Parameters
+			String currentPasswd = Hash.makeHash(request.getParameter("password"));
+			String newPasswd = request.getParameter("newPassword");
+			
+			if(currentPasswd.equals(Auth.getPasswd())) {
+				try {
+					Auth.changePassword(newPasswd);
+					response.sendRedirect(contextPath.concat("/donor/profile"));
+				}catch(Exception e) {
+					userMod.setErrorMsg("<strong>Error occurred </strong> please try again later !");
+					request.setAttribute("user", userMod);
+					
+					request.getRequestDispatcher(contextPath.concat("edit-password.jsp")).forward(request, response);
+				}
+			}else{
+				userMod.setErrorMsg("<strong> Incorrect Password !</strong>");
+				request.setAttribute("user", userMod);
+				request.getRequestDispatcher("edit-password.jsp").forward(request, response);;
+			}
 		}
 	}
 	

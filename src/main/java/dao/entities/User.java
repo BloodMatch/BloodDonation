@@ -149,6 +149,10 @@ public class User implements Serializable{
 	/*
 	 * Business
 	 * */
+	public User changePassword(String newPassword) {
+		return userDao.changePassword(this, Hash.makeHash(newPassword));
+	}
+	
 	public static User update(User user) {
 		return userDao.update(user);
 	}
@@ -160,5 +164,13 @@ public class User implements Serializable{
 	public Donor donor() {
 		return donorDao.find(this);
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", passwd=" + passwd + ", phone=" + phone + ", active=" + active + ", role=" + role + "]";
+	}
+	
+	
 	
 }
