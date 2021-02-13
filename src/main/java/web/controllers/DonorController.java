@@ -8,11 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.entities.Appointment;
+import dao.entities.Center;
 import dao.entities.Donor;
 import dao.entities.User;
 import dao.implementation.UserDaoImp;
+import web.models.CenterModel;
 import web.models.DonorModel;
 import web.models.UserModel;
+import web.models.Donor.AppointmentModel;
 
 
 public class DonorController extends HttpServlet {
@@ -60,7 +64,23 @@ public class DonorController extends HttpServlet {
 		}
 		
 		if(contextPath.concat("/donor/menu").equals(reqURI)) {
-			request.getRequestDispatcher("menu.jsp").forward(request, response);			
+			// Model needed
+			AppointmentModel appointMod = new AppointmentModel();
+			CenterModel centerMod = new CenterModel();
+			
+			Appointment ap = Appointment.lastDonation(donor.getDonorId());
+			System.out.println(ap);
+			if(ap != null) {
+				Center center  = Center.find(ap.getCenterId());
+				appointMod.clone(ap);
+				centerMod.clone(center);
+				
+				request.setAttribute("center", centerMod);
+				request.setAttribute("appoint", appointMod);
+			}
+				
+				
+			request.getRequestDispatcher("menu.jsp").forward(request, response);
 		}
 	}
 

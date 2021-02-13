@@ -2,7 +2,7 @@ package web.models;
 
 import dao.entities.Center;
 
-public class CenterModel {
+public class CenterModel implements Model<Center>{
 	private long id;
 	private String code;
 	private String name;
@@ -29,6 +29,18 @@ public class CenterModel {
 		this.city = city;
 		this.address = address;
 		ZIPCode = zIPCode;
+	}
+	
+	public void clone(Center center) {
+		this.id = center.getId();
+		this.code = center.getCode();
+		this.name = center.getName();
+		this.email = center.getEmail();
+		this.phone1 = center.getPhone1();
+		this.phone2 = center.getPhone2();
+		this.city = center.getCity();
+		this.address = center.getAddress();
+		this.ZIPCode = center.getZIPCode();
 	}
 	
 	public CenterModel(Center center) {

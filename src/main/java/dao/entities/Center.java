@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import dao.implementation.CenterDaoImp;
+import dao.interfaces.ICenterDao;
 
 public class Center implements Serializable{
 	
@@ -24,6 +25,11 @@ public class Center implements Serializable{
 	protected List<Appointment> appointments;
 	protected List<AdminCenter> adminCenters;
 	protected List<Stock> stocks;
+	
+	/*
+	 * Daos
+	 * */
+	private static ICenterDao centerDao = new CenterDaoImp();
 	
 	public Center() {
 		super();
@@ -180,15 +186,15 @@ public class Center implements Serializable{
 		this.stocks = stocks;
 	}
 	
-	@Override
-	public String toString() {
-		return String.format(
-				"Center [ id=%d, code=%s, name=%s, email=%s, phone1=%s, phone2=%s, city=%s, address=%s, ZIPCode=%d ]",
-				id, code, name, email, phone1, phone2, city, address, ZIPCode
-			);
-	}
+	/*
+	 * Business
+	 * */
 	
 	public static List<String> getOtherCities(String city){
-		return (new CenterDaoImp()).getOtherCities(city);
+		return centerDao.getOtherCities(city);
+	}
+	
+	public static Center find(Long centerId) {
+		return centerDao.find(centerId);
 	}
 }

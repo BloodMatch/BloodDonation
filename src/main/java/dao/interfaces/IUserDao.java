@@ -43,4 +43,6 @@ public interface IUserDao extends IAuth {
 	 */
 	public Boolean delete(long id);
 	
+	public User find(Donor donor);
+	
 }

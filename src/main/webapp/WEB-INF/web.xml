@@ -17,7 +17,7 @@
    <filter-mapping>
   	<filter-name>AuthGuard</filter-name>
   	<servlet-name>DonorController</servlet-name>
-  	<servlet-name>AppointmentController</servlet-name>
+  	<servlet-name>DonorAppointmentController</servlet-name>
   </filter-mapping>
   
   <filter>
@@ -82,28 +82,19 @@
   </servlet-mapping>
   
    <servlet>
-  	<display-name>AppointmentController</display-name>
-  	<servlet-name>AppointmentController</servlet-name>
-  	<servlet-class>web.controllers.AppointmentController</servlet-class>
+  	<display-name>DonorAppointmentController</display-name>
+  	<servlet-name>DonorAppointmentController</servlet-name>
+  	<servlet-class>web.controllers.Donor.AppointmentController</servlet-class>
   </servlet>
   
    <servlet-mapping>
-   	<servlet-name>AppointmentController</servlet-name>
+   	<servlet-name>DonorAppointmentController</servlet-name>
    	<url-pattern>/donor/schedule/cancal</url-pattern>
    	<url-pattern>/donor/schedule/save</url-pattern>
    	<url-pattern>/donor/schedule</url-pattern>
    	<url-pattern>/donor/manage</url-pattern>
+   	<url-pattern>/donor/history</url-pattern>
+   	<url-pattern>/donor/feedBack</url-pattern>
    </servlet-mapping>
-  
-  <servlet>
-  	<display-name>NotFoundController</display-name>
-  	<servlet-name>NotFoundController</servlet-name>
-  	<servlet-class>web.controllers.NotFoundController</servlet-class>
-  </servlet>
-  
-   <servlet-mapping>
-  	<servlet-name>NotFoundController</servlet-name>
-  	<url-pattern>/not</url-pattern>
-  </servlet-mapping>
-  
+
 </web-app>

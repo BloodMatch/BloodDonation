@@ -29,13 +29,13 @@
 	                            </div>
                                 <div class="form-group">
                                     <label for="donationDate">Date</label>
-                                    <input type="date" class="form-control" id="donationDate" name="donationDate" value="${appoint.dateFiltred}" disabled>
+                                    <input type="date" class="form-control" id="donationDate" name="donationDate" value="${appoint.dateFiltredInput}" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="city">City</label>
                                     <select class="form-control form-control-lg" name="city" id="city">
                                         <option value="${donor.city}" selected>${donor.city}</option>
-                                        <c:forEach items="${appoint.cities}" var="city">
+                                        <c:forEach items="${appoint.citiesInput}" var="city">
                                         	<option value="${city}">${city}</option>
                                         </c:forEach>
                                     </select> 
@@ -47,7 +47,7 @@
                                 <button class="btn appointement-btn btn-lg" type="submit">Refine Results</button>
                             </div>
                             <div class="col-sm-6">
-                                <button class="btn appointement-btn btn-lg" id="clearForm">Reset Filters</button>
+                                <a href="${rootUrl}/donor/schedule" class="btn appointement-btn btn-lg" id="clearForm">Reset Filters</a>
                             </div>
                         </div>
                     </form>
@@ -72,7 +72,7 @@
 		                                    <input class="form-control form-control-lg" name="centerId" id="centerId" type="hidden">
 		                                </div>
 		                                 <div class="form-group">
-		                                    <input class="form-control form-control-lg" name="donationDate" value="${appoint.dateFiltred }"  type="hidden">
+		                                    <input class="form-control form-control-lg" name="donationDate" value="${appoint.dateFiltredInput }"  type="hidden">
 		                                </div>
 		                            </div>
 		                        </div>
@@ -98,7 +98,7 @@
 			                                    </div>
 			                                </div>
 			                                <hr>
-			                                <p class="blood-color"> ${appoint.dateFiltred } | 09:00 PM - 12:00 PM  and 14:00 PM - 17:00 PM</p>
+			                                <p class="blood-color"> ${appoint.dateFiltredInput } | 09:00 PM - 12:00 PM  and 14:00 PM - 17:00 PM</p>
 			                            </div>
 			                        </div>
 		                    	</c:forEach>

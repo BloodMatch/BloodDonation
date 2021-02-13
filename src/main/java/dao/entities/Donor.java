@@ -3,12 +3,15 @@ package dao.entities;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import dao.implementation.AppointmentDaoImp;
-import dao.implementation.UserDaoImp; 
+import dao.implementation.UserDaoImp;
+import dao.interfaces.IAppointmentDao;
+import dao.interfaces.IUserDao; 
 
 
 public class Donor extends User implements Serializable{
@@ -21,6 +24,13 @@ public class Donor extends User implements Serializable{
 	protected String city;
 	protected long zipCode;
 	protected String image;
+	
+	//Associations
+	private List<Appointment> appointments = new ArrayList<Appointment>();
+
+	//Dao
+	private static IUserDao userDao = new UserDaoImp();
+	private static IAppointmentDao appointDao = new AppointmentDaoImp();
 	
 	public Donor() {
 		super();
@@ -147,26 +157,25 @@ public class Donor extends User implements Serializable{
 		this.zipCode = zipCode;
 	}
 	
-	/*public void setCenters(List<Center> centers) {
-		this.centers= centers;
-	}*/
-
-	@Override
-	public String toString() {
-		return "Donor [donorId=" + donorId + ", cin=" + cin + ", birthDay=" + birthDay + ", gender=" + gender
-				+ ", group=" + group + ", city=" + city + ", zipCode=" + zipCode + ", image=" + image + "]";
+	public List<Appointment> getAppointments() {
+		return appointments;
 	}
-	
+
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
+	}
+
 	/**
 	 * RelationShips
 	 *
 	 */
 	public User user() {
-		return (new UserDaoImp()).find(this);
+		return userDao.find(this);
 	}
 	
 	public List<Appointment>appointments(){
-		return (new AppointmentDaoImp()).find(this);
+		this.appointments = appointDao.find(this);
+		return this.appointments;
 	}
 	
 }

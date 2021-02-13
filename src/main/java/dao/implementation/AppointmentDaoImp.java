@@ -19,7 +19,7 @@ import dao.interfaces.IAppointmentDao;
 public class AppointmentDaoImp implements IAppointmentDao{
 	private final static Connection connection = DbConnection.getConnection();
 
-	public Appointment insert(Appointment appointment) {
+	public  Appointment insert(Appointment appointment) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
 					("INSERT INTO APPOINTMENT ( DONATIONTYPE, `TIME`, DONORID, CENTERID) VALUES (?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
@@ -83,7 +83,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 			ps.setString(1, appointment.getState());
 			ps.setString(2, appointment.getDonationType());
 			ps.setString(3, appointment.getTime());
-			ps.setLong(4, appointment.getSatisfaction());
+			ps.setInt(4, appointment.getSatisfaction());
 			ps.setString(5, appointment.getComment());
 			ps.setLong(6, appointment.getId());
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
@@ -115,19 +115,19 @@ public class AppointmentDaoImp implements IAppointmentDao{
 	 * cancel appointment
 	 * 
 	 * */
-	public Appointment cancelAppoint(Appointment appointment) {
+	public Boolean cancelAppoint(Long appointmentId) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("UPDATE APPOINTMENT SET STATE = 'canceled' WHERE id=?");
-			ps.setLong(1, appointment.getId());
+					("UPDATE APPOINTMENT SET STATE = 'Canceled' WHERE id=?");
+			ps.setLong(1, appointmentId);
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
-				return appointment;
+				return true;
 			}
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return false;
 	}
 	
 	/*
@@ -136,17 +136,33 @@ public class AppointmentDaoImp implements IAppointmentDao{
 	public Appointment lastAppointment(Long donorId) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT id, state, donationType, Date(time), centerId, donorId FROM appointment WHERE donorId = ? AND state='Proposed' AND `time` >= CURRENT_TIMESTAMP() ORDER BY `time` LIMIT 1");
+					("SELECT * FROM appointment WHERE donorId = ? AND state='Proposed' AND `time` >= CURRENT_TIMESTAMP() ORDER BY `time` desc LIMIT 1");
 			ps.setLong(1, donorId);
 			ResultSet rs = ps.executeQuery() ;
 			if(rs.next()){ // 1 : one row affected
 				Appointment appoint = new Appointment();
-				appoint.setId(rs.getLong("id"));
-				appoint.setState(rs.getString("state"));
-				appoint.setDonationType(rs.getString("donationType"));
-				appoint.setTime(rs.getString(4));
-				appoint.setCenterId(rs.getLong("centerId"));
-				appoint.setDonorId(rs.getLong("donorId"));
+				appoint.setThis(rs);
+				return appoint;
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/*
+	 * Last donation 
+	 * */
+	public Appointment lastDonation(Long donorId) {
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("SELECT * FROM appointment WHERE donorId = ? AND state='Fullfilled' ORDER BY `time` desc LIMIT 1");
+			ps.setLong(1, donorId);
+			ResultSet rs = ps.executeQuery() ;
+			if(rs.next()){ // 1 : one row affected
+				Appointment appoint = new Appointment();
+				appoint.setThis(rs);
 				return appoint;
 			}
 			ps.close();
@@ -195,7 +211,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 		List<Appointment> appointments = new ArrayList<Appointment>();
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT * FROM APPOINTMENT where DonorId=?");
+					("SELECT * FROM APPOINTMENT where DonorId=? ORDER BY time desc");
 			ps.setLong(1, donor.getDonorId());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
