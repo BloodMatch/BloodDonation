@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import dao.entities.User;
 import dao.implementation.UserDaoImp;
 import dao.interfaces.IUserDao;
+import web.http.ServletController;
 import web.models.UserModel;
 
 @WebServlet(urlPatterns = { "/login", "/logout"})

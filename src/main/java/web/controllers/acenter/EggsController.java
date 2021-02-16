@@ -3,13 +3,12 @@ package web.controllers.acenter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
-import web.controllers.ServletController;
+import web.http.ServletController;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/center/eggs/*"})
 public class EggsController extends ServletController {
 	
-	//AppointmentDaoImp appointmentDao;
 	
 	@Override
 	public void init() throws ServletException {

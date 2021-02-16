@@ -4,13 +4,11 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
 import business.Task;
-import web.controllers.ServletController;
+import web.http.ServletController;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/center/taskddd"})
 public class TaskController extends ServletController {
-	
-	//AppointmentDaoImp appointmentDao;
 	
 	@Override
 	public void init() throws ServletException {

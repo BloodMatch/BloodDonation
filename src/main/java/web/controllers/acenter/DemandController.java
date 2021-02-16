@@ -3,7 +3,7 @@ package web.controllers.acenter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
-import web.controllers.ServletController;
+import web.http.ServletController;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/center/demand","/center/demand/facturation"})

@@ -1,17 +1,8 @@
-package web.controllers;
+package web.http;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-
-import javax.servlet.ServletException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Router {
 	private String basePath = "", groupPath = "";

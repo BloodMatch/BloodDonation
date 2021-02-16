@@ -4,7 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
 import business.Task;
-import web.controllers.ServletController;
+import web.http.ServletController;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/center/dashboard", "/center/dashboard/task"})

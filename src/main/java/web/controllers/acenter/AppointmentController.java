@@ -5,7 +5,7 @@ import javax.servlet.annotation.WebServlet;
 
 import dao.entities.Appointment;
 import dao.implementation.AppointmentDaoImp;
-import web.controllers.ServletController;
+import web.http.ServletController;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/center/appointment", "/center/appointment/analysis"})

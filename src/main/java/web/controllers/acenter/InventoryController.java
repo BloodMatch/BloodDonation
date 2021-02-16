@@ -5,7 +5,7 @@ import javax.servlet.annotation.WebServlet;
 
 import dao.entities.Stock;
 import dao.implementation.StockDaoImp;
-import web.controllers.ServletController;
+import web.http.ServletController;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/center/inventory/*"})

@@ -4,15 +4,12 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
 import dao.entities.Donor;
-//import dao.entities.Appointment;
 import dao.implementation.*;
-import web.controllers.ServletController;
+import web.http.ServletController;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/center/profile","/center/profile/search","/center/profile/donor","/center/profile/hospital"})
 public class ProfileController extends ServletController {
-	
-	//AppointmentDaoImp appointmentDao;
 	
 	@Override
 	public void init() throws ServletException {

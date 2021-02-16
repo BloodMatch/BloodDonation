@@ -1,4 +1,4 @@
-package web.controllers;
+package web.http;
 
 import java.io.IOException;
 
