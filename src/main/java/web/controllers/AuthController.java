@@ -34,15 +34,7 @@ public class AuthController extends ServletController {
 		HttpSession session = req.getSession();
 		userMod = new UserModel();
 		req.setAttribute("user", userMod);
-		
-		if(session.getAttribute("isLoged") == null) {
-			view("login");
-		}
-		else{
-			User user = (User)session.getAttribute("isLoged");
-			System.out.println("you are already loged in");
-			servlet("/"+user.getRole());
-		}
+		view("login");
 	}
 	
 	public void connect() {

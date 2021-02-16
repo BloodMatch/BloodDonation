@@ -14,6 +14,14 @@
   	<filter-class>web.middleware.AuthGuard</filter-class>
   </filter>
   
+   <filter-mapping>
+  	<filter-name>AuthGuard</filter-name>
+  	<url-pattern>/donor/*</url-pattern>
+	<url-pattern>/center/*</url-pattern>
+	<url-pattern>/hostipal/*</url-pattern>
+	<url-pattern>/admin/*</url-pattern>
+  </filter-mapping>
+  
   <filter>
   	<display-name>IsDonor</display-name>
   	<filter-name>IsDonor</filter-name>
@@ -22,7 +30,6 @@
   
    <filter-mapping>
   	<filter-name>IsDonor</filter-name>
-  	<!-- <servlet-name>DonorController</servlet-name>-->
   	<url-pattern>/donor/*</url-pattern>
   </filter-mapping>
   
@@ -82,20 +89,19 @@
   
   <servlet-mapping>
   	<servlet-name>DonorController</servlet-name>
+  	<url-pattern>/donor/home</url-pattern>
+  	<url-pattern>/donor/menu</url-pattern>
   	<url-pattern>/donor/profile</url-pattern>
-  	<url-pattern>/donor</url-pattern>
+  	<url-pattern>/donor/profile/edit</url-pattern>
+  	<url-pattern>/donor/password</url-pattern>
+  	<url-pattern>/donor/logout</url-pattern>
   </servlet-mapping>
   
-  <servlet>
-  	<display-name>NotFoundController</display-name>
-  	<servlet-name>NotFoundController</servlet-name>
-  	<servlet-class>web.controllers.NotFoundController</servlet-class>
+   <servlet>
+  	<display-name>DonorAppointmentController</display-name>
+  	<servlet-name>DonorAppointmentController</servlet-name>
+  	<servlet-class>web.controllers.Donor.AppointmentController</servlet-class>
   </servlet>
-  
-   <servlet-mapping>
-  	<servlet-name>NotFoundController</servlet-name>
-  	<url-pattern>/not</url-pattern>
-  </servlet-mapping>
   
   <!-- Center -->
   <servlet>
@@ -139,7 +145,15 @@
   	<servlet-name>InventoryController</servlet-name>
   	<servlet-class>web.controllers.acenter.InventoryController</servlet-class>
   </servlet>
- 
-  
-  
+
+  <servlet-mapping>
+   	<servlet-name>DonorAppointmentController</servlet-name>
+   	<url-pattern>/donor/schedule/cancal</url-pattern>
+   	<url-pattern>/donor/schedule/save</url-pattern>
+   	<url-pattern>/donor/schedule</url-pattern>
+   	<url-pattern>/donor/manage</url-pattern>
+   	<url-pattern>/donor/history</url-pattern>
+   	<url-pattern>/donor/feedBack</url-pattern>
+  </servlet-mapping>
+
 </web-app>

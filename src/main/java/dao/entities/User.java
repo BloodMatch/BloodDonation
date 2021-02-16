@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import business.Hash;
 import dao.implementation.DonorDaoImp;
+import dao.implementation.UserDaoImp;
+import dao.interfaces.IDonorDao;
+import dao.interfaces.IUserDao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,7 +25,9 @@ public class User implements Serializable{
 	protected Boolean active;
 	protected String role;
 	
-	protected Donor donor;
+	//DAOS
+	private static IUserDao userDao = new UserDaoImp();
+	private static IDonorDao donorDao = new DonorDaoImp();
 	
 	public User() {
 		super();
@@ -72,7 +77,8 @@ public class User implements Serializable{
 			this.active = rs.getBoolean("active");
 			this.role = rs.getString("role");
 		} catch (SQLException e) {
-				e.printStackTrace();
+			System.out.println("user not Okay");
+			e.printStackTrace();
 		}	
 	}
 
@@ -139,13 +145,16 @@ public class User implements Serializable{
 	public void setRole(String role) {
 		this.role = role;
 	}
-
-	@Override
-	public String toString() {
-		return String.format(
-			"User [ id=%d, firstName=%s, lastName=%s, email=%s, passwd=%s, phone=%s, active=%s, role=%s ]",
-			 id, firstName, lastName, email, passwd, phone, active, role
-		);
+	
+	/*
+	 * Business
+	 * */
+	public User changePassword(String newPassword) {
+		return userDao.changePassword(this, Hash.makeHash(newPassword));
+	}
+	
+	public static User update(User user) {
+		return userDao.update(user);
 	}
 	
 	/*
@@ -153,7 +162,15 @@ public class User implements Serializable{
 	 * 
 	 */
 	public Donor donor() {
-		return (new DonorDaoImp()).find(this);
+		return donorDao.find(this);
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", passwd=" + passwd + ", phone=" + phone + ", active=" + active + ", role=" + role + "]";
+	}
+	
+	
 	
 }

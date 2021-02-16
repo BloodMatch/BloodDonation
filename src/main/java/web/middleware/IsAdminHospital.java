@@ -22,17 +22,19 @@ public class IsAdminHospital extends AuthGuard {
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse resp = (HttpServletResponse) response;
+		HttpSession session = req.getSession();
+		User user = (User)session.getAttribute("isLoged");
 		
-		try {
-			super.doFilter(request, response, chain);
-			checkRole("hospital");
-			
-		} catch (ServletException e) {
-			// TODO: handle exception
-			((HttpServletResponse) response).sendRedirect(((HttpServletRequest) request).getContextPath()+"/login");
+		if(user.getRole().equals("hospital")) {
+			System.out.println("Access authorised");
+			chain.doFilter(request, response);			
+		}else {
+			// last user url
+			req.setAttribute("back", req.getHeader("Referer"));
+			req.getRequestDispatcher("accessDenied.jsp").forward(req, resp);
 		}
-		
-		
 	}
 
 	

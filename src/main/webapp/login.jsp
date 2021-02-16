@@ -13,7 +13,7 @@
                     <!-- bg image -->
                 </div>
                 <div class="col-8 col-sm-10 col-md-8 col-lg-5">
-                	<c:if test="${user.error}"> 
+                	<c:if test="${not empty user.errorMsg}"> 
                 		<div id="alertMsg" class="alert alert-danger alert-dismissible fade show" role="alert">
 						  ${user.errorMsg}
 						</div>                	

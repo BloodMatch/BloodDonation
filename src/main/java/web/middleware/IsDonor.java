@@ -14,25 +14,26 @@ import javax.servlet.http.HttpSession;
 import dao.entities.User;
 
 
-public class IsDonor extends AuthGuard {
+public class IsDonor extends CheckRole {
 
-   
 	public void destroy() {
 		// TODO Auto-generated method stub
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse resp = (HttpServletResponse) response;
+		HttpSession session = req.getSession();
+		User user = (User)session.getAttribute("isLoged");
 		
-		try {
-			super.doFilter(request, response, chain);
-			checkRole("donor");
-			
-		} catch (ServletException e) {
-			// TODO: handle exception
-			((HttpServletResponse) response).sendRedirect(((HttpServletRequest) request).getContextPath()+"/login");
+		if(user.getRole().equals("donor")) {
+			System.out.println("Access authorised");
+			chain.doFilter(request, response);			
+		}else {
+			// last user url
+			req.setAttribute("back", req.getHeader("Referer"));
+			req.getRequestDispatcher("accessDenied.jsp").forward(req, resp);
 		}
-		
-		
 	}
 
 	

@@ -19,7 +19,7 @@
 
 <!-- fontawesome -->
 
-<script defer src="./resources/fontawesome--5.15.1-web/js/all.min.js"></script>
+<script defer src="${rootUrl}/resources/fontawesome--5.15.1-web/js/all.min.js"></script>
 
 <!-- bootstrap -->
 

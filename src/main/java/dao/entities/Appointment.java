@@ -7,9 +7,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import dao.implementation.*;
+import dao.implementation.AppointmentDaoImp;
+import dao.implementation.CenterDaoImp;
+import dao.implementation.DonorDaoImp;
+import dao.interfaces.IAppointmentDao;
+import dao.interfaces.ICenterDao;
+import dao.interfaces.IDonorDao;
 
-public class Appointment extends Entity<Appointment, AppointmentDaoImp> implements Serializable{
+public class Appointment implements Serializable{
 	
 	private String state;
 	private String donationType;
@@ -19,10 +24,15 @@ public class Appointment extends Entity<Appointment, AppointmentDaoImp> implemen
 	private long CenterId;
 	private long DonorId;
 	
+	// Associations
 	private Donor donor;
 	private Center center;
 	private Analysis analysis; 
 
+	// Dao
+	private static IAppointmentDao appointDao = new AppointmentDaoImp();
+	private static ICenterDao centerDao = new CenterDaoImp();
+	private static IDonorDao donorDao = new DonorDaoImp();
 
 	public Appointment() {
 		super();
@@ -171,12 +181,62 @@ public class Appointment extends Entity<Appointment, AppointmentDaoImp> implemen
 		this.analysis = analysis;
 	}
 	
-	@Override
-	public String toString() {
-		return String.format(
-			"Appointment [ id=%d, state=%s, donationType=%s, time=%s, comment=%s, DonorId=%d, CenterId  =%d]",
-				id, state, donationType, time, comment, DonorId, CenterId
-		);
+	/*
+	 * CRUD OPPERATIONS
+	 * */
+	
+	public static Appointment find(Long id) {
+		return appointDao.find(id);
 	}
 	
+	public static Appointment create(String donationType, String date, Long centerId, Long donorId) {
+		Appointment ap = new Appointment();
+		ap.setDonationType(donationType);
+		ap.setTime(date);
+		ap.setCenterId(centerId);
+		ap.setDonorId(donorId);
+		return ap;
+	}
+	
+	public Appointment save() {
+		try {
+			return appointDao.insert(this);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static Appointment update(Appointment ap) {
+		return appointDao.update(ap);
+	}
+
+	/* Business */
+	public static List<Center> availableCenters(String date, String city){
+		return appointDao.freeCenters(date, city);
+	}
+	
+	public  Boolean cancelAppoint() {
+		return appointDao.cancelAppoint(this.id);
+	}
+	
+	public static Appointment lastAppointment(Long donorId) {
+		return appointDao.lastAppointment(donorId);
+	}
+	
+	public static Appointment lastDonation(Long donorId) {
+		return appointDao.lastDonation(donorId);
+	}
+	
+
+	/* Relationships */
+	public Donor donor() {
+		this.donor = donorDao.find(this);
+		return this.donor;
+	}
+	
+	public Center center() {
+		this.center = centerDao.find(this);
+		return this.center;
+	}
 }

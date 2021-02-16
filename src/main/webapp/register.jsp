@@ -25,7 +25,7 @@
 				<div class="container">
 					<p class="text-muted steps">STEP 01/02 <br> <strong>Personal Info</strong></p>
 				</div>
-				<c:if test="${user.error}"> 
+				<c:if test="${not empty user.errorMsg}"> 
 					<div class="container">
 	               		<div id="alertMsg" class="alert alert-danger alert-dismissible fade show" role="alert">
 						  ${user.errorMsg}

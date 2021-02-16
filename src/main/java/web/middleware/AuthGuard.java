@@ -16,11 +16,6 @@ import dao.entities.User;
  * Servlet Filter implementation class AuthGuard
  */
 public class AuthGuard implements Filter {
-
-	User user;
-	ServletRequest req;
-	ServletResponse res; 
-	FilterChain chain;
 	
 	public void destroy() {
 		// TODO Auto-generated method stub
@@ -28,31 +23,18 @@ public class AuthGuard implements Filter {
 
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		this.req =  request;
-		this.res =  response;
-		this.chain = chain;
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse resp = (HttpServletResponse) response;
+		HttpSession session = req.getSession();
 		
-		HttpSession session = ((HttpServletRequest) req).getSession();
-		this.user = (User)session.getAttribute("isLoged");
-		
-		if( this.user == null ) {
-			System.out.println("not loged in yetoto!");
-			throw new ServletException();
-			//resp.sendRedirect(req.getContextPath()+"/login");
-		}
-		
-	}
-
-	
-	protected void checkRole(String role) throws IOException, ServletException {
-		if(this.user.getRole().equals(role)) {
-			System.out.println("Access authorised");
-			chain.doFilter(req, res);			
+		if(session.getAttribute("isLoged") == null) {
+			System.out.println("not loged in!");
+			resp.sendRedirect(req.getContextPath()+"/login");
 		}else {
-			// last vidited page
-			req.setAttribute("back", ((HttpServletRequest) req).getHeader("Referer"));
-			req.getRequestDispatcher("accessDenied.jsp").forward(req, res);
+			System.out.println("your logged in");
+			chain.doFilter(request, response);			
 		}
+		
 	}
 	
 	public void init(FilterConfig fConfig) throws ServletException {

@@ -193,6 +193,7 @@ section#home-donor{
 .appointement-btn{
     color: white;
     background-color: #FC4961;
+    border: none;
 }
 
 .appointement-btn:hover{
@@ -205,4 +206,63 @@ section#home-donor{
 
 .dropdown-nav-donor a{
     color: white;
+}
+
+/*------------------ Donor profile -------------------*/
+section.profile-section{
+    padding-top: 5.4rem !important;
+}
+.profile-container{
+    display: flex;
+
+}
+
+.profile-dyapo{
+    height: 190px;
+    width: 190px;
+    position: absolute;
+    top : 30%;
+    left: 20%;
+}
+
+.bg-profile{
+    height: 105vh;
+    background: url(../assets/donor/bg-image.svg) no-repeat center center;
+    background-size: cover;
+    width: 40%;
+}
+
+.profile-info{
+    padding: 3rem 7rem;
+    width: 100%;
+}
+
+.bar{
+    padding: 0.3rem;
+    background-color: #D03135;
+    border: 2px solid  #D03135;
+    border-radius: 10px;
+    width: 70px;
+    margin-bottom: 20px;
+}
+
+.right{
+    margin-left: 5rem;
+}
+
+/*------------------- schedule appointment -------------------*/
+.bg-gray{
+    background-color: #F5F5F5;
+}
+
+.blood-color{
+    color: #FC4961;
+}
+
+.right{
+    float: right !important;
+}
+
+.left{
+    float: left !important;
 }

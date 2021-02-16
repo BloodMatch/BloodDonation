@@ -3,13 +3,17 @@ package dao.entities;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import dao.implementation.AppointmentDaoImp;
 import dao.implementation.DonorDaoImp;
-import dao.implementation.UserDaoImp; 
+import dao.implementation.UserDaoImp;
+import dao.interfaces.IAppointmentDao;
+import dao.interfaces.IDonorDao;
+import dao.interfaces.IUserDao; 
 
 
 public class Donor extends User implements Serializable{
@@ -23,9 +27,13 @@ public class Donor extends User implements Serializable{
 	protected long zipCode;
 	protected String image;
 	
-	protected User user;
-	protected List<Appointment> appointments;
-	
+	//Associations
+	private List<Appointment> appointments = new ArrayList<Appointment>();
+
+	//Dao
+	private static IUserDao userDao = new UserDaoImp();
+	private static IDonorDao donorDao = new DonorDaoImp();
+	private static IAppointmentDao appointDao = new AppointmentDaoImp();
 	
 	public Donor() {
 		super();
@@ -157,25 +165,41 @@ public class Donor extends User implements Serializable{
 	}
 	
 	public void setAppointments() {
-		this.appointments= (new AppointmentDaoImp()).find(this);
+		this.appointments= appointDao.find(this);
 	}
 	
 	public void setAppointments(List<Appointment> appointments) {
 		this.appointments = appointments;
 	}
-
-	@Override
-	public String toString() {
-		return "Donor [donorId=" + donorId + ", cin=" + cin + ", birthDay=" + birthDay + ", gender=" + gender
-				+ ", group=" + group + ", city=" + city + ", zipCode=" + zipCode + ", image=" + image + "]";
+	
+	/*
+	 * Business
+	 */
+	
+	public Donor save() {
+		try {
+			return donorDao.insert(this);			
+		}catch(Exception e) {
+			return null;
+		}
 	}
 	
+	public static Donor update(Donor donor) {
+		return donorDao.update(donor);
+	}
+	
+
 	/**
 	 * RelationShips
 	 *
 	 */
 	public User user() {
-		return (new UserDaoImp()).find(this);
+		return userDao.find(this);
+	}
+	
+	public List<Appointment>appointments(){
+		this.appointments = appointDao.find(this);
+		return this.appointments;
 	}
 	
 }

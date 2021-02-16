@@ -1,6 +1,8 @@
 package web.models;
 
-public class DonorModel {
+import dao.entities.Donor;
+
+public class DonorModel implements Model<Donor>{
 	
 	protected Long id;
 	protected String cin;
@@ -26,6 +28,17 @@ public class DonorModel {
 		this.city = city;
 		this.zipCode = zipCode;
 		this.image = image;
+	}
+	
+	public void clone(Donor donor) {
+		this.id = donor.getId();
+		this.cin = donor.getCin();
+		this.birthDay = donor.getBirthDay();
+		this.gender = donor.getGender();
+		this.group = donor.getGroup();
+		this.city = donor.getCity();
+		this.zipCode = donor.getZipCode();
+		this.image = donor.getImage();
 	}
 
 	public Long getId() {
@@ -92,10 +105,4 @@ public class DonorModel {
 		this.image = image;
 	}
 
-	@Override
-	public String toString() {
-		return "DonorModel [id=" + id + ", cin=" + cin + ", birthDay=" + birthDay + ", gender=" + gender + ", group="
-				+ group + ", city=" + city + ", zipCode=" + zipCode + ", image=" + image + "]";
-	}
-		
 }

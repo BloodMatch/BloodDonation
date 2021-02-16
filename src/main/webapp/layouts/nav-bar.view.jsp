@@ -29,11 +29,11 @@
 <c:set var="donorNav" scope="session">
 	<ul class="navbar-nav">
 		<li class="nav-item">
-			<a class="nav-link text-white text-center" href="${rootUrl}/donor/donate">Donate</a>
+			<a class="nav-link text-white text-center" href="${rootUrl}/donor/menu">Menu</a>
 		</li>
 		
 		<li class="nav-item">
-			<a class="nav-link text-white text-center" href="${rootUrl}/donor/center">Center</a>
+			<a class="nav-link text-white text-center" href="${rootUrl}/donor/schedule">Donate</a>
 		</li>
 	</ul>
   
@@ -43,7 +43,7 @@
 		</li>
 		
 		<li class="nav-item">
-			<a class="nav-link text-white text-center mt-2 border-left" href="#"><h6>UNITS DONATED <br> 4</h6> </a>
+			<a class="nav-link text-white text-center mt-2 border-left" href="${rootUrl}/donor/history"><h6>UNITS DONATED <br> 4</h6> </a>
 		</li>
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle text-white text-center" href="#" id="profileNav" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,8 +52,8 @@
 			</a>
 			<div class="dropdown-menu dropdown-menu-left dropdown-nav-donor" aria-labelledby="profileNav">
 			  <a class="dropdown-item" href="${rootUrl}/donor/profile"><i class="far fa-user"></i> Profile</a>
-			  <a class="dropdown-item" href="#"><i class="fas fa-user-edit"></i> Edit Profile</a>
-			  <a class="dropdown-item" href="#"><i class="fas fa-lock"></i> Change Password</a>
+			  <a class="dropdown-item" href="${rootUrl}/donor/profile/edit"><i class="fas fa-user-edit"></i> Edit Profile</a>
+			  <a class="dropdown-item" href="${rootUrl}/donor/password"><i class="fas fa-lock"></i> Change Password</a>
 			  <div class="dropdown-divider"></div>
 			  <%@ include file="../logout.jsp"%>
 			</div>
