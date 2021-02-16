@@ -42,14 +42,14 @@
 								<input form="peneding-appointments" type="checkbox" name="ids" value="${appointment.getId()}" >
 		                	</td>
 		                	
-		                	<td><img src="assets/icons/blood_type-${appointment.getDonationType()}.svg" width="15" title="${appointment.getDonationType()}" alt="-"> ${appointment.getDonationType()}</td>
-		                	<td>${appointment.getTime()}</td>
+		                	<td><img src="assets/icons/blood-type/${appointment.getDonationType()}.svg" width="15" title="${appointment.getDonationType()}" alt="-"> ${appointment.getDonationType()}</td>
+		                	<td>${appointment.getTime().substring(0, 13)}H</td>
 		                    <td><a  class="btn-lg" href="center/profile/donor?Did=${appointment.getDonorId()}">${donor.getFirstName()} ${donor.getLastName()}</a></td>
 		                    
 		                    <td>
 		                        <form  action="center/appointment" method="POST">
+		                        <input type="hidden" name="id" value="${appointment.getId()}">
 			                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-										<input type="hidden" name="id" value="${appointment.getId()}">
 			                            <button type="submit" name="action" value="approve" class="btn btn-primary">Approve</button>
 			                            <button type="submit" name="action" value="decline" class="btn btn-danger">Decline</button>
 			                        </div>

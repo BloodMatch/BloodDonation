@@ -29,13 +29,18 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a  class="nav-link" data-toggle="modal" data-target="#searchModal">
+                        <i class="fa fa-search" title="search"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                 <li class="nav-item">
                     <a href="center" class="nav-link">
                         <i class="nc-icon nc-circle"></i>
                         <span class="d-lg-block">Center</span>
                     </a>
                 </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="center/acount">
                         <span class="no-icon">Account</span>
@@ -63,3 +68,9 @@
         </div>
     </div>
 </nav>
+
+
+<div class="modal fade" id="searchModal" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+<!-- search modal -->
+	<%@ include file="search.modal.jsp"%>
+</div>

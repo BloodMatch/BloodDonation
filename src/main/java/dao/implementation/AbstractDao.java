@@ -18,7 +18,7 @@ import dao.entities.Entity;
 import dao.interfaces.IAppointmentDao;
 import dao.interfaces.IDao;
 
-public abstract class DAO <T extends Entity<?,?>>  implements IDao<T>{
+public abstract class AbstractDao <T extends Entity<?,?>>  implements IDao<T>{
 	private final static Connection connection = DbConnection.getConnection();
 	private String table;
 	
@@ -42,7 +42,7 @@ public abstract class DAO <T extends Entity<?,?>>  implements IDao<T>{
 		return bean;
 	}
 
-	public List<T> findAll() {
+	public List<T> find() {
 		List<T> beans = new ArrayList<T>();
 		
 		try {
@@ -59,7 +59,7 @@ public abstract class DAO <T extends Entity<?,?>>  implements IDao<T>{
 			e.printStackTrace();
 		}
 		return beans;
-	}
+	} 
 
 	public Boolean delete(long id) {
 		try {

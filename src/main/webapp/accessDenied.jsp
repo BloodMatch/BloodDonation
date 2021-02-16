@@ -8,7 +8,7 @@
         <section id="home-section">
         	<div class="container text-center">
         		<h1 class="text-danger">Access Denied</h1>
-        		<a class="btn btn-blood btn-lg" href="${rootUrl}">Go Back</a>
+        		<a class="btn btn-blood btn-lg" href="#">Go Home page</a>
         	</div>
         </section>
 </c:set>

@@ -7,17 +7,12 @@
     version="4.0">
 
   <display-name>Blood Donation</display-name>
-  
+  <!-- Filters -->
   <filter>
   	<display-name>AuthGuard</display-name>
   	<filter-name>AuthGuard</filter-name>
   	<filter-class>web.middleware.AuthGuard</filter-class>
   </filter>
-  
-   <filter-mapping>
-  	<filter-name>AuthGuard</filter-name>
-  	<servlet-name>DonorController</servlet-name>
-  </filter-mapping>
   
   <filter>
   	<display-name>IsDonor</display-name>
@@ -27,21 +22,35 @@
   
    <filter-mapping>
   	<filter-name>IsDonor</filter-name>
-  	<servlet-name>DonorController</servlet-name>
+  	<!-- <servlet-name>DonorController</servlet-name>-->
+  	<url-pattern>/donor/*</url-pattern>
   </filter-mapping>
   
   <filter>
-  	<display-name>AlreadyLoged</display-name>
-  	<filter-name>AlreadyLoged</filter-name>
-  	<filter-class>web.middleware.AlreadyLoged</filter-class>
+  	<display-name>IsAdminCenter</display-name>
+  	<filter-name>IsAdminCenter</filter-name>
+  	<filter-class>web.middleware.IsAdminCenter</filter-class>
   </filter>
   
-  <filter-mapping>
-  	<filter-name>AlreadyLoged</filter-name>
-  	<servlet-name>UserController</servlet-name>
+   <filter-mapping>
+  	<filter-name>IsAdminCenter</filter-name>
+  	<url-pattern>/center/*</url-pattern>
   </filter-mapping>
   
+    <filter>
+  	<display-name>IsAdminHospital</display-name>
+  	<filter-name>IsAdminHospital</filter-name>
+  	<filter-class>web.middleware.IsAdminHospital</filter-class>
+  </filter>
   
+   <filter-mapping>
+  	<filter-name>IsAdminHospital</filter-name>
+  	<url-pattern>/hospital/*</url-pattern>
+  </filter-mapping>
+  
+    
+  <!-- Servlets -->
+  <!-- Donor -->
   <servlet>
   	<display-name>UserController</display-name>
   	<servlet-name>UserController</servlet-name>
@@ -50,7 +59,6 @@
   
   <servlet-mapping>
   	<servlet-name>UserController</servlet-name>
-  	<url-pattern>/login</url-pattern>
   	<url-pattern>/register</url-pattern>
   	<url-pattern>/register2</url-pattern>
   </servlet-mapping>
@@ -76,7 +84,6 @@
   	<servlet-name>DonorController</servlet-name>
   	<url-pattern>/donor/profile</url-pattern>
   	<url-pattern>/donor</url-pattern>
-  	<url-pattern>/logout</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -90,7 +97,13 @@
   	<url-pattern>/not</url-pattern>
   </servlet-mapping>
   
-  <!-- Admin Center Servlets -->
+  <!-- Center -->
+  <servlet>
+  	<display-name>HomeController</display-name>
+  	<servlet-name>CenterHomeController</servlet-name>
+  	<servlet-class>web.controllers.acenter.HomeController</servlet-class>
+  </servlet>
+  
   <servlet>
   	<display-name>DashboardController</display-name>
   	<servlet-name>DashboardController</servlet-name>

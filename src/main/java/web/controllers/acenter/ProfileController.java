@@ -9,7 +9,7 @@ import dao.implementation.*;
 import web.controllers.ServletController;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/center/profile","/center/profile/donor","/center/profile/hospital"})
+@WebServlet(urlPatterns = { "/center/profile","/center/profile/search","/center/profile/donor","/center/profile/hospital"})
 public class ProfileController extends ServletController {
 	
 	//AppointmentDaoImp appointmentDao;
@@ -21,8 +21,9 @@ public class ProfileController extends ServletController {
 		router.setBaseURL("/center/profile");
 		
 		router.get("", () ->  this.center());
-		router.get("/donor", () ->  this.donor( req.getParameter("Did") ));
-		router.get("/hospital", () ->  this.hospital( req.getParameter("Hid") ));
+		router.get("/search", "search");
+		router.get("/donor", "donor");
+		router.get("/hospital", "hospital");
 		
 		
 		/*
@@ -37,22 +38,46 @@ public class ProfileController extends ServletController {
 		//Session session;
 		
 		//req.setAttribute("center", adminCenter);
-		view("admin.center/profile/admin-center");
+		view("admin-center/profile/admin-center");
+	}
+	
+	public void search() {
+		String type = req.getParameter("type");
+		if ( type == null )
+			servlet("/center/dashboard");
+		else {
+			switch ( type ) {
+		        case "donor":
+		        		donor(Long.parseLong( req.getParameter("query") ));
+		        	break;
+		        	
+		        case "hospital":
+		        		hospital();
+		        	break;
+		        	
+		        default:
+		        	servlet("/center/dashboard");
+			}
+		}
 	}
 
-	private void donor(String Did) {
+	public void donor() {
+		donor(Long.parseLong( req.getParameter("Did") ));
+	}
+	
+	public void donor(Long id) {
 		// TODO Auto-generated method stub
-		Donor donor = (new DonorDaoImp()).find( Long.parseLong( Did ));
+		Donor donor = (new DonorDaoImp()).find( id );
 		donor.setAppointments(); 
 		req.setAttribute("donor", donor);
-		view("admin.center/profile/donor");
+		view("admin-center/profile/donor");
 	}
 
-	private void hospital(String Hid) {
+	public void hospital() {
 		// TODO Auto-generated method stub
 		/*Hospital hospital = (new HospitalDaoImp()).find( Long.parseLong( req.getParameter("Hid"));
 		hospital.setDemands();
 		req.setAttribute("hospital", hospital);*/
-		view("admin.center/profile/hospital");
+		view("admin-center/profile/hospital");
 	}
 }

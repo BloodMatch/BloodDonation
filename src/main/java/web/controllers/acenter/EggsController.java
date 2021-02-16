@@ -3,8 +3,6 @@ package web.controllers.acenter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
-//import dao.entities.Appointment;
-import dao.implementation.AppointmentDaoImp;
 import web.controllers.ServletController;
 
 @SuppressWarnings("serial")
@@ -32,6 +30,6 @@ public class EggsController extends ServletController {
 	
 	public void show() {
 		
-		view("admin.center/eggs");
+		view("admin-center/eggs");
 	}
 }

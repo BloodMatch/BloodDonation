@@ -40,8 +40,8 @@
 								<input form="scheduled-appointments" type="checkbox" name="ids" value="${appointment.getId()}" >
 		                	</td>
 		                	
-		                	<td><img src="assets/icons/blood_type-${appointment.getDonationType()}.svg" width="15" title="${appointment.getDonationType()}" alt="-"> ${appointment.getDonationType()}</td>
-		                	<td>${appointment.getTime()}</td>
+		                	<td><img src="assets/icons/blood-type/${appointment.getDonationType()}.svg" width="15" title="${appointment.getDonationType()}" alt="-"> ${appointment.getDonationType()}</td>
+		                	<td>${appointment.getTime().substring(0, 13)}H</td>
 		                    <td><a href="center/profile/donor?Did=${appointment.getDonorId()}">${donor.getFirstName()} ${donor.getLastName() }</a></td>
 		                    
 		                    <td>
@@ -93,7 +93,7 @@
 		                	<td>
 								<input form="scheduled-appointments" type="checkbox" name="ids" value="${appointment.getId()}" >
 		                	</td>
-		                	<td><img src="assets/icons/blood_type-${appointment.getDonationType()}.svg" width="15" title="${appointment.getDonationType()}" alt="-"> ${appointment.getDonationType()}</td>
+		                	<td><img src="assets/icons/blood-type/${appointment.getDonationType()}.svg" width="15" title="${appointment.getDonationType()}" alt="-"> ${appointment.getDonationType()}</td>
 		                    <td><a href="center/profile/donor?Did=${appointment.getDonorId()}">${donor.getFirstName()} ${donor.getLastName() }</a></td>
 		                    <td>
 		                        <form  action="center/appointment" method="POST">
@@ -108,7 +108,7 @@
 	    	</div>
 	    </c:when>  
 	        <c:otherwise>  
-				<h4 class="title text-center"> <i class="fa fa-exclamation-circle"></i> No more scheduled appointment!</h4>
+				<h4 class="title text-center"> <i class="fa fa-exclamation-circle"></i> No scheduled appointments for today!</h4>
 			</c:otherwise>  
 		</c:choose> 
 		</div>

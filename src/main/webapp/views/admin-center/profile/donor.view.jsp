@@ -29,13 +29,14 @@
                             	<c:set var="appointments" value="${donor.getAppointments()}"/>
                             	<c:forEach items="${appointments}" var="appointment">
                                 <tr>
-                                    <td><img src="assets/icons/appointment_state-${appointment.getState()}.svg" width="20" title="${appointment.getState()}" alt="-"> <small>${appointment.getState()}</small></td>
-                                    <td><img src="assets/icons/blood_type-${appointment.getDonationType()}.svg" width="15" title="${appointment.getDonationType()}" alt="-"> ${appointment.getDonationType()}</td>
-                                    <td>${ appointment.getTime()}</td>
+                                    <td><img src="assets/icons/appointment-state/${appointment.getState()}.svg" width="20" title="${appointment.getState()}" alt="-"> <small>${appointment.getState()}</small></td>
+                                    <td><img src="assets/icons/blood-type/${appointment.getDonationType()}.svg" width="15" title="${appointment.getDonationType()}" alt="-"> ${appointment.getDonationType()}</td>
+                                    <td>${ appointment.getTime().substring(0, 13)}H</td>
+                                    
                                     <td class="">
                                         <form  action="center/appointment" method="POST">
+                                            <input type="hidden" name="id" value="${appointment.getId()}">
                                             <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                                <input type="hidden" name="id" value="${appointment.getId()}">
                                                 <c:choose>
                                               		<c:when test="${ appointment.getState().equals('Pending')}">
                                               			<button type="submit" name="action" value="approve" class="btn btn-info">Approve</button>
@@ -47,8 +48,7 @@
 													<c:otherwise>
 														..
 													</c:otherwise>  
-												</c:choose> 
-                                                
+												</c:choose>
                                             </div>
                                         </form>
                                     </td>
@@ -68,11 +68,10 @@
                 <div class="content  px-2">
                     <div class="author "> 
                         <img class="avatar border-gray" src="assets/images/avatar-donor.png" alt="..."/>
-                        
                         <h4 class="title">
                         	${donor.getFirstName()} ${donor.getLastName()}
-                        	<br/><br/>
-                        	<strong>${donor.getGroup()}</strong>
+                        	<br><br>
+                        	<strong class="text-danger">${donor.getGroup()}</strong>
                         </h4>
                     </div>
                     <hr>
@@ -111,26 +110,32 @@
                             </div>    
                     </div>
                     <div class="row">
-                            <div class="col-sm-3">
-                                <img class="text-right" src="assets/icons/location.svg" width="15" title="city" alt="City">
-                            </div>
-                            <div class="col-sm-8">
-                                ${donor.getCity()}
-                            </div>    
+	                      <div class="col-sm-3">
+	                          <img class="text-right" src="assets/icons/location.svg" width="15" title="city" alt="City">
+	                      </div>
+	                      <div class="col-sm-8">
+	                          ${donor.getCity()}
+	                      </div>    
                     </div>
                     <div class="row">
-                            <div class="col-sm-3">
-                                <img class="text-right" src="assets/icons/zip-code.svg" width="20" title="city" alt="Zip Code">
-                            </div>
-                            <div class="col-sm-8">
-                                ${donor.getZipCode()}
-                            </div>    
+	                     <div class="col-sm-3">
+	                         <img class="text-right" src="assets/icons/zip-code.svg" width="20" title="city" alt="Zip Code">
+	                     </div>
+	                     <div class="col-sm-8">
+	                         ${donor.getZipCode()}
+	                     </div>    
                     </div>
+                    <hr/>
+	                 <div class="text-center">
+	                     <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#newAppointmentModal" data-whatever="Add new Appointment">New Appointment</button>
+	                 </div>
                 </div>
             </div>
         </div>
     </div>
 </c:set>
 
-
+<div class="modal fade" id="newAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="newAppointmentModalLabel" aria-hidden="true">
+	<%@ include file="../appointment/new.modal.jsp"%>
+</div>
 <%@ include file="../app.jsp"%>

@@ -4,8 +4,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
 import business.Task;
-//import dao.entities.Appointment;
-import dao.implementation.AppointmentDaoImp;
 import web.controllers.ServletController;
 
 @SuppressWarnings("serial")
@@ -26,7 +24,7 @@ public class DashboardController extends ServletController {
 	
 	public void show() {
 		
-		view("admin.center/dashboard/index");
+		view("admin-center/dashboard/index");
 	}
 	
 	private void launch(String Tid) {
@@ -43,6 +41,6 @@ public class DashboardController extends ServletController {
 	        	//task.expiredAppointemnt( center.getId());
 	        	break;
 		}
-		redirect(req.getHeader("referer"));
+		redirectPrevious();
 	}
 }

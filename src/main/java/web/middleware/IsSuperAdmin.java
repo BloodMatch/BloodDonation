@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import dao.entities.User;
 
 
-public class IsDonor extends AuthGuard {
+public class IsSuperAdmin extends AuthGuard {
 
    
 	public void destroy() {
@@ -25,7 +25,7 @@ public class IsDonor extends AuthGuard {
 		
 		try {
 			super.doFilter(request, response, chain);
-			checkRole("donor");
+			checkRole("admin");
 			
 		} catch (ServletException e) {
 			// TODO: handle exception

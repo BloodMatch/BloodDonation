@@ -14,13 +14,13 @@ public class Task {
 	
 	public void missedAppointemnt(long centerId) {
 		execute("UPDATE appointment SET state='Missed' WHERE id IN "
-					+ "(SELECT id FROM appointment WHERE ( ( (CURRENT_DATE() - time) > 0 ) AND state ='Arrived' AND CenterId = ?) )"
+					+ "(SELECT id FROM appointment WHERE ( ( (CURRENT_DATE() - date(time)) > 0 ) AND state ='Arrived' AND CenterId = ?) )"
 				, centerId);
 	}
 	
 	public void arrivedAppointemnt(long centerId) {
 		execute("UPDATE appointment SET state='Arrived' WHERE id IN "
-				+ "(SELECT id FROM appointment WHERE ( time = CURRENT_DATE() AND state ='Booked' AND CenterId = ?) )"
+				+ "(SELECT id FROM appointment WHERE ( date(time) = CURRENT_DATE() AND state ='Booked' AND CenterId = ?) )"
 			, centerId);
 	}
 	

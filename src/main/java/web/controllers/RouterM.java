@@ -1,36 +1,31 @@
 package web.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 
 import javax.servlet.ServletException;
 
-public class Router {
+public class RouterM {
 	private String basePath = "", groupPath = "";
 	private Map<String , Runnable> mapGET;
 	private Map<String , Runnable> mapPOST;
 	private ServletController servletController;
 	
-	
-	public Router() {
+	public RouterM() {
 		mapGET = new HashMap<String , Runnable>();
 		mapPOST = new HashMap<String , Runnable>();
 	}
 
-	public Router(ServletController servletController) {
+	public RouterM(ServletController servletController) {
 		this();
 		this.servletController = servletController;
 	}
 	
-	public Router(String basePath) {
+	public RouterM(String basePath) {
 		this();
 		this.basePath = basePath;
 	}
@@ -45,31 +40,37 @@ public class Router {
 		groupPath = "";
 	}
 	
-	public void invoke(String  methodName) {
+	private void run() {
+		
+	}
+	
+	public void get(String url, String  methodName) {
+		Method method;
 		try {
-			servletController.getClass().getMethod( methodName).invoke( servletController);
-		} catch (NoSuchMethodException | SecurityException  | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			method = servletController.getClass().getMethod( methodName);
+			///String[] listParam = urlPattern.substring(urlPattern.indexOf("?") + 1 , urlPattern.length()).split(",");
+				get( url, ()-> {
+				try {
+					method.invoke(servletController );
+				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} );
+		} catch (NoSuchMethodException | SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	} 
-	
-	public void get(String url, String  methodName){
-		get( url, ()-> invoke(methodName));
 	}
 	
 	public void get(String url, Runnable Action) {
-		mapGET.put( basePath 	+ groupPath + url, Action);
+		mapGET.put( basePath + groupPath + url, Action);
 	}
 
 	public Runnable get(String url) {
 		return mapGET.get(url);
 	}
 
-	public void post(String url, String  methodName){
-		post( url, ()-> invoke(methodName));
-	}
-	
 	public void post(String url, Runnable Action) {
 		System.out.println("post: "+url);
 		mapPOST.put( basePath + groupPath + url, Action);

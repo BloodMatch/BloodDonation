@@ -32,7 +32,7 @@
 		             	<c:forEach items="${appointmentsList}" var="appointment">
 		             	<c:set var="donor" value="${appointment.getDonor()}"/>
 		                <tr>
-		                	<td><img src="assets/icons/blood_type-${appointment.getDonationType()}.svg" width="15" title="${appointment.getDonationType()}" alt="-"> ${appointment.getDonationType()}</td>
+		                	<td><img src="assets/icons/blood-type/${appointment.getDonationType()}.svg" width="15" title="${appointment.getDonationType()}" alt="-"> ${appointment.getDonationType()}</td>
 		                	<td>${appointment.getTime()}</td>
 		                    <td><a class="btn-lg" href="center/profile/donor?Did=${appointment.getDonorId()}">${donor.getFirstName()} ${donor.getLastName()}</a></td>
 		                	<td><strong><c:out value="${donor.getGroup()}" default="-"/></strong></td>

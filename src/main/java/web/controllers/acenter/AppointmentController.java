@@ -18,13 +18,15 @@ public class AppointmentController extends ServletController {
 	public void init() throws ServletException {
 		super.init();
 
-		router.setBaseURL("/center/appointment");
-		
 		appointmentDao = new AppointmentDaoImp();
 		
-		router.get("", () ->  this.show(req.getParameter("state")) );
+		router.setBaseURL("/center/appointment");
+		
+		router.get("", () ->  this.show( req.getParameter("state")) );
 		/*router.group("", ()-> { 
 		});*/
+		
+		router.post("@add", "add");
 		router.post("@approve", 	() ->  this.approve( req.getParameter("id") ));
 		router.post("@approveAll", 	() ->  this.approveAll( req.getParameterValues("ids") ));
 		
@@ -54,10 +56,10 @@ public class AppointmentController extends ServletController {
 		        		pending();
 		        	break;
 		        case "scheduled":
-		        	scheduled();
+		        		scheduled();
 		        	break;
 		        case "done":
-		        	donations();
+		        		donations();
 		        	break;
 		        default:
 		        	servlet("/center/dashboard");
@@ -65,20 +67,32 @@ public class AppointmentController extends ServletController {
 		}
 	}
 	
+	public void add() {
+		System.out.println(Long.parseLong( req.getParameter("id") ));
+		Appointment  appointment = new Appointment();
+		appointment.setDonorId( Long.parseLong( req.getParameter("id") ));
+		appointment.setCenterId( 1 );
+		appointment.setState( "Pending" );
+		appointment.setDonationType(req.getParameter("donationType"));
+		appointment.setTime(req.getParameter("date")+" "+req.getParameter("time"));
+		appointment.add();
+		redirectPrevious();
+	}
+	
 	private void pending() {
 		req.setAttribute("appointmentsList", appointmentDao.findAll("state", "Pending"));
-    	view("admin.center/appointment/pending");
+    	view("admin-center/appointment/pending");
 	}
 	
 	private void scheduled() {
 		req.setAttribute("bookedAppointmentsList", appointmentDao.findAll("state", "Booked"));
 		req.setAttribute("arrivedAppointmentsList", appointmentDao.findAll("state", "Arrived"));
-		view("admin.center/appointment/scheduled");
+		view("admin-center/appointment/scheduled");
 	}
 	
 	private void donations() {
 		req.setAttribute("appointmentsList", appointmentDao.findAll("state", "Fulfilled"));
-		view("admin.center/appointment/donations");
+		view("admin-center/appointment/donations");
 	}
 	
 	private void approve(String id) {
@@ -87,7 +101,7 @@ public class AppointmentController extends ServletController {
 		appointment.setState("Booked");
 		appointment.save();
 		
-		redirect(req.getHeader("referer"));
+		redirectPrevious();
 	}
 
 	private void approveAll(String [] idss) {
@@ -100,7 +114,7 @@ public class AppointmentController extends ServletController {
 				appointment.save();
 		    }
 
-		redirect(req.getHeader("referer"));
+		redirectPrevious();
 	}
 
 	private void decline(String id) {
@@ -109,7 +123,7 @@ public class AppointmentController extends ServletController {
 		appointment.setState("Declined");
 		appointment.save();
 		
-		redirect(req.getHeader("referer"));
+		redirectPrevious();
 	}
 
 	private void declineAll(String [] ids) {
@@ -121,7 +135,7 @@ public class AppointmentController extends ServletController {
 				appointment.save();
 		    }
 
-		redirect(req.getHeader("referer"));
+		redirectPrevious();
 	}
 
 	private void revoke(String id) {
@@ -130,7 +144,7 @@ public class AppointmentController extends ServletController {
 		appointment.setState("Revoked");
 		appointment.save();
 		
-		redirect(req.getHeader("referer"));
+		redirectPrevious();
 	}
 	
 	private void revokeAll(String [] ids) {
@@ -142,7 +156,7 @@ public class AppointmentController extends ServletController {
 				appointment.save();
 		    }
 
-		redirect(req.getHeader("referer"));
+		redirectPrevious();
 	}
 	
 	private void done(String id) {
@@ -151,7 +165,7 @@ public class AppointmentController extends ServletController {
 		appointment.setState("Fulfilled");
 		appointment.save();
 		
-		redirect(req.getHeader("referer"));
+		redirectPrevious();
 	}
 	
 	private void doneAll(String [] ids) {
@@ -163,11 +177,11 @@ public class AppointmentController extends ServletController {
 				appointment.save();
 		    }
 
-		redirect(req.getHeader("referer"));
+		redirectPrevious();
 	}
 	
 	private void analysis(String id) {
-		view("admin.center/appointment/analysis");
+		view("admin-center/appointment/analysis");
 	}
 	
 }

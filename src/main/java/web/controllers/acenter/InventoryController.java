@@ -4,8 +4,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
 import dao.entities.Stock;
-//import dao.entities.Appointment;
-import dao.implementation.AppointmentDaoImp;
 import dao.implementation.StockDaoImp;
 import web.controllers.ServletController;
 
@@ -30,13 +28,13 @@ public class InventoryController extends ServletController {
 	
 	public void show() {
 		req.setAttribute("stocksList", stockDao.findAll() );
-		view("admin.center/inventory");
+		view("admin-center/inventory");
 	}
 	
 	public void save(String id, String quantity) {
 		stock =  stockDao.find( Long.parseLong( id ));
 		stock.setQuantity( Long.parseLong( quantity ));
 		stock.save();
-		redirect(req.getHeader("referer"));
+		redirectPrevious();
 	}
 }
