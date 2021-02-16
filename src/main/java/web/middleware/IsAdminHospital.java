@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import dao.entities.User;
 
 
-public class IsAdminHospital extends AuthGuard {
+public class IsAdminHospital {
 
    
 	public void destroy() {

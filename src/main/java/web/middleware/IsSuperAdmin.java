@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import dao.entities.User;
 
 
-public class IsSuperAdmin extends AuthGuard {
+public class IsSuperAdmin {
 
    
 	public void destroy() {
@@ -23,14 +23,6 @@ public class IsSuperAdmin extends AuthGuard {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
-		try {
-			super.doFilter(request, response, chain);
-			checkRole("admin");
-			
-		} catch (ServletException e) {
-			// TODO: handle exception
-			((HttpServletResponse) response).sendRedirect(((HttpServletRequest) request).getContextPath()+"/login");
-		}
 		
 		
 	}

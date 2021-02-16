@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import dao.entities.User;
 
 
-public class IsDonor extends CheckRole {
+public class IsDonor {
 
 	public void destroy() {
 		// TODO Auto-generated method stub

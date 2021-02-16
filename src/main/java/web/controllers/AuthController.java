@@ -50,7 +50,6 @@ public class AuthController extends ServletController {
 			servlet("/"+user.getRole());
 		}else {
 			// Alert msg case it faild
-			userMod.setError(true);
 			userMod.setErrorMsg("<strong>Incorrect password or email</strong> please try again !");
 			req.setAttribute("user", userMod);
 			view("login");
@@ -63,8 +62,6 @@ public class AuthController extends ServletController {
 		
 		if(session.getAttribute("isLoged") == null) {
 			UserModel  userMod = new UserModel();
-			userMod.setError(true);
-			System.out.println(userMod.getError());
 			userMod.setErrorMsg("<strong>You are already loged out!</strong>");
 			req.setAttribute("user", userMod);
 			System.out.println("you are already loged out!!");
