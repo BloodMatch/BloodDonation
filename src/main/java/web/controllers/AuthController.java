@@ -10,7 +10,7 @@ import dao.interfaces.IUserDao;
 import web.http.ServletController;
 import web.models.UserModel;
 
-@WebServlet(urlPatterns = { "/login", "/logout"})
+//@WebServlet(urlPatterns = { "/login", "/logout"})
 public class AuthController extends ServletController {
 	private static final long serialVersionUID = 1L;
 	private IUserDao userDao;

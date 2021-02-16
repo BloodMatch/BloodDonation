@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import dao.entities.User;
 
 
-public class IsAdminCenter {
+public class IsAdminCenter implements Filter {
 
    
 	public void destroy() {

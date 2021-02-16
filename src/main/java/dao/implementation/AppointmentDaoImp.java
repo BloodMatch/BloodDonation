@@ -23,7 +23,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 		
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("INSERT INTO APPOINTMENT ( DONATIONTYPE, `TIME`, DONORID, CENTERID) VALUES (?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
+					("INSERT INTO APPOINTMENT ( DONATIONTYPE, `TIME`, DONORID, CENTERID , state) VALUES (?,?,?,?,'Pending') ", Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, appointment.getDonationType());
 			ps.setString(2, appointment.getTime());
 			ps.setLong(3, appointment.getDonorId());
@@ -31,7 +31,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 			ps.execute();
 			ResultSet rs = ps.getGeneratedKeys();
 			if(rs.next()) { // 1 : one row affected
-				appointment.setId(rs.getInt(1));
+				appointment.setId(rs.getLong(1));
 				return appointment;
 			}
 			

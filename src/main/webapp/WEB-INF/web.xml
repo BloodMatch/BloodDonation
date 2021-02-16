@@ -18,8 +18,19 @@
   	<filter-name>AuthGuard</filter-name>
   	<url-pattern>/donor/*</url-pattern>
 	<url-pattern>/center/*</url-pattern>
-	<url-pattern>/hostipal/*</url-pattern>
+	<url-pattern>/hospital/*</url-pattern>
 	<url-pattern>/admin/*</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+  	<display-name>AlreadyLoged</display-name>
+  	<filter-name>AlreadyLoged</filter-name>
+  	<filter-class>web.middleware.AlreadyLoged</filter-class>
+  </filter>
+  
+  <filter-mapping>
+  	<filter-name>AlreadyLoged</filter-name>
+  	<url-pattern>/login</url-pattern>
   </filter-mapping>
   
   <filter>
@@ -66,10 +77,11 @@
   
   <servlet-mapping>
   	<servlet-name>UserController</servlet-name>
+  	<url-pattern>/login</url-pattern>
   	<url-pattern>/register</url-pattern>
   	<url-pattern>/register2</url-pattern>
   </servlet-mapping>
-  
+    
   <servlet>
   	<display-name>HomeController</display-name>
   	<servlet-name>HomeController</servlet-name>
@@ -80,7 +92,7 @@
   	<servlet-name>HomeController</servlet-name>
   	<url-pattern>/home</url-pattern>
   </servlet-mapping>
-  
+
   <servlet>
   	<display-name>DonorController</display-name>
   	<servlet-name>DonorController</servlet-name>
@@ -89,6 +101,7 @@
   
   <servlet-mapping>
   	<servlet-name>DonorController</servlet-name>
+  	<url-pattern>/donor</url-pattern>
   	<url-pattern>/donor/home</url-pattern>
   	<url-pattern>/donor/menu</url-pattern>
   	<url-pattern>/donor/profile</url-pattern>
@@ -102,6 +115,16 @@
   	<servlet-name>DonorAppointmentController</servlet-name>
   	<servlet-class>web.controllers.Donor.AppointmentController</servlet-class>
   </servlet>
+  
+  <servlet-mapping>
+   	<servlet-name>DonorAppointmentController</servlet-name>
+   	<url-pattern>/donor/schedule/cancal</url-pattern>
+   	<url-pattern>/donor/schedule/save</url-pattern>
+   	<url-pattern>/donor/schedule</url-pattern>
+   	<url-pattern>/donor/manage</url-pattern>
+   	<url-pattern>/donor/history</url-pattern>
+   	<url-pattern>/donor/feedBack</url-pattern>
+  </servlet-mapping>
   
   <!-- Center -->
   <servlet>
@@ -145,15 +168,5 @@
   	<servlet-name>InventoryController</servlet-name>
   	<servlet-class>web.controllers.acenter.InventoryController</servlet-class>
   </servlet>
-
-  <servlet-mapping>
-   	<servlet-name>DonorAppointmentController</servlet-name>
-   	<url-pattern>/donor/schedule/cancal</url-pattern>
-   	<url-pattern>/donor/schedule/save</url-pattern>
-   	<url-pattern>/donor/schedule</url-pattern>
-   	<url-pattern>/donor/manage</url-pattern>
-   	<url-pattern>/donor/history</url-pattern>
-   	<url-pattern>/donor/feedBack</url-pattern>
-  </servlet-mapping>
-
+  
 </web-app>

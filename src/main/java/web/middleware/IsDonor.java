@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import dao.entities.User;
 
 
-public class IsDonor {
+public class IsDonor implements Filter {
 
 	public void destroy() {
 		// TODO Auto-generated method stub

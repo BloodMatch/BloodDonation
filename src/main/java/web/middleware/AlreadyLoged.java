@@ -23,6 +23,7 @@ public class AlreadyLoged implements Filter {
 
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		System.out.println("in filter alreadyLoged");
 		HttpServletRequest req =(HttpServletRequest)request;
 		HttpServletResponse resp = (HttpServletResponse)response;
 		HttpSession session = req.getSession();

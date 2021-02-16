@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import dao.entities.User;
 
 
-public class IsSuperAdmin {
+public class IsSuperAdmin implements Filter {
 
    
 	public void destroy() {

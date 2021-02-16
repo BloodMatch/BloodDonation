@@ -55,7 +55,7 @@ public class Appointment implements Serializable{
 	}
 	
 	public void setThis(Appointment appointment){
-		//this.id = appointment.getId();
+		this.id = appointment.getId();
 		this.state = appointment.getState();
 		this.donationType = appointment.getDonationType();
 		this.time = appointment.getTime();
@@ -66,7 +66,7 @@ public class Appointment implements Serializable{
 	}
 
 	public void setThis(HttpServletRequest request){
-		//this.id = request.getParameter("id");
+		this.id = Long.parseLong(request.getParameter("id"));
 		this.state = request.getParameter("state");
 		this.state = request.getParameter("donationType");
 		this.time = request.getParameter("time");
@@ -78,7 +78,7 @@ public class Appointment implements Serializable{
 
 	public void setThis(ResultSet rs){
 		try{
-			//this.id = rs.getLong("id");
+			this.id = rs.getLong("id");
 			this.state = rs.getString("state");
 			this.donationType = rs.getString("donationType");
 			this.time = rs.getString("time");
@@ -91,11 +91,11 @@ public class Appointment implements Serializable{
 		}
 	}
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -232,6 +232,7 @@ public class Appointment implements Serializable{
 	}
 	
 	public  Boolean cancelAppoint() {
+		System.out.println(this.id);
 		return appointDao.cancelAppoint(this.id);
 	}
 	
