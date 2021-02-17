@@ -43,7 +43,8 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="center/acount">
-                        <span class="no-icon">Account</span>
+						<c:set var="adminCenter" value="${sessionScope['isLoged']}" />
+                        <span class="no-icon">${adminCenter.getFirstName()} ${adminCenter.getLastName()}</span>
                     </a>
                 </li>
                 <!--<li class="nav-item dropdown">

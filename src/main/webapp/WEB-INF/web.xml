@@ -66,6 +66,12 @@
   	<url-pattern>/hospital/*</url-pattern>
   </filter-mapping>
   
+  
+  <servlet>
+  	<display-name>AuthController</display-name>
+  	<servlet-name>AuthController</servlet-name>
+  	<servlet-class>web.controllers.acenter.AuthController</servlet-class>
+  </servlet>
     
   <!-- Servlets -->
   <!-- Donor -->
@@ -77,7 +83,6 @@
   
   <servlet-mapping>
   	<servlet-name>UserController</servlet-name>
-  	<url-pattern>/login</url-pattern>
   	<url-pattern>/register</url-pattern>
   	<url-pattern>/register2</url-pattern>
   </servlet-mapping>

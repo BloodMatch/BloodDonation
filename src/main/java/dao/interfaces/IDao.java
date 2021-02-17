@@ -3,6 +3,8 @@ package dao.interfaces;
 
 import java.util.List;
 
+import dao.entities.Appointment;
+
 public interface IDao <T> {
 	/*
 	 * Insert new Record into dataBase
@@ -26,6 +28,7 @@ public interface IDao <T> {
 	 * Update a Record in dataBase
 	 * @return User
 	 */
+	
 	public  T update(T t);
 	
 	/*

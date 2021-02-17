@@ -101,28 +101,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 		return appointments;
 	}
 	
-	public List<Appointment> findWhere(String column, String value) {
-		List<Appointment> appointments = new ArrayList<Appointment>();
-		try {
-			PreparedStatement ps = connection.prepareStatement
-					("SELECT * FROM APPOINTMENT WHERE"+column+" = ? ");
-			ps.setString(1, value);
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				Appointment appointment = new Appointment();
-				appointment.setThis(rs);
-				appointment.setDonor();
-				appointment.setCenter();
-				appointment.setAnalysis();
-				appointments.add(appointment);
-			}
-			ps.close();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return appointments;
-	}
-
+	
 	public Appointment update(Appointment appointment) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
@@ -258,7 +237,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 		List<Appointment> appointments = new ArrayList<Appointment>();
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT * FROM APPOINTMENT where DonorId=? ORDER BY time desc");
+					("SELECT * FROM APPOINTMENT where DonorId=? ORDER BY time");
 			ps.setLong(1, donor.getDonorId());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
