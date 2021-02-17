@@ -11,7 +11,7 @@ import dao.entities.Center;
 import web.models.Model;
 
 public class AppointmentModel implements Model<Appointment>{
-	private long id;
+	private Long id;
 	private String state;
 	private String donationType;
 	private String time;
@@ -84,11 +84,11 @@ public class AppointmentModel implements Model<Appointment>{
 		this.daysLeft = this.subDate(currentDate, this.time.split(" ")[0]); // Get the date only
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

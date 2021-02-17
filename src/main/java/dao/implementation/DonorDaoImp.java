@@ -68,6 +68,29 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 		return donor;
 	}
 	
+	public Donor findByCin(String cin) {
+		Donor donor = null;
+		User user = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("SELECT DISTINCT * FROM DONOR WHERE cin = ?");
+			ps.setString(1, cin);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				donor = new Donor();
+				donor.setThis(rs);
+				
+				user = super.find( donor.getId());
+				donor.setThis(user);
+				
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return donor;
+	}
+	
 	public List<Donor> findAll() {
 		List<Donor> donors = new ArrayList<Donor>();
 		try {

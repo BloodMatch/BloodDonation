@@ -46,7 +46,7 @@
 														<button type="submit" name="action" value="revoke" class="btn btn-danger btn-block">Revoke</button>
 													</c:when>
 													<c:otherwise>
-														..
+														--
 													</c:otherwise>  
 												</c:choose>
                                             </div>

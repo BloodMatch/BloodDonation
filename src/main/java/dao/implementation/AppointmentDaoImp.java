@@ -79,11 +79,11 @@ public class AppointmentDaoImp implements IAppointmentDao{
 		return appointments;
 	}
 	
-	public List<Appointment> findAll(String col, String val) {
+	public List<Appointment> findWhere(String col, String val) {
 		List<Appointment> appointments = new ArrayList<Appointment>();
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT * FROM APPOINTMENT WHERE "+col+" = ?");
+					("SELECT * FROM APPOINTMENT WHERE "+col+" = ? ORDER BY time");
 			ps.setString(1, val);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
@@ -183,7 +183,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 	public Appointment lastDonation(Long donorId) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT * FROM appointment WHERE donorId = ? AND state='Fullfilled' ORDER BY `time` desc LIMIT 1");
+					("SELECT * FROM appointment WHERE donorId = ? AND state='Fulfilled' ORDER BY `time` desc LIMIT 1");
 			ps.setLong(1, donorId);
 			ResultSet rs = ps.executeQuery() ;
 			if(rs.next()){ // 1 : one row affected

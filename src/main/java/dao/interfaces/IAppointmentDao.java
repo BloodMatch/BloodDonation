@@ -15,7 +15,7 @@ public interface IAppointmentDao extends IDao<Appointment> {
 	public Appointment find(Analysis analysis);
 	public List<Appointment> find(Donor donor);
 	public List<Appointment> find(Center center);
-	public List<Appointment> findAll(String col, String val);
+	public List<Appointment> findWhere(String col, String val);
 	
 	/*
 	 * Business

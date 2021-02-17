@@ -96,19 +96,19 @@ public class AppointmentController extends ServletController {
 	}
 	
 	private void pending() {
-		req.setAttribute("appointmentsList", DAOFactory.getAppointmentDao().findAll("state", "Pending"));
+		req.setAttribute("appointmentsList", DAOFactory.getAppointmentDao().findWhere("state", "Pending"));
 		
     	view("admin-center/appointment/pending");
 	}
 	
 	private void scheduled() {
-		req.setAttribute("bookedAppointmentsList", DAOFactory.getAppointmentDao().findAll("state", "Booked"));
-		req.setAttribute("arrivedAppointmentsList", DAOFactory.getAppointmentDao().findAll("state", "Arrived"));
+		req.setAttribute("bookedAppointmentsList", DAOFactory.getAppointmentDao().findWhere("state", "Booked"));
+		req.setAttribute("arrivedAppointmentsList", DAOFactory.getAppointmentDao().findWhere("state", "Arrived"));
 		view("admin-center/appointment/scheduled");
 	}
 	
 	private void donations() {
-		req.setAttribute("appointmentsList", appointmentDao.findAll("state", "Fulfilled"));
+		req.setAttribute("appointmentsList", appointmentDao.findWhere("state", "Fulfilled"));
 		view("admin-center/appointment/donations");
 	}
 	

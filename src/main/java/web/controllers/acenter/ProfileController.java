@@ -3,6 +3,7 @@ package web.controllers.acenter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
+import dao.DAOFactory;
 import dao.entities.Donor;
 import dao.implementation.*;
 import web.http.ServletController;
@@ -18,8 +19,8 @@ public class ProfileController extends ServletController {
 		router.setBaseURL("/center/profile");
 		
 		router.get("", () ->  this.center());
-		router.get("/search", "search");
 		router.get("/donor", "donor");
+		router.get("/search", "search");
 		router.get("/hospital", "hospital");
 		
 		
@@ -45,7 +46,7 @@ public class ProfileController extends ServletController {
 		else {
 			switch ( type ) {
 		        case "donor":
-		        		donor(Long.parseLong( req.getParameter("query") ));
+		        		donor(req.getParameter("query") );
 		        	break;
 		        	
 		        case "hospital":
@@ -59,12 +60,19 @@ public class ProfileController extends ServletController {
 	}
 
 	public void donor() {
-		donor(Long.parseLong( req.getParameter("Did") ));
+		//donor(req.getParameter("Did") );
+		// TODO Auto-generated method stub
+		//Donor donor = (new DonorDaoImp()).find( id );
+		Donor donor = DAOFactory.getDonorDao().find( Long.parseLong(req.getParameter("Did")) );
+		donor.setAppointments(); 
+		req.setAttribute("donor", donor);
+		view("admin-center/profile/donor");
 	}
 	
-	public void donor(Long id) {
+	public void donor(String cin) {
 		// TODO Auto-generated method stub
-		Donor donor = (new DonorDaoImp()).find( id );
+		//Donor donor = (new DonorDaoImp()).find( id );
+		Donor donor = DAOFactory.getDonorDao().findByCin( cin);
 		donor.setAppointments(); 
 		req.setAttribute("donor", donor);
 		view("admin-center/profile/donor");
