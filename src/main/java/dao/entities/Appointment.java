@@ -15,8 +15,9 @@ import dao.interfaces.IAnalysisDao;
 import dao.interfaces.IAppointmentDao;
 import dao.interfaces.ICenterDao;
 import dao.interfaces.IDonorDao;
+import dao.interfaces.IEntity;
 
-public class Appointment implements Serializable{
+public class Appointment implements Serializable, IEntity<Appointment>{
 	
 	private Long id;
 	private String state;
@@ -196,6 +197,36 @@ public class Appointment implements Serializable{
 	 * CRUD OPPERATIONS
 	 * */
 	
+	@Override
+	public Appointment save() {
+		try {
+			return appointDao.update(this);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public Appointment add() {
+		try {
+			return appointDao.insert(this);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public boolean remove() {
+		try {
+			return appointDao.delete(this.id);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	public static Appointment find(Long id) {
 		return appointDao.find(id);
 	}
@@ -207,19 +238,6 @@ public class Appointment implements Serializable{
 		ap.setCenterId(centerId);
 		ap.setDonorId(donorId);
 		return ap;
-	}
-	
-	public void add() {
-		appointDao.insert( this);
-	}
-	
-	public Appointment save() {
-		try {
-			return appointDao.insert(this);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 	
 	public static Appointment update(Appointment ap) {
@@ -255,4 +273,5 @@ public class Appointment implements Serializable{
 		this.center = centerDao.find(this);
 		return this.center;
 	}
+	
 }

@@ -27,7 +27,7 @@ public class StockDaoImp implements IStockDao{
 			ps.execute();
 			ResultSet rs = ps.getGeneratedKeys();
 			if(rs.next()) { // 1 : one row affected
-				stock.setId(rs.getInt(1));
+				stock.setId(rs.getLong(1));
 				return stock;
 			}
 			
