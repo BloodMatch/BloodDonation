@@ -40,10 +40,10 @@
                                                 <c:choose>
                                               		<c:when test="${ appointment.getState().equals('Pending')}">
                                               			<button type="submit" name="action" value="approve" class="btn btn-info">Approve</button>
-                                                		<button type="submit" name="action" value="decline" class="btn btn-danger">Decline</button>
+                                                		<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editAppointmentModal" data-id="${appointment.getId()}" data-type="${appointment.getDonationType()}" data-datetime="${appointment.getTime()}" >Reschedule</nutton>
 													</c:when>
 													<c:when test="${ appointment.getState().equals('Booked')}">
-														<button type="submit" name="action" value="revoke" class="btn btn-warning">Revoke</button>
+														<button type="submit" name="action" value="revoke" class="btn btn-danger btn-block">Revoke</button>
 													</c:when>
 													<c:otherwise>
 														..
@@ -134,6 +134,10 @@
         </div>
     </div>
 </c:set>
+
+<div class="modal fade" id="editAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="editAppointmentModalLabel" aria-hidden="true">
+	<%@ include file="../appointment/edit.modal.jsp"%>
+</div>
 
 <div class="modal fade" id="newAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="newAppointmentModalLabel" aria-hidden="true">
 	<%@ include file="../appointment/new.modal.jsp"%>

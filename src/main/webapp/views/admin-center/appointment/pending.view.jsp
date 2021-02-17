@@ -28,8 +28,7 @@
 		                <th>Donor</th>
 		                <th>    
 		                	<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-			                	<button type="submit" form="peneding-appointments" title="Approve all" name="action" value="approveAll" class="btn btn-primary">Approve</button>
-			                	<button type="submit" form="peneding-appointments" title="Decline all" name="action" value="declineAll" class="btn btn-danger" >Decline</button>
+			                	<button type="submit" form="peneding-appointments" title="Approve all" name="action" value="approveAll" class="btn btn-primary btn-block">Approve all selected</button>
 		                	</div>
 		                </th>
 		            </thead>
@@ -51,7 +50,7 @@
 		                        <input type="hidden" name="id" value="${appointment.getId()}">
 			                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
 			                            <button type="submit" name="action" value="approve" class="btn btn-primary">Approve</button>
-			                            <button type="submit" name="action" value="decline" class="btn btn-danger">Decline</button>
+			                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editAppointmentModal" data-id="${appointment.getId()}" data-type="${appointment.getDonationType()}" data-datetime="${appointment.getTime()}" >Reschedule</nutton>
 			                        </div>
 		                       	</form>
 		                    </td>
@@ -69,5 +68,8 @@
 						
 </c:set>
 
+<div class="modal fade" id="editAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="editAppointmentModalLabel" aria-hidden="true">
+	<%@ include file="../appointment/edit.modal.jsp"%>
+</div>
 
 <%@ include file="../app.jsp"%>

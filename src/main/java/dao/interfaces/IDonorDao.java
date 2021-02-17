@@ -1,5 +1,7 @@
 package dao.interfaces;
 
+import java.util.List;
+
 //import java.util.List;
 
 import dao.entities.Appointment;

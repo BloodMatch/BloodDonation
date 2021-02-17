@@ -46,7 +46,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name="action" value="add" class="btn btn-danger ">Save</button>
+            <button type="submit" name="action" value="add" class="btn btn-danger ">Add</button>
         </div>
     </form>
   </div>

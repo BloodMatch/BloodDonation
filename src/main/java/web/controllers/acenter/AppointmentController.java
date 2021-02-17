@@ -1,8 +1,11 @@
 package web.controllers.acenter;
 
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
+import dao.DAOFactory;
 import dao.entities.Appointment;
 import dao.implementation.AppointmentDaoImp;
 import web.http.ServletController;
@@ -27,6 +30,8 @@ public class AppointmentController extends ServletController {
 		});*/
 		
 		router.post("@add", "add");
+		router.post("@save", "save");
+		
 		router.post("@approve", 	() ->  this.approve( req.getParameter("id") ));
 		router.post("@approveAll", 	() ->  this.approveAll( req.getParameterValues("ids") ));
 		
@@ -79,14 +84,26 @@ public class AppointmentController extends ServletController {
 		redirectPrevious();
 	}
 	
+	public void save() {
+		System.out.println(Long.parseLong( req.getParameter("id") ));
+		
+		appointment =  appointmentDao.find( Long.parseLong( req.getParameter("id") ) );
+		appointment.setTime(req.getParameter("date")+" "+req.getParameter("time"));
+		
+		appointment.save();
+		
+		redirectPrevious();
+	}
+	
 	private void pending() {
-		req.setAttribute("appointmentsList", appointmentDao.findAll("state", "Pending"));
+		req.setAttribute("appointmentsList", DAOFactory.getAppointmentDao().findAll("state", "Pending"));
+		
     	view("admin-center/appointment/pending");
 	}
 	
 	private void scheduled() {
-		req.setAttribute("bookedAppointmentsList", appointmentDao.findAll("state", "Booked"));
-		req.setAttribute("arrivedAppointmentsList", appointmentDao.findAll("state", "Arrived"));
+		req.setAttribute("bookedAppointmentsList", DAOFactory.getAppointmentDao().findAll("state", "Booked"));
+		req.setAttribute("arrivedAppointmentsList", DAOFactory.getAppointmentDao().findAll("state", "Arrived"));
 		view("admin-center/appointment/scheduled");
 	}
 	
