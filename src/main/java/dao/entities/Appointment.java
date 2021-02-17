@@ -228,9 +228,14 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 	}
 	
 	public static Appointment find(Long id) {
-		return appointDao.find(id);
+		try{
+			return appointDao.find(id);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
-	
+
 	public static Appointment create(String donationType, String date, Long centerId, Long donorId) {
 		Appointment ap = new Appointment();
 		ap.setDonationType(donationType);
@@ -239,10 +244,6 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 		ap.setDonorId(donorId);
 		return ap;
 	}
-	
-	public static Appointment update(Appointment ap) {
-		return appointDao.update(ap);
-	}
 
 	/* Business */
 	public static List<Center> availableCenters(String date, String city){
@@ -250,7 +251,6 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 	}
 	
 	public  Boolean cancelAppoint() {
-		System.out.println(this.id);
 		return appointDao.cancelAppoint(this.id);
 	}
 	

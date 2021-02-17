@@ -48,9 +48,9 @@
                                     	
 	                                    
 	                                </div>
-	                                <div class="col-3">
-	                                    <p class="blood-color right"><i class="fas fa-calendar-day"></i> ${appointment.time } </p>
-	                                    <p class="lead right"> <i class="fas fa-circle"></i> ${appointment.state } </p>
+	                                <div class="col-3 ">
+	                                    <p class="lead blood-color text-center"><i class="fas fa-calendar-day"></i> ${appointment.time }</p>
+	                                    <p class="lead text-center"> <i class="fas fa-circle"></i> ${appointment.state } </p>
 	                                </div>
 	                            </div>
 	                        </div>

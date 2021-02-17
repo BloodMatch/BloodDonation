@@ -47,7 +47,7 @@ public class AppointmentModel implements Model<Appointment>{
 	}
 	
 	public void clone(Appointment ap) {
-		this.id = ap.getCenterId();
+		this.id = ap.getId();
 		this.state = ap.getState();
 		this.donationType = ap.getDonationType();
 		this.time = ap.getTime();

@@ -51,6 +51,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 			if(rs.next()) {
 				appointment = new Appointment();
 				appointment.setThis(rs);
+				return appointment;
 			}
 			ps.close();
 		}catch(SQLException e) {
@@ -182,7 +183,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 	public Appointment lastAppointment(Long donorId) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT * FROM appointment WHERE donorId = ? AND state='Proposed' AND `time` >= CURRENT_TIMESTAMP() ORDER BY `time` desc LIMIT 1");
+					("SELECT * FROM appointment WHERE donorId = ? AND state='Pending' AND `time` >= CURRENT_TIMESTAMP() ORDER BY `time` desc LIMIT 1");
 			ps.setLong(1, donorId);
 			ResultSet rs = ps.executeQuery() ;
 			if(rs.next()){ // 1 : one row affected
@@ -225,7 +226,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 		List<Center> centers = new ArrayList<Center>();
 		try {
 			PreparedStatement ps = connection.prepareStatement
-			("SELECT DISTINCT cnt.* FROM center cnt, appointment appoint WHERE cnt.id = appoint.CenterId AND cnt.city = ? AND DATE(TIME) <= ? AND " + 
+			("SELECT DISTINCT cnt.* FROM center cnt, appointment appoint WHERE cnt.id = appoint.CenterId AND cnt.city = ? AND Date(TIME) >= ? AND " + 
 			"(	SELECT COUNT(*) as total FROM appointment WHERE DATE(TIME) = ?) <= 35 UNION SELECT * FROM center cen WHERE city = ? AND NOT EXISTS ( SELECT * FROM appointment WHERE cen.id = CenterId );");
 			ps.setString(1, city);
 			ps.setString(2, date);

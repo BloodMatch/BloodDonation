@@ -1,10 +1,7 @@
 package web.controllers.Donor;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 
 import dao.entities.Appointment;
 import dao.entities.Center;
@@ -107,7 +103,7 @@ public class AppointmentController extends HttpServlet {
 		request.setAttribute("donor", this.getDonorModel());
 		request.setAttribute("user",this.getUserModel());
 		
-		//appointMod.setCities(Center.getOtherCities(donor.getCity()));
+		appointMod.setCitiesInput(Center.getOtherCities(donor.getCity()));
 		
 		/*
 		 * POST : [ donor/schedule , donor/schedule/save, donor/schedule/cancel ] 
@@ -135,12 +131,14 @@ public class AppointmentController extends HttpServlet {
 			// Get Parameters
 			String donationType = request.getParameter("donationType");
 			String date = request.getParameter("donationDate");
+			String time = request.getParameter("time");
 			Long centerId = Long.parseLong(request.getParameter("centerId"));
 			
 			if(date.equals("")) date = LocalDate.now().toString(); // currentDate
-			
+			date = date.concat(" "+time);
+			System.out.println(date);
 			Appointment newAppoint = Appointment.create(donationType, date, centerId, donor.getDonorId());
-			newAppoint = newAppoint.save();
+			newAppoint = newAppoint.add();
 			
 			// Set Model
 			appointMod.clone(newAppoint);
@@ -160,7 +158,6 @@ public class AppointmentController extends HttpServlet {
 			}else {
 				response.sendRedirect(contextPath+"/donor/manage");
 			}
-
 		}
 		
 		if(contextPath.concat("/donor/feedBack").equals(reqURI)) {
@@ -174,7 +171,7 @@ public class AppointmentController extends HttpServlet {
 			appoint.setComment(comment);
 			appoint.setSatisfaction(rating);
 			try {
-				Appointment.update(appoint);
+				appoint.save();
 				response.sendRedirect(contextPath+"/donor/history");
 			}catch(Exception e) {
 				response.sendRedirect(contextPath+"/donor/menu");

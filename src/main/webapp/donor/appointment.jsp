@@ -61,7 +61,7 @@
 		                            <div class="card-body p-4"> 
 		                                <div class="form-group">
 		                                    <label for="donationType">Donation Type <sapn class="text-danger">*</sapn></label>
-		                                    <select name="donationType" class="form-control form-control-lg" id="donationType">
+		                                    <select name="donationType" class="form-control form-control-lg" id="donationType" required>
 		                                        <option value="Plazma">AB Plasma</option>
 		                                        <option value="Red blood cells">Platelets</option>
 		                                        <option value="Platelets">Power Red</option>
@@ -69,10 +69,22 @@
 		                                    </select> 
 		                                </div>
 		                                <div class="form-group">
-		                                    <input class="form-control form-control-lg" name="centerId" id="centerId" type="hidden">
+		                                    <label for="time">Time <sapn class="text-danger">*</sapn></label>
+		                                    <select name="time" id="time" class="form-control form-control-lg" required>
+											    <option value="09:00:00">9:00</option>
+											    <option value="10:00:00">10:00</option>
+											    <option value="11:00:00">11:00</option>
+											    <option value="14:00:00">14:00</option>
+											    <option value="15:00:00">15:00</option>
+											    <option value="16:00:00">16:00</option>
+											    <option value="17:00:00">17:00</option>    
+											 </select>
+		                                </div>
+		                                <div class="form-group">
+		                                    <input class="form-control form-control-lg" name="centerId" id="centerId" type="hidden" required>
 		                                </div>
 		                                 <div class="form-group">
-		                                    <input class="form-control form-control-lg" name="donationDate" value="${appoint.dateFiltredInput}"  type="hidden">
+		                                    <input class="form-control form-control-lg" name="donationDate" value="${appoint.dateFiltredInput}"  type="hidden" required>
 		                                </div>
 		                            </div>
 		                        </div>
