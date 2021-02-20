@@ -64,7 +64,29 @@
    <filter-mapping>
   	<filter-name>IsAdminHospital</filter-name>
   	<url-pattern>/hospital/*</url-pattern>
-  </filter-mapping>
+   </filter-mapping>
+   
+   <filter>
+    	<display-name>IsTested</display-name>
+    	<filter-name>IsTested</filter-name>
+    	<filter-class>web.middleware.IsTested</filter-class>
+    </filter>
+  
+   <filter-mapping>
+   	<filter-name>IsTested</filter-name>
+   	<url-pattern>/donor/requirements</url-pattern>
+   </filter-mapping>
+   
+   <filter>
+   	<display-name>CanSchedule</display-name>
+   	<filter-name>CanSchedule</filter-name>
+   	<filter-class>web.middleware.CanSchedule</filter-class>
+   </filter>
+   
+   <filter-mapping>
+   	<filter-name>CanSchedule</filter-name>
+   	<url-pattern>/donor/schedule</url-pattern>
+   </filter-mapping>
   
   
   <servlet>
@@ -107,7 +129,6 @@
   <servlet-mapping>
   	<servlet-name>DonorController</servlet-name>
   	<url-pattern>/donor</url-pattern>
-  	<url-pattern>/donor/home</url-pattern>
   	<url-pattern>/donor/menu</url-pattern>
   	<url-pattern>/donor/profile</url-pattern>
   	<url-pattern>/donor/profile/edit</url-pattern>
@@ -129,6 +150,7 @@
    	<url-pattern>/donor/manage</url-pattern>
    	<url-pattern>/donor/history</url-pattern>
    	<url-pattern>/donor/feedBack</url-pattern>
+   	<url-pattern>/donor/requirements</url-pattern>
   </servlet-mapping>
   
   <!-- Center -->

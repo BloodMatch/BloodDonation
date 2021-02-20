@@ -27,9 +27,12 @@ public interface IAppointmentDao extends IDao<Appointment> {
 	// Get last valid proposed scheduled Appointment 
 	public Appointment lastAppointment(Long donorId);
 	
-	// Get last Fullfiled donation
+	// Get last Fulfilled donation
 	public Appointment lastDonation(Long donorId);
 	
 	// cancel Appointment
 	public Boolean cancelAppoint(Long appointmentId);
+	
+	// Difference between lastDaonation date and currentDate   
+	public Long duration(Appointment appoint);
 }

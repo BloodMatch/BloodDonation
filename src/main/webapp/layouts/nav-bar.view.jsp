@@ -102,7 +102,7 @@
 			</button>
 			<div class="collapse navbar-collapse justify-content-between" id="mobile">
 			<c:choose>
-        		<c:when test="${sessionScope.isLoged == null }">
+        		<c:when test="${empty sessionScope.isLoged}">
 					${guestNav}
 				</c:when>
 				<c:when test="${sessionScope.isLoged.role == 'donor' }">

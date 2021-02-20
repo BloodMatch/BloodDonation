@@ -29,6 +29,9 @@ public class AppointmentModel implements Model<Appointment>{
 	private List<Appointment> appointments = new ArrayList<Appointment>();
 	private String donationTInput = "";
 	
+	//Error message
+	private String errorMsg; 
+	
 
 	public AppointmentModel() {
 		
@@ -178,6 +181,14 @@ public class AppointmentModel implements Model<Appointment>{
 
 	public void setDonationTInput(String donationT) {
 		this.donationTInput = donationT;
+	}
+
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
 	}
 	
 }

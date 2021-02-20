@@ -169,6 +169,23 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 		}
 		return lastId;
 	}
+	
+	public Donor tested(Donor donor, Boolean value) {
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("UPDATE DONOR SET tested=? WHERE id=?");
+			ps.setBoolean(1, value);
+			ps.setLong(2, donor.getDonorId());
+			if(ps.executeUpdate() == 1) { // 1 : one row affected
+				donor.setTested(true);
+				return donor;
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	/*
 	 * RELATIONSHIPS

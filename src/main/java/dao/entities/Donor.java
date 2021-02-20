@@ -26,6 +26,7 @@ public class Donor extends User implements Serializable{
 	protected String city;
 	protected long zipCode;
 	protected String image;
+	protected Boolean tested;
 	
 	//Associations
 	private List<Appointment> appointments = new ArrayList<Appointment>();
@@ -88,6 +89,7 @@ public class Donor extends User implements Serializable{
 			this.city = rs.getString("city");
 			this.zipCode = rs.getLong("ZIPCode");
 			this.image = rs.getString("image");
+			this.tested = rs.getBoolean("tested");
 			this.id = rs.getLong("userId");
 			
 		} catch (SQLException e) {
@@ -159,7 +161,14 @@ public class Donor extends User implements Serializable{
 		this.zipCode = zipCode;
 	}
 	
-	
+	public Boolean getTested() {
+		return tested;
+	}
+
+	public void setTested(Boolean tested) {
+		this.tested = tested;
+	}
+
 	public List<Appointment> getAppointments(){
 		return appointments;
 	}
@@ -186,6 +195,10 @@ public class Donor extends User implements Serializable{
 	
 	public static Donor update(Donor donor) {
 		return donorDao.update(donor);
+	}
+	
+	public Donor tested(Boolean value) {
+		return donorDao.tested(this, value);
 	}
 	
 

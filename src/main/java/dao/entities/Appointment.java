@@ -262,6 +262,10 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 		return appointDao.lastDonation(donorId);
 	}
 	
+	public Long duration() {
+		return appointDao.duration(this);
+	}
+	
 
 	/* Relationships */
 	public Donor donor() {

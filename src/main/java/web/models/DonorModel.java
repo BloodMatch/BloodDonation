@@ -12,6 +12,7 @@ public class DonorModel implements Model<Donor>{
 	protected String city;
 	protected long zipCode;
 	protected String image;
+	protected Boolean tested;
 	
 	public DonorModel () {
 		
@@ -39,6 +40,7 @@ public class DonorModel implements Model<Donor>{
 		this.city = donor.getCity();
 		this.zipCode = donor.getZipCode();
 		this.image = donor.getImage();
+		this.tested = donor.getTested();
 	}
 
 	public Long getId() {
@@ -105,4 +107,11 @@ public class DonorModel implements Model<Donor>{
 		this.image = image;
 	}
 
+	public Boolean getTested() {
+		return tested;
+	}
+
+	public void setTested(Boolean tested) {
+		this.tested = tested;
+	}
 }
