@@ -15,6 +15,7 @@ public class AppointmentModel implements Model<Appointment>{
 	private String state;
 	private String donationType;
 	private String time;
+	private String date;
 	private int satisfaction;
 	private String comment;
 	private long CenterId;
@@ -53,7 +54,8 @@ public class AppointmentModel implements Model<Appointment>{
 		this.id = ap.getId();
 		this.state = ap.getState();
 		this.donationType = ap.getDonationType();
-		this.time = ap.getTime();
+		this.date = ap.getTime().split(" ")[0];
+		this.time = ap.getTime().split(" ")[1];
 		this.satisfaction = ap.getSatisfaction();
 		this.comment = ap.getComment();
 		this.CenterId = ap.getCenterId();
@@ -84,7 +86,7 @@ public class AppointmentModel implements Model<Appointment>{
 	}
 
 	public void setDaysLeft(String currentDate) {
-		this.daysLeft = this.subDate(currentDate, this.time.split(" ")[0]); // Get the date only
+		this.daysLeft = this.subDate(currentDate, this.date); // Get the date only
 	}
 
 	public Long getId() {
@@ -190,5 +192,12 @@ public class AppointmentModel implements Model<Appointment>{
 	public void setErrorMsg(String errorMsg) {
 		this.errorMsg = errorMsg;
 	}
-	
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
 }

@@ -12,16 +12,44 @@
             <hr>
         </div>
         <c:if test="${not empty appoint}">
+        	<c:if test="${not empty appoint.errorMsg}">
+            	<div class="container">
+	         		<div class="row justify-content-center">
+	         			<div class="alert alert-danger" role="alert">
+						  	${appoint.errorMsg}
+						</div>
+	         		</div>
+         		</div>
+            </c:if>
 	        <div class="container">
 	            <div class="row text-center">
 	                <div class="col-sm-12 col-md-4">
-	                    <p class="blood-color"> ${appoint.time} </p>
+	                    <p class="blood-color lead"> ${appoint.date} ${appoint.time} </p>
 	                </div>
 	                <div class="col-sm-12 col-md-4">
-	                    ${appoint.donationType}
+	                    <img src="${rootUrl}/assets/icons/blood-type/${appoint.donationType}.svg" width="15" title="${appoint.donationType}" alt="-"> <span class="lead"> ${appoint.donationType} </span>
 	                </div>
 	                <div class="col-sm-12 col-md-4">
-	                    <p class="text-right">Pending <i class="far fa-clock"></i></p>
+	                    <p class="lead text-right"> 
+							<c:choose>
+                             	<c:when test="${appoint.state == 'Pending' }">
+                             	 	<i class="fas fa-circle"></i>
+                             	</c:when>
+                             	<c:when test="${appoint.state == 'Canceled' }">
+                             		<i class="fas fa-circle text-danger"></i>
+                             	</c:when>
+                             	<c:when test="${appoint.state == 'Fulfilled' }">
+                             		<i class="fas fa-circle text-success"></i>
+                             	</c:when>
+                             	<c:when test="${appoint.state == 'Arrived' }">
+                             		<i class="fas fa-circle text-primary"></i>
+                             	</c:when>
+                             	<c:when test="${appoint.state == 'Booked' }">
+                             		<i class="fas fa-circle text-warning"></i>
+                             	</c:when>
+                             </c:choose>
+                             ${appoint.state}
+						 </p>
 	                </div>
 	            </div>
 	        </div>
@@ -60,9 +88,55 @@
 	                    </form>
 	                </div>
 	            </div>
-	            <hr>
 	        </div>
          </c:if>
+         <div class="container mt-5">
+       		<h3>Reschedule your Appointment </h3>
+       		<hr>
+         	<form action="${rootUrl}/donor/reschedule" method="POST" id="form">
+         		<div class="row justify-content-around align-items-center mt-4">
+		         	<input type="hidden" name="appointId" value="${appoint.id}" required class="form-control"/>         			
+	         		<div class="col-sm-3">
+	         			<div class="form-group">
+		         			<label for="date">Date <span class="text-danger">*</span></label>
+		         			<input type="date" name="date" id="date" value="${appoint.date}" required class="form-control"/>         			
+	         			</div>
+	         		</div>
+	         		<div class="col-sm-3">
+	         			<div class="form-group">
+		         			<label for="time">Time <span class="text-danger">*</span></label>
+		         			<input type="time" name="time" id="time" value="${appoint.time }" required class="form-control"/>         			
+	         				<span class="text-danger d-none">Not a valid time (09:00-12:00 | 14:00-18:00)</span>
+	         			</div>
+	         			<script>
+	         				const time = document.getElementById('time');
+	         				const form = document.getElementById('form');
+	         				time.addEventListener('change', function(){
+	         					time.value = time.value.split(':')[0]+':00:00';
+	         				});
+	         				
+	         				form.addEventListener('submit', function(e){
+	         					e.preventDefault();
+	         					let hour = time.value.split(':')[0];
+	         					if((hour>8 && hour<12) || (hour>13 && hour<18)){
+	         						time.nextElementSibling.classList.add('d-none');
+	         						form.submit();
+	         					}else{
+	         						time.nextElementSibling.classList.remove('d-none');
+	         					}
+	         				});
+	         				
+	         			</script>
+	         		</div>
+	         		<div class="col-sm-3">
+	         			<div class="form-group">
+		         			<input type="submit" value="submit" class="btn px-5 appointement-btn"/>        			
+	         			</div>
+	         		</div>         	
+         		</div>
+         	</form>
+         </div>
+         
          <c:if test="${empty appoint}">
          	<div class="container">
          		<div class="row justify-content-center">

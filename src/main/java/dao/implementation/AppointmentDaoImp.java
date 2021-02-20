@@ -227,7 +227,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 	public Long duration(Appointment appoint) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT DATEDIFF(`time`, CURRENT_TIMESTAMP()) AS duration FROM appointment WHERE donorId = ? AND state = ? ORDER BY `time` DESC LIMIT 1");
+					("SELECT DATEDIFF(CURRENT_TIMESTAMP(), `time`) AS duration FROM appointment WHERE donorId = ? AND state = ? ORDER BY `time` DESC LIMIT 1");
 			ps.setLong(1, appoint.getDonorId());
 			ps.setString(2, appoint.getState());
 			ResultSet rs = ps.executeQuery() ;

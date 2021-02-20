@@ -147,6 +147,7 @@
    	<url-pattern>/donor/schedule/cancal</url-pattern>
    	<url-pattern>/donor/schedule/save</url-pattern>
    	<url-pattern>/donor/schedule</url-pattern>
+   	<url-pattern>/donor/reschedule</url-pattern>
    	<url-pattern>/donor/manage</url-pattern>
    	<url-pattern>/donor/history</url-pattern>
    	<url-pattern>/donor/feedBack</url-pattern>

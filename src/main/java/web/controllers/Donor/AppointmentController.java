@@ -166,6 +166,28 @@ public class AppointmentController extends HttpServlet {
 			}
 		}
 		
+		if(contextPath.concat("/donor/reschedule").equals(reqURI)) {
+			
+			// Get Parameters
+			Long appointId = Long.parseLong(request.getParameter("appointId"));
+			String date = request.getParameter("date");
+			String time = request.getParameter("time");
+			
+			try {
+				Appointment appoint = Appointment.find(appointId);
+				appoint.setTime(date+" "+time);
+				appoint.setState("Pending");
+				appoint.save();
+				appointMod.clone(appoint);
+			}catch(Exception e) {
+				appointMod.setErrorMsg("<stong>Error Occurred !</strong> Please try again lated.");
+			}
+			
+			request.setAttribute("appoint", appointMod);
+			
+			response.sendRedirect(contextPath+"/donor/manage");
+		}
+		
 		if(contextPath.concat("/donor/feedBack").equals(reqURI)) {
 			
 			// Get Parameters
