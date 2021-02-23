@@ -70,10 +70,18 @@
   <servlet>
   	<display-name>AuthController</display-name>
   	<servlet-name>AuthController</servlet-name>
-  	<servlet-class>web.controllers.acenter.AuthController</servlet-class>
+  	<servlet-class>web.controllers.Center.AuthController</servlet-class>
   </servlet>
     
   <!-- Servlets -->
+  
+  <!-- Guest -->
+  <servlet>
+  	<display-name>GuestController</display-name>
+  	<servlet-name>GuestController</servlet-name>
+  	<servlet-class>web.controllers.Center.GuestController</servlet-class>
+  </servlet>
+  
   <!-- Donor -->
   <servlet>
   	<display-name>UserController</display-name>
@@ -87,17 +95,6 @@
   	<url-pattern>/register2</url-pattern>
   </servlet-mapping>
     
-  <servlet>
-  	<display-name>HomeController</display-name>
-  	<servlet-name>HomeController</servlet-name>
-  	<servlet-class>web.controllers.HomeController</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>HomeController</servlet-name>
-  	<url-pattern>/home</url-pattern>
-  </servlet-mapping>
-
   <servlet>
   	<display-name>DonorController</display-name>
   	<servlet-name>DonorController</servlet-name>
@@ -135,43 +132,49 @@
   <servlet>
   	<display-name>HomeController</display-name>
   	<servlet-name>CenterHomeController</servlet-name>
-  	<servlet-class>web.controllers.acenter.HomeController</servlet-class>
+  	<servlet-class>web.controllers.Center.HomeController</servlet-class>
   </servlet>
   
   <servlet>
   	<display-name>DashboardController</display-name>
   	<servlet-name>DashboardController</servlet-name>
-  	<servlet-class>web.controllers.acenter.DashboardController</servlet-class>
+  	<servlet-class>web.controllers.Center.DashboardController</servlet-class>
   </servlet>
   
   <servlet>
   	<display-name>AppointmentController</display-name>
   	<servlet-name>AppointmentController</servlet-name>
-  	<servlet-class>web.controllers.acenter.AppointmentController</servlet-class>
+  	<servlet-class>web.controllers.Center.AppointmentController</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<display-name>AnalysisController</display-name>
+  	<servlet-name>AnalysisController</servlet-name>
+  	<servlet-class>web.controllers.Center.AnalysisController</servlet-class>
   </servlet>
   
   <servlet>
   	<display-name>DemandController</display-name>
   	<servlet-name>DemandController</servlet-name>
-  	<servlet-class>web.controllers.acenter.DemandController</servlet-class>
+  	<servlet-class>web.controllers.Center.DemandController</servlet-class>
   </servlet>
   
   <servlet>
   	<display-name>TaskController</display-name>
   	<servlet-name>TaskController</servlet-name>
-  	<servlet-class>web.controllers.acenter.TaskController</servlet-class>
+  	<servlet-class>web.controllers.Center.TaskController</servlet-class>
   </servlet>
   
   <servlet>
   	<display-name>ProfileController</display-name>
   	<servlet-name>ProfileController</servlet-name>
-  	<servlet-class>web.controllers.acenter.ProfileController</servlet-class>
+  	<servlet-class>web.controllers.Center.ProfileController</servlet-class>
   </servlet>
   
   <servlet>
   	<display-name>InventoryController</display-name>
   	<servlet-name>InventoryController</servlet-name>
-  	<servlet-class>web.controllers.acenter.InventoryController</servlet-class>
+  	<servlet-class>web.controllers.Center.InventoryController</servlet-class>
   </servlet>
   
 </web-app>

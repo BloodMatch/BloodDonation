@@ -179,10 +179,12 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 			PreparedStatement ps = connection.prepareStatement
 					("SELECT DISTINCT * FROM DONOR WHERE UserId = ?");
 			ps.setLong(1, user.getId());
+			
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
 				donor = new Donor();
-				donor.setThis(rs);	
+				donor.setThis(rs);
+				donor.setThis(user);
 			}
 			ps.close();
 		}catch(SQLException e) {

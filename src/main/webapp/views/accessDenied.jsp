@@ -15,4 +15,4 @@
 
 <c:remove var="other"/>
 
-<%@ include file="layouts/app.view.jsp"%>
+<%@ include file="app.jsp"%>

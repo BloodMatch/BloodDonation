@@ -32,7 +32,7 @@ public class IsDonor implements Filter {
 		}else {
 			// last user url
 			req.setAttribute("back", req.getHeader("Referer"));
-			req.getRequestDispatcher("accessDenied.jsp").forward(req, resp);
+			req.getRequestDispatcher("views/accessDenied.jsp").forward(req, resp);
 		}
 	}
 

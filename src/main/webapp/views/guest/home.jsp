@@ -75,12 +75,10 @@
 							  	<textarea class="form-control" id="message"  rows="text" cols=""></textarea>						 
 							 </div>        				
         				</div>
-        				
-        				
         			</div>
         		</div>
         	</div>
         </section>
 </c:set>
 
-<%@ include file="layouts/app.view.jsp"%>
+<%@ include file="../app.jsp"%>

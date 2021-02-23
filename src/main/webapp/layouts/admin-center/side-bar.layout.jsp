@@ -55,7 +55,7 @@
                 </a>
             </li>
             <li>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="center/statistics">
                     <i class="nc-icon nc-atom"></i>
                     <p>statistics </p>
                 </a>

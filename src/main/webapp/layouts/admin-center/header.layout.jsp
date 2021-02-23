@@ -12,6 +12,9 @@
 <!-- CSS Just for demo purpose, don't include it in your project -->
 <link href="assets/BS3/css/demo.css" rel="stylesheet" />
 
+<link href="styles/main.css" rel="stylesheet" />
+
+
 <!--   Core JS Files   -->
 <script src="assets/BS3/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
 <script src="assets/BS3/js/core/popper.min.js" type="text/javascript"></script>

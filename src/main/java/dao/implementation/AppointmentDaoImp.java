@@ -70,6 +70,9 @@ public class AppointmentDaoImp implements IAppointmentDao{
 			while(rs.next()) {
 				Appointment appointment = new Appointment();
 				appointment.setThis(rs);
+				appointment.setDonor();
+				appointment.setCenter();
+				appointment.setAnalysis();
 				appointments.add(appointment);
 			}
 			ps.close();
@@ -243,6 +246,9 @@ public class AppointmentDaoImp implements IAppointmentDao{
 			while(rs.next()) {
 				Appointment appointment = new Appointment();
 				appointment.setThis(rs);
+				appointment.setDonor();
+				appointment.setCenter();
+				appointment.setAnalysis();
 				appointments.add(appointment);
 			}
 			ps.close();

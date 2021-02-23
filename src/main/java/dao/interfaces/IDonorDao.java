@@ -30,6 +30,7 @@ public interface IDonorDao extends IDao<Donor>{
 	 */
 	public Donor find(Appointment appointment);
 	
+	public Donor findByCin(String cin);
 	
 }
 

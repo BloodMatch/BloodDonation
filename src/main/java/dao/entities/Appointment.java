@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dao.DAOFactory;
 import dao.implementation.AnalysisDaoImp;
 import dao.implementation.AppointmentDaoImp;
 import dao.implementation.CenterDaoImp;
@@ -32,12 +33,6 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 	private Donor donor;
 	private Center center;
 	private Analysis analysis; 
-
-	// Dao
-	private static IAppointmentDao appointDao = new AppointmentDaoImp();
-	private static ICenterDao centerDao = new CenterDaoImp();
-	private static IDonorDao donorDao = new DonorDaoImp();
-	private static IAnalysisDao analysisDao = new AnalysisDaoImp();
 
 	public Appointment() {
 		super();
@@ -162,7 +157,7 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 	}
 	
 	public void setDonor() {
-		this.donor = donorDao.find(this);
+		this.donor = DAOFactory.getDonorDao().find(this);
 	}
 	
 	public void setDonor(Donor donor) {
@@ -174,7 +169,7 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 	}
 
 	public void setCenter() {
-		this.center = centerDao.find(this);
+		this.center = DAOFactory.getCenterDao().find(this);
 	}
 	
 	public void setCenter(Center center) {
@@ -186,7 +181,7 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 	}
 
 	public void setAnalysis() {
-		this.analysis = analysisDao.find(this);
+		this.analysis = DAOFactory.getAnalysisDao().find(this);
 	}
 	
 	public void setAnalysis(Analysis analysis) {
@@ -200,7 +195,7 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 	@Override
 	public Appointment save() {
 		try {
-			return appointDao.update(this);
+			return DAOFactory.getAppointmentDao().update(this);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -210,7 +205,7 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 	@Override
 	public Appointment add() {
 		try {
-			return appointDao.insert(this);
+			return DAOFactory.getAppointmentDao().insert(this);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -220,7 +215,7 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 	@Override
 	public boolean remove() {
 		try {
-			return appointDao.delete(this.id);
+			return DAOFactory.getAppointmentDao().delete(this.id);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -229,7 +224,7 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 	
 	public static Appointment find(Long id) {
 		try{
-			return appointDao.find(id);
+			return DAOFactory.getAppointmentDao().find(id);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -246,31 +241,56 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 	}
 
 	/* Business */
+	
+	public void book() {
+		this.setState("Booked");
+		this.save();
+	}
+	
+	public void decline() {
+		this.setState("Declined");
+		this.save();
+	}
+	
+	public void revoke() {
+		this.setState("Revoked");
+		this.save();
+	}
+	
+	public void fulfill() {
+		this.setState("Fulfilled");
+		this.save();
+		analysis = new Analysis();
+		analysis.setAppointmentId(this.getId());
+		System.out.println("ananl.add()");
+		analysis.add();
+	}
+	
 	public static List<Center> availableCenters(String date, String city){
-		return appointDao.freeCenters(date, city);
+		return DAOFactory.getAppointmentDao().freeCenters(date, city);
 	}
 	
 	public  Boolean cancelAppoint() {
-		return appointDao.cancelAppoint(this.id);
+		return DAOFactory.getAppointmentDao().cancelAppoint(this.id);
 	}
 	
 	public static Appointment lastAppointment(Long donorId) {
-		return appointDao.lastAppointment(donorId);
+		return DAOFactory.getAppointmentDao().lastAppointment(donorId);
 	}
 	
 	public static Appointment lastDonation(Long donorId) {
-		return appointDao.lastDonation(donorId);
+		return DAOFactory.getAppointmentDao().lastDonation(donorId);
 	}
 	
 
 	/* Relationships */
 	public Donor donor() {
-		this.donor = donorDao.find(this);
+		this.donor = DAOFactory.getDonorDao().find(this);
 		return this.donor;
 	}
 	
 	public Center center() {
-		this.center = centerDao.find(this);
+		this.center = DAOFactory.getCenterDao().find(this);
 		return this.center;
 	}
 	

@@ -90,7 +90,7 @@
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card card-user">
+        <div class="card card-user  py-3">
             <div class="content px-2">
                 <div class="author"> 
                     <img class="avatar border-gray" src="assets/images/avatar-hospital.png" alt="..."/>
@@ -100,6 +100,7 @@
                 </div>
                 <br/>
                 <hr>
+                <div class="content  px-3">
                 <div class="row">
                         <div class="col-sm-2">
                             <img class="text-right" src="assets/icons/phone.svg" width="15" title="phone" alt="Phone">
@@ -127,6 +128,7 @@
                 <hr/>
                 <div class="text-center">
                     <a href="#center/hospital/facturation?id=0" class="btn btn-danger btn-block">Facturation</a>
+                </div>
                 </div>
             </div>
         </div>

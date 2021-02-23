@@ -54,7 +54,7 @@ public class Router {
 	}
 
 	public Runnable get(String url) {
-		return mapGET.get(url);
+		return () -> {mapGET.get(url);};
 	}
 
 	public void post(String url, String  methodName){

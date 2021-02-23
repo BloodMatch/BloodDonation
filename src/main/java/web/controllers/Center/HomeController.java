@@ -1,4 +1,4 @@
-package web.controllers.acenter;
+package web.controllers.Center;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -6,7 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import web.http.ServletController;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/center"})
+@WebServlet(urlPatterns = { "/center", "/center/home"})
+
 public class HomeController extends ServletController {
 	
 	@Override
@@ -14,13 +15,14 @@ public class HomeController extends ServletController {
 		super.init();
 
 		router.setBaseURL("/center");
-		
-		router.get("", "show");
+			
+		router.get("", "index");
+		router.get("/home", "index");
 	
 	}
 
 	
-	public void show() {
+	public void index() {
 		view("admin-center/home");
 	}
 	

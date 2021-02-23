@@ -15,7 +15,6 @@ import dao.entities.User;
 
 
 public class IsAdminCenter implements Filter {
-
    
 	public void destroy() {
 		// TODO Auto-generated method stub
@@ -33,7 +32,7 @@ public class IsAdminCenter implements Filter {
 		}else {
 			// last user url
 			req.setAttribute("back", req.getHeader("Referer"));
-			req.getRequestDispatcher("accessDenied.jsp").forward(req, resp);
+			req.getRequestDispatcher("views/accessDenied.jsp").forward(req, resp);
 		}	
 	}
 

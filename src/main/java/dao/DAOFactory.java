@@ -9,7 +9,7 @@ public class DAOFactory {
 	private static IAnalysisDao analysisDao = new AnalysisDaoImp();
 	private static IBagDao bagDao = new BagDaoImp();
 	private static ICenterDao centerDao = new CenterDaoImp();
-	private static DonorDaoImp donorDao = new DonorDaoImp();
+	private static IDonorDao donorDao = new DonorDaoImp();
 	private static IStockDao stockDao = new StockDaoImp();
 	private static IUserDao userDao = new UserDaoImp();
 	
@@ -38,7 +38,7 @@ public class DAOFactory {
 		return centerDao;
 	}
 	
-	public static DonorDaoImp getDonorDao () {
+	public static IDonorDao getDonorDao () {
 		return donorDao;
 	}
 	

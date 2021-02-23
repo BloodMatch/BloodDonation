@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest; 
-
+import dao.DAOFactory;
 
 public class AdminCenter extends User implements Serializable{
 	
@@ -74,10 +74,13 @@ public class AdminCenter extends User implements Serializable{
 	public void setCenterId(long CenterId) {
 		this.CenterId = CenterId;
 	}
-
 	
 	public Center getCenter() {
 		return center;
+	}
+	
+	public void setCenter() {
+		this.center = DAOFactory.getCenterDao().find(this);
 	}
 	
 	public void setCenter(Center center) {

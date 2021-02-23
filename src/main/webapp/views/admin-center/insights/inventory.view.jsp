@@ -38,7 +38,7 @@
                                 <td class="text-center col-sm-2">
                                	<c:choose>
                                 	<c:when test = "${stock.getQuantity() >= 2 * bag.getSaftyStore()}">
-							            <i class="fa fa-circle text-success" title="success"></i><small>success</small>
+							            <i class="fa fa-circle text-success" title="success"></i><small>good</small>
 							       	</c:when>
 							         
 							     	<c:when test = "${stock.getQuantity() >  bag.getSaftyStore()}">
@@ -69,4 +69,4 @@
 </c:set>
 
 
-<%@ include file="app.jsp"%>
+<%@ include file="../app.jsp"%>

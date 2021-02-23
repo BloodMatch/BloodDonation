@@ -22,13 +22,17 @@ public abstract class ServletController extends HttpServlet {
 		this.res = response;
 	}
 
-	protected void view(String src) {
+	protected void page(String src) {
 		try {
-			req.getRequestDispatcher("/views/" + src + ".view.jsp").forward(req, res);
+			req.getRequestDispatcher("/views/" + src + ".jsp").forward(req, res);
 		} catch (ServletException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	protected void view(String src) {
+		page( src + ".view");
 	}
 
 	protected void servlet(String servlet) {
@@ -60,7 +64,20 @@ public abstract class ServletController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 		this.set(request, response);
-		router.handleGET(this);
+		/*System.out.println("getServletPath : "+req.getServletPath());
+		System.out.println("getContextPath : "+req.getContextPath());
+		System.out.println("getPathInfo : "+req.getPathInfo());*/
+		try {
+			router.handleGET(this);
+			
+		}  catch (NullPointerException e) { //page note found
+			page("/error404");
+			//servlet("/error404");
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
 	}
 
 	@Override

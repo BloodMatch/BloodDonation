@@ -31,12 +31,25 @@
 		             	<%--<c:forEach var = "i" begin = "1" end = "5">--%>
 		             	<c:forEach items="${appointmentsList}" var="appointment">
 		             	<c:set var="donor" value="${appointment.getDonor()}"/>
+		             	<c:set var="analysis" value="${appointment.getAnalysis()}"/>
+		             	
 		                <tr>
 		                	<td><img src="assets/icons/blood-type/${appointment.getDonationType()}.svg" width="15" title="${appointment.getDonationType()}" alt="-"> ${appointment.getDonationType()}</td>
-		                	<td>${appointment.getTime()}</td>
+		                	<td>${ appointment.getTime().substring(0, 13)}H</td>
+		                	
 		                    <td><a class="btn-lg" href="center/profile/donor?Did=${appointment.getDonorId()}">${donor.getFirstName()} ${donor.getLastName()}</a></td>
 		                	<td><strong class="text-danger"><c:out value="${donor.getGroup()}" default=".."/></strong></td>
-		                    <td><a class="btn-lg" href="center/appointment/analysis?id=${appointment.getDonorId()}">View analysis</a></td>
+		                    <td>   
+								<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#AnalysisModal" 
+									data-id="${analysis.getId()}"
+									data-code="${analysis.getCode()}"
+									data-date="${analysis.getDate()}"
+									data-group="${donor.getGroup()}"
+									data-comment="${analysis.getComment()}"
+									data-results='${analysis.getResults()}'
+								>Analysis</button>
+		                    	<input class="form-check-input" type="checkbox" disabled <c:if test = "${analysis.getCode() > ''}">checked</c:if>>
+		                    </td>
 		                </tr>
 		                </c:forEach>
 		            </tbody>
@@ -48,6 +61,10 @@
 			</c:otherwise>  
 		</c:choose> 
 	</div>
+
+<div class="modal fade" id="AnalysisModal" tabindex="-1" role="dialog" aria-labelledby="AnalysisModalLabel"  aria-hidden="true" >
+	<%@ include file="analysis.modal.jsp"%>
+</div>
 </c:set>
 
 

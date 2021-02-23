@@ -3,8 +3,7 @@
     login
 </c:set>
 
-<c:set var = "content" scope = "session"> 
-         
+<c:set var = "content" scope = "session">
 	<section class="login-section">
         <div class="container mt-5">
             <div class="row justify-content-around login-container">
@@ -51,7 +50,7 @@
                             </div>
                         </form>
                         <div class="text-center my-3">
-                            <p class="text-musted font-weight-lighter">Dont havffffe an account ? <a href="#" class="text-decoration-none float-right">Register Now</a></p>
+                            <p class="text-musted font-weight-lighter">Dont have an account ? <a href="#" class="text-decoration-none float-right">Register Now</a></p>
                         </div>
                     </div>
                 </div>

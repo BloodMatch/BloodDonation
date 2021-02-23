@@ -1,4 +1,4 @@
-package web.controllers.acenter;
+package web.controllers.Center;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
 import dao.DAOFactory;
+import dao.entities.Analysis;
 import dao.entities.Appointment;
 import dao.implementation.AppointmentDaoImp;
 import web.http.ServletController;
@@ -14,14 +15,15 @@ import web.http.ServletController;
 @WebServlet(urlPatterns = { "/center/appointment", "/center/appointment/analysis"})
 public class AppointmentController extends ServletController {
 	
-	AppointmentDaoImp appointmentDao;
+	//AppointmentDaoImp appointmentDao;
 	Appointment appointment;
+	Analysis analysis;
 	
 	@Override
 	public void init() throws ServletException {
 		super.init();
 
-		appointmentDao = new AppointmentDaoImp();
+		//appointmentDao = new AppointmentDaoImp();
 		
 		router.setBaseURL("/center/appointment");
 		
@@ -31,6 +33,7 @@ public class AppointmentController extends ServletController {
 		
 		router.post("@add", "add");
 		router.post("@save", "save");
+		router.post("@notify", "notif");
 		
 		router.post("@approve", 	() ->  this.approve( req.getParameter("id") ));
 		router.post("@approveAll", 	() ->  this.approveAll( req.getParameterValues("ids") ));
@@ -44,14 +47,9 @@ public class AppointmentController extends ServletController {
 		router.post("@done", 		() ->  this.done( req.getParameter("id") ));
 		router.post("@doneAll", 	() ->  this.doneAll( req.getParameterValues("ids") ));
 		
-		router.get("/analysis", 	() ->  this.analysis(req.getParameter("id")) );
 	}
 
 	public void show(String state) {
-		
-		System.out.println("getServletPath : "+req.getServletPath());
-		System.out.println("getContextPath : "+req.getContextPath());
-		System.out.println("getPathInfo : "+req.getPathInfo());
 		
 		if ( state == null )
 			servlet("/center/dashboard");
@@ -73,25 +71,34 @@ public class AppointmentController extends ServletController {
 	}
 	
 	public void add() {
-		System.out.println(Long.parseLong( req.getParameter("id") ));
-		Appointment  appointment = new Appointment();
-		appointment.setDonorId( Long.parseLong( req.getParameter("id") ));
+		Long DonorId = Long.parseLong( req.getParameter("id") );
+		String donationType = req.getParameter("donationType");
+		String datetime = req.getParameter("date")+" "+req.getParameter("time");
+		
+		appointment = new Appointment();
+		appointment.setDonorId( DonorId);
 		appointment.setCenterId( 1 );
 		appointment.setState( "Pending" );
-		appointment.setDonationType(req.getParameter("donationType"));
-		appointment.setTime(req.getParameter("date")+" "+req.getParameter("time"));
+		appointment.setDonationType( donationType);
+		appointment.setTime( datetime );
 		appointment.add();
+		
 		redirectPrevious();
 	}
 	
 	public void save() {
-		System.out.println(Long.parseLong( req.getParameter("id") ));
+		String datetime = req.getParameter("date")+" "+req.getParameter("time");
+		Long id = Long.parseLong( req.getParameter("id") );
 		
-		appointment =  appointmentDao.find( Long.parseLong( req.getParameter("id") ) );
-		appointment.setTime(req.getParameter("date")+" "+req.getParameter("time"));
-		
+		appointment =  DAOFactory.getAppointmentDao().find( id);
+		appointment.setTime( datetime);
 		appointment.save();
 		
+		redirectPrevious();
+	}
+	
+	public void notif() {
+		System.out.println("Send notification to the -> Donor!");
 		redirectPrevious();
 	}
 	
@@ -108,16 +115,13 @@ public class AppointmentController extends ServletController {
 	}
 	
 	private void donations() {
-		req.setAttribute("appointmentsList", appointmentDao.findWhere("state", "Fulfilled"));
+		req.setAttribute("appointmentsList", DAOFactory.getAppointmentDao().findWhere("state", "Fulfilled"));
 		view("admin-center/appointment/donations");
 	}
 	
 	private void approve(String id) {
-		appointment =  appointmentDao.find( Long.parseLong( id) );
-		
-		appointment.setState("Booked");
-		appointment.save();
-		
+		appointment =  DAOFactory.getAppointmentDao().find( Long.parseLong( id) );
+		appointment.book();
 		redirectPrevious();
 	}
 
@@ -126,20 +130,16 @@ public class AppointmentController extends ServletController {
 		if( req.getParameterValues("ids") != null )			
 			for(String appointmentId: idss){  
 				System.out.println(appointmentId);
-				appointment =  appointmentDao.find( Long.parseLong( appointmentId) );
-				appointment.setState("Booked");
-				appointment.save();
+				appointment =  DAOFactory.getAppointmentDao().find( Long.parseLong( appointmentId) );
+				appointment.book();
 		    }
 
 		redirectPrevious();
 	}
 
 	private void decline(String id) {
-		appointment =  appointmentDao.find( Long.parseLong( id ));
-		
-		appointment.setState("Declined");
-		appointment.save();
-		
+		appointment =  DAOFactory.getAppointmentDao().find( Long.parseLong( id ));
+		appointment.decline();
 		redirectPrevious();
 	}
 
@@ -147,20 +147,16 @@ public class AppointmentController extends ServletController {
 		if( req.getParameterValues("ids") != null )			
 			for(String appointmentId: ids){  
 				System.out.println(appointmentId);
-				appointment =  appointmentDao.find( Long.parseLong( appointmentId) );
-				appointment.setState("Declined");
-				appointment.save();
+				appointment =  DAOFactory.getAppointmentDao().find( Long.parseLong( appointmentId) );
+				appointment.decline();
 		    }
 
 		redirectPrevious();
 	}
 
 	private void revoke(String id) {
-		appointment =  appointmentDao.find( Long.parseLong( id ));
-		
-		appointment.setState("Revoked");
-		appointment.save();
-		
+		appointment =  DAOFactory.getAppointmentDao().find( Long.parseLong( id ));
+		appointment.revoke();
 		redirectPrevious();
 	}
 	
@@ -168,20 +164,16 @@ public class AppointmentController extends ServletController {
 		if( req.getParameterValues("ids") != null )			
 			for(String appointmentId: ids){  
 				System.out.println(appointmentId);
-				appointment =  appointmentDao.find( Long.parseLong( appointmentId) );
-				appointment.setState("Revoked");
-				appointment.save();
+				appointment = DAOFactory.getAppointmentDao().find( Long.parseLong( appointmentId) );
+				appointment.revoke();
 		    }
 
 		redirectPrevious();
 	}
 	
 	private void done(String id) {
-		appointment =  appointmentDao.find( Long.parseLong( id ));
-		
-		appointment.setState("Fulfilled");
-		appointment.save();
-		
+		appointment =  DAOFactory.getAppointmentDao().find( Long.parseLong( id ));
+		appointment.fulfill();
 		redirectPrevious();
 	}
 	
@@ -189,16 +181,13 @@ public class AppointmentController extends ServletController {
 		if( req.getParameterValues("ids") != null )			
 			for(String appointmentId: ids){  
 				System.out.println(appointmentId);
-				appointment =  appointmentDao.find( Long.parseLong( appointmentId) );
-				appointment.setState("Fulfilled");
-				appointment.save();
+				appointment =  DAOFactory.getAppointmentDao().find( Long.parseLong( appointmentId) );
+				appointment.fulfill();
 		    }
 
 		redirectPrevious();
 	}
 	
-	private void analysis(String id) {
-		view("admin-center/appointment/analysis");
-	}
+
 	
 }

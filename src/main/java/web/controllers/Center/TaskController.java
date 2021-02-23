@@ -1,4 +1,4 @@
-package web.controllers.acenter;
+package web.controllers.Center;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

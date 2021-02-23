@@ -1,0 +1,1 @@
+<%@ include file="../layouts/app.view.jsp"%>
