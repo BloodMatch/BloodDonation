@@ -42,8 +42,8 @@
 			<a class="nav-link text-white text-center mt-2 border-left" href="#"><h6>BLOOD TYPE <br> ${donor.group}</h6></a>
 		</li>
 		
-		<li class="nav-item">
-			<a class="nav-link text-white text-center mt-2 border-left" href="${rootUrl}/donor/history"><h6>UNITS DONATED <br> 4</h6> </a>
+		<li class="nav-item d-flex align-items-center mr-5 pr-5">
+			<a class="nav-link text-white text-center" href="${rootUrl}/donor/history"><i class="fas fa-history"></i>History</a>
 		</li>
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle text-white text-center" href="#" id="profileNav" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

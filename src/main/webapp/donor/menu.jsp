@@ -87,7 +87,7 @@
 	            <div class="row">
 	                <div class="col-sm-12 col-md-4">
 	                    <h1>Your last donation</h1>
-	                    <p class="text-muted"> ${appoint.time} </p>
+	                    <p class="text-muted">${appoint.date} ${appoint.time} </p>
 	                </div>
 	                <div class="col-sm-12 col-md-4">
 	                    <div class="card">

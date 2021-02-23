@@ -44,9 +44,7 @@
                                     				<p class="text-truncate">${appointment.comment}</p>
                                     			</div>
                                     		</div>
-	                                    </c:if>
-                                    	
-	                                    
+	                                    </c:if> 
 	                                </div>
 	                                <div class="col-3 ">
 	                                    <p class="lead blood-color text-center"><i class="fas fa-calendar-day"></i> ${appointment.time }</p>
