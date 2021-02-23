@@ -45,8 +45,8 @@ public class DonorController extends HttpServlet {
 		request.setAttribute("user",this.getUserModel());
 		
 		
-		if(contextPath.concat("/donor/home").equals(reqURI)) {
-			request.getRequestDispatcher("home.jsp").forward(request, response);			
+		if(contextPath.concat("/donor").equals(reqURI)) {
+			request.getRequestDispatcher("./donor/home.jsp").forward(request, response);			
 		}
 		
 		if(contextPath.concat("/donor/profile").equals(reqURI)) {
@@ -62,6 +62,11 @@ public class DonorController extends HttpServlet {
 		}
 		
 		if(contextPath.concat("/donor/menu").equals(reqURI)) {
+			
+			if(request.getParameter("access")!= null && Boolean.parseBoolean(request.getParameter("access")) == false) {
+				appointMod.setErrorMsg("<strong>You are not fully recovered </strong> from your Last Donation !");
+				request.setAttribute("appoint", appointMod);
+			}
 			
 			Appointment ap = Appointment.lastDonation(donor.getDonorId());
 			

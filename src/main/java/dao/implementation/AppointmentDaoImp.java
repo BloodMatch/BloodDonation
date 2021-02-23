@@ -165,7 +165,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 	public Appointment lastAppointment(Long donorId) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT * FROM appointment WHERE donorId = ? AND state='Pending' AND `time` >= CURRENT_TIMESTAMP() ORDER BY `time` desc LIMIT 1");
+					("SELECT * FROM appointment WHERE donorId = ? AND state IN ('Pending', 'Booked', 'Arrived') AND `time` >= CURRENT_TIMESTAMP() ORDER BY `time` desc LIMIT 1");
 			ps.setLong(1, donorId);
 			ResultSet rs = ps.executeQuery() ;
 			if(rs.next()){ // 1 : one row affected
@@ -225,6 +225,23 @@ public class AppointmentDaoImp implements IAppointmentDao{
 			e.printStackTrace();
 		}
 		return centers;
+	}
+	
+	public Long duration(Appointment appoint) {
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("SELECT DATEDIFF(`time`, CURRENT_TIMESTAMP()) AS duration FROM appointment WHERE donorId = ? AND state = ? ORDER BY `time` DESC LIMIT 1");
+			ps.setLong(1, appoint.getDonorId());
+			ps.setString(2, appoint.getState());
+			ResultSet rs = ps.executeQuery() ;
+			if(rs.next()){ // 1 : one row affected
+				return rs.getLong("duration");
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return new Long(0);
 	}
 	
 	/*

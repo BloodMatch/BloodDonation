@@ -1,6 +1,7 @@
 package web.controllers.Donor;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
 
 import dao.entities.Appointment;
 import dao.entities.Center;
@@ -42,6 +45,10 @@ public class AppointmentController extends HttpServlet {
 		this.setAuth(request);
 		request.setAttribute("donor", this.getDonorModel());
 		request.setAttribute("user",this.getUserModel());
+		
+		if(contextPath.concat("/donor/requirements").equals(reqURI)) {
+			request.getRequestDispatcher("requirement-test.jsp").forward(request, response);
+		}
 		
 		/*
 		 * GET [ donor/schedule , donor/manage ]
@@ -136,10 +143,9 @@ public class AppointmentController extends HttpServlet {
 			
 			if(date.equals("")) date = LocalDate.now().toString(); // currentDate
 			date = date.concat(" "+time);
-			System.out.println(date);
 			Appointment newAppoint = Appointment.create(donationType, date, centerId, donor.getDonorId());
 			newAppoint = newAppoint.add();
-			
+			donor.tested(false);
 			// Set Model
 			appointMod.clone(newAppoint);
 
@@ -176,8 +182,25 @@ public class AppointmentController extends HttpServlet {
 			}catch(Exception e) {
 				response.sendRedirect(contextPath+"/donor/menu");
 			}
-		}		
+		}
 		
+		if(contextPath.concat("/donor/requirements").equals(reqURI)) {
+			
+			Gson gson = new Gson();
+			String data;
+			
+			try {
+				donor.tested(true);
+				data = gson.toJson(donor);
+				PrintWriter printWriter = response.getWriter();
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				printWriter.write(data);
+				printWriter.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}			
 	}
 	
 	private void setAuth(HttpServletRequest request) {

@@ -282,6 +282,10 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 		return DAOFactory.getAppointmentDao().lastDonation(donorId);
 	}
 	
+	public Long duration() {
+		return appointDao.duration(this);
+	}
+	
 
 	/* Relationships */
 	public Donor donor() {

@@ -5,6 +5,6 @@
 		<title>Blood Donation</title>
 	</head>
 	<body>
-		<c:redirect url="/login"/>
+		<c:redirect url="/home"/>
 	</body>
 </html>

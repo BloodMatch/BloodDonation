@@ -32,6 +32,7 @@ public interface IDonorDao extends IDao<Donor>{
 	
 	public Donor findByCin(String cin);
 	
+	public Donor tested(Donor donor, Boolean value);
 }
 
 /*

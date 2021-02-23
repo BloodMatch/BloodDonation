@@ -26,7 +26,7 @@
 	                        <div class="card-body">
 	                            <div class="row align-items-center">
 	                                <div class="col-2">
-	                                    <p class="lead"><i class="fas fa-tint text-danger"></i> ${appointment.donationType }</p>
+	                                    <p class="lead"><img src="${rootUrl}/assets/icons/blood-type/${appointment.donationType}.svg" width="20" title="${appointment.donationType}" alt="-"> ${appointment.donationType }</p>
 	                                    <div class="d-flex">
 		                                    <c:forEach begin="1" step="1" end="${appointment.satisfaction}">
 		                                    	<i class="fas fa-star text-warning"></i>
@@ -50,7 +50,25 @@
 	                                </div>
 	                                <div class="col-3 ">
 	                                    <p class="lead blood-color text-center"><i class="fas fa-calendar-day"></i> ${appointment.time }</p>
-	                                    <p class="lead text-center"> <i class="fas fa-circle"></i> ${appointment.state } </p>
+	                                    <p class="lead text-center"> 
+		                                    <c:choose>
+		                                    	<c:when test="${appointment.state == 'Pending' }">
+		                                    	 	<i class="fas fa-circle"></i>
+		                                    	</c:when>
+		                                    	<c:when test="${appointment.state == 'Canceled' }">
+		                                    		<i class="fas fa-circle text-danger"></i>
+		                                    	</c:when>
+		                                    	<c:when test="${appointment.state == 'Fulfilled' }">
+		                                    		<i class="fas fa-circle text-success"></i>
+		                                    	</c:when>
+		                                    	<c:when test="${appointment.state == 'Arrived' }">
+		                                    		<i class="fas fa-circle text-primary"></i>
+		                                    	</c:when>
+		                                    	<c:when test="${appointment.state == 'Booked' }">
+		                                    		<i class="fas fa-circle text-warning"></i>
+		                                    	</c:when>
+		                                    </c:choose>
+	                                    ${appointment.state } </p>
 	                                </div>
 	                            </div>
 	                        </div>
