@@ -240,7 +240,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 		List<Appointment> appointments = new ArrayList<Appointment>();
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT * FROM APPOINTMENT where DonorId=? ORDER BY time");
+					("SELECT * FROM APPOINTMENT where DonorId=? ORDER by time DESC ");
 			ps.setLong(1, donor.getDonorId());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
@@ -262,7 +262,7 @@ public class AppointmentDaoImp implements IAppointmentDao{
 		List<Appointment> appointments = new ArrayList<Appointment>();
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("SELECT * FROM APPOINTMENT where CenterId=?");
+					("SELECT * FROM APPOINTMENT where CenterId=? ORDER by time DESC");
 			ps.setLong(1, center.getId());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {

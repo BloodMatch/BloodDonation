@@ -23,7 +23,7 @@ public class InventoryController extends ServletController {
 		stockDao = new StockDaoImp();
 		router.get("/inventory", "index" );
 		router.get("/statistics", "index2" );
-		router.post("@save", () ->  this.save(req.getParameter("id"), req.getParameter("quantity")) );
+		router.post("/inventory@save", () ->  this.save(req.getParameter("id"), req.getParameter("quantity")) );
 		
 	}
 	

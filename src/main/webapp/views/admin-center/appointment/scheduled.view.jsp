@@ -16,7 +16,7 @@
    	<c:choose>  
    		<c:when test="${ bookedAppointmentsList.size() > 0 }">
 	   		<div class="header">
-		        <h4 class="title px-3">Schduled Donation/Appointments</h4>
+		        <h4 class="title px-3">Schduled Blood Donation</h4>
 		        <p class="category px-4">...</p>
 		    </div>
 		    <div class="content table-responsive table-width">

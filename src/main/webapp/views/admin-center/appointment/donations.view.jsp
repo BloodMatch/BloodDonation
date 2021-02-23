@@ -14,8 +14,7 @@
    	<c:choose>
    		<c:when test="${ appointmentsList.size() > 0 }">
 	   		<div class="header">
-		        <h4 class="title  px-3">Pendding Donation/Appointments</h4>
-		        <p class="category px-4">Here is a subtitle for this table</p>
+		        <h4 class="title  px-3">Blood Donation</h4>
 		    </div>
 		    <div class="content table-responsive table-width">
 		    	<form id="peneding-appointments" action="center/appointment" method="POST"></form>
@@ -36,8 +35,8 @@
 		                <tr>
 		                	<td><img src="assets/icons/blood-type/${appointment.getDonationType()}.svg" width="15" title="${appointment.getDonationType()}" alt="-"> ${appointment.getDonationType()}</td>
 		                	<td>${ appointment.getTime().substring(0, 13)}H</td>
-		                	
-		                    <td><a class="btn-lg" href="center/profile/donor?Did=${appointment.getDonorId()}">${donor.getFirstName()} ${donor.getLastName()}</a></td>
+		                    <td><a class="btn-lg" href="center/profile/donor?Did=${appointment.getDonorId()}"  >${donor.getFirstName()} ${donor.getLastName()}</a></td>
+		                    
 		                	<td><strong class="text-danger"><c:out value="${donor.getGroup()}" default=".."/></strong></td>
 		                    <td>   
 								<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#AnalysisModal" 

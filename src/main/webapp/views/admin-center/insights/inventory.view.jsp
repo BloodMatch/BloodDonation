@@ -31,7 +31,7 @@
                           	<tr>
                           		<form  action="center/inventory" method="POST" >
                                 <td  classs="col-sm-3"><img src="assets/icons/blood-type/${ bag.getType()}.svg" width="15" title="${ bag.getType()}" alt="-"> ${ bag.getType()} </td>
-                                <td class=" col-sm-2"><strong class="text-danger"> ${ bag.getGroup()}</strong></td>
+                                <td class=" col-sm-2"><strong class="text-danger"><c:out value="${bag.getGroup()}" default=".."/></strong></td>
                                 <td class="text-center col-sm-3">
                                         <input type="number"   min=0  value="${ stock.getQuantity()}" class="form-control" name="quantity" placeholder="quantity" readonly ondblclick='this.readOnly = !this.readOnly;' title="double click"/>
                                 </td>
