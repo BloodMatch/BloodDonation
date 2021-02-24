@@ -22,8 +22,8 @@ CREATE TABLE AdminHospital (
 
 CREATE TABLE Analysis (
   id            int(10) NOT NULL AUTO_INCREMENT, 
-  code          int(10) NOT NULL UNIQUE, 
-  `date`        date NOT NULL, 
+  code          int(10) UNIQUE, 
+  `date`        date, 
   comment       varchar(255), 
   results       varchar(1024), 
   AppointmentId int(10) NOT NULL, 
@@ -76,7 +76,7 @@ CREATE TABLE Donor (
   city      varchar(20) NOT NULL, 
   ZIPCode   int(10) NOT NULL, 
   image     varchar(50) DEFAULT 'default-avatar.jpg',
-  tested    BOOL DEFAULT false, blooddonationdonor
+  tested    BOOL DEFAULT false,
   UserId    int(10) NOT NULL, 
   CONSTRAINT PK_donor 
     PRIMARY KEY (id)
@@ -169,7 +169,7 @@ ALTER TABLE Appointment ADD CONSTRAINT FKAppointmen921162 FOREIGN KEY (CenterId)
 INSERT INTO USER (id, firstName, lastName, passwd, email, phone, active, role) 
 VALUES
 (2, 'Aniss', 'Nahim', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'donorAniss@gmail.com', '0615487812', FALSE, 'donor'),
-(3, 'Ayoub', 'Benyas', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'donorAyoub@gmail.com','0626154878', FALSE, 'donor');
+(3, 'Ayoub', 'Benyas', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'donorAyoub@gmail.com','0626154878', FALSE, 'center');
 
 INSERT INTO CENTER (id, code, name, city, address, phone1, phone2, email, ZipCode) 
 VALUES

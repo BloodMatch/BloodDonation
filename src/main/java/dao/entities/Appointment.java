@@ -262,7 +262,6 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 		this.save();
 		analysis = new Analysis();
 		analysis.setAppointmentId(this.getId());
-		System.out.println("ananl.add()");
 		analysis.add();
 	}
 	

@@ -35,8 +35,6 @@ public class AnalysisController extends ServletController {
 		analysis.setCode(code);
 		analysis.setDate(date);
 		analysis.setComment(comment);
-		
-		String[] paramNames= {"index1","index2","index3","index4","index5","index6"};
 
 		AnalysisResults results = new AnalysisResults(req);
 		

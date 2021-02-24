@@ -45,8 +45,8 @@ public class DonorController extends HttpServlet {
 		request.setAttribute("user",this.getUserModel());
 		
 		
-		if(contextPath.concat("/donor").equals(reqURI)) {
-			request.getRequestDispatcher("./donor/home.jsp").forward(request, response);			
+		if(contextPath.concat("/donor/home").equals(reqURI)) {
+			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
 		
 		if(contextPath.concat("/donor/profile").equals(reqURI)) {

@@ -20,7 +20,7 @@
                </c:when>
                <c:otherwise>
 	                 <div>
-	                     <a class="btn btn-landing-blood btn-lg" href="${rootUrl}/${sessionScope.isLoged.role}">Dashboard</a>
+	                     <a class="btn btn-landing-blood btn-lg" href="${rootUrl}/${sessionScope.isLoged.role}/home">Dashboard</a>
 	                </div>
                </c:otherwise>
              </c:choose>	

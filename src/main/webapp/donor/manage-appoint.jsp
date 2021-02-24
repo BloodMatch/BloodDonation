@@ -89,7 +89,6 @@
 	                </div>
 	            </div>
 	        </div>
-         </c:if>
          <div class="container mt-5">
        		<h3>Reschedule your Appointment </h3>
        		<hr>
@@ -136,7 +135,7 @@
          		</div>
          	</form>
          </div>
-         
+         </c:if>
          <c:if test="${empty appoint}">
          	<div class="container">
          		<div class="row justify-content-center">

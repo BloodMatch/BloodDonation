@@ -125,7 +125,7 @@
   
   <servlet-mapping>
   	<servlet-name>DonorController</servlet-name>
-  	<url-pattern>/donor</url-pattern>
+  	<url-pattern>/donor/home</url-pattern>
   	<url-pattern>/donor/menu</url-pattern>
   	<url-pattern>/donor/profile</url-pattern>
   	<url-pattern>/donor/profile/edit</url-pattern>

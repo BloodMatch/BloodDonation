@@ -60,13 +60,13 @@
              <div class="row">
                  <div class="col-md-6">
                      <div class="form-group">
-                         <label>Indice1</label>
+                         <label>Hemoglobin</label>
                          <input type="text" class="form-control" name="index1" id="index1" placeholder="index" >
                      </div>
                  </div>
                  <div class="col-md-6">
                      <div class="form-group">
-                         <label>Indice2</label>
+                         <label>RBC</label>
                          <input type="text" class="form-control" name="index2" id="index2" placeholder="index" >
                      </div>
                  </div>
@@ -74,13 +74,13 @@
              <div class="row">
                  <div class="col-md-6">
                      <div class="form-group">
-                         <label>Indice3</label>
+                         <label>HCT</label>
                          <input type="text" class="form-control" name="index3" id="index3" placeholder="index" >
                      </div>
                  </div>
                  <div class="col-md-6">
                      <div class="form-group">
-                         <label>Indice4</label>
+                         <label>MCV</label>
                          <input type="text" class="form-control" name="index4" id="index4" placeholder="index" >
                      </div>
                  </div>
@@ -89,13 +89,13 @@
                  <div class="col-md-6">
                      
                      <div class="form-group">
-                         <label>Indice5</label>
+                         <label>MCH</label>
                          <input type="text" class="form-control" name="index5" id="index5" placeholder="index" >
                      </div>
                  </div>
                  <div class="col-md-6">
                      <div class="form-group">
-                         <label>Indice6</label>
+                         <label>MCHC</label>
                          <input type="text" class="form-control" name="index6" id="index6" placeholder="index" >
                      </div>
                  </div>

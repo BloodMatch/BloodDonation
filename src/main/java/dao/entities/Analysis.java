@@ -37,7 +37,7 @@ public class Analysis implements Serializable, IEntity<Analysis>{
 	}
 
 	public void setThis(Analysis analysis){
-		//this.id = analysis.getId();
+		this.id = analysis.getId();
 		this.code = analysis.getCode();
 		this.date = analysis.getDate();
 		this.results = analysis.getResults();
@@ -46,7 +46,7 @@ public class Analysis implements Serializable, IEntity<Analysis>{
 	}
 
 	public void setThis(HttpServletRequest request){
-		//this.id = request.getParameter("id");
+		this.id = Long.parseLong(request.getParameter("id"));
 		this.code = request.getParameter("code");
 		this.date = request.getParameter("date");
 		this.results = AnalysisResults.fromString( request.getParameter("results"));

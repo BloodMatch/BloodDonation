@@ -89,6 +89,7 @@ public class AppointmentController extends HttpServlet {
 			// get Center for each appointment
 			for (Appointment appointment : appoints) {
 				appointment.center();
+				appointment.setAnalysis();
 			}
 			appointMod.setAppointments(appoints);
 			

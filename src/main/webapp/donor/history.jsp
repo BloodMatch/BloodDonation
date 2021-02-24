@@ -75,15 +75,103 @@
 	                        		<button type="button" class="btn btn-blood feedback" data-toggle="modal" data-target="#exampleModal">
 									  	FeedBack
 									</button>
-	                        		<div>
-		                        		<p>View Analysis <a href="${rootUrl}/donor"  class="btn bg-gray"><i class="fas fa-angle-down"></i></a></p>
-		                        	</div>
+									<c:choose>
+										<c:when test="${appointment.state == 'Fulfilled' }">
+											<button type="button" class="btn bg-gray" data-toggle="modal" data-target="#A-${appointment.analysis.id }">
+												View Blood Test <i class="fas fa-file-medical-alt"></i>
+											</button>
+											<!-- Modal -->
+											<div class="modal fade" id="A-${appointment.analysis.id }" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog modal-lg">
+												    <div class="modal-content">
+												      <div class="modal-header d-flex justify-content-between">
+												        <h5 class="modal-title" id="exampleModalLabel">Boold Test</h5>
+												        <h5>${appointment.analysis.date}</h5>
+												      </div>
+												      <div class="modal-body">
+												        <div class="container">
+													        <div class="row align-items-center">
+													        	<div class="col-sm-8">
+													        		<h4><i class="fas fa-hospital blood-color fa-2x"></i> ${appointment.center.name} </h4>
+		                                    						<p class="lead text-left"> ${appointment.center.address}</p>
+													        	</div>
+													        	<div class="col-sm-4 text-right">
+													        		<h5>Code : <span class="lead">${appointment.analysis.code}</span> </h5>
+													        		<h5>Phone : <span class="lead"><i class="fas fa-phone-alt"></i> ${appointment.center.phone1}</span> </h5>
+													        	</div>
+													        </div>
+													        <hr>
+													        <div class="row justify-content-between">
+													        	<div class="col-sm-6">
+													        		<h5>First Name : <span class="lead">${user.firstName}</span></h5>
+													        		<h5>Last Name : <span class="lead">${user.lastName}</span></h5>
+													        	</div>
+													        	<div class="col-sm-6 text-right">
+													        		<h5>CIN :<span class="lead">${donor.cin}</span></h5>
+													        		<h5>Blood Type :<span class="lead">${donor.group}</span></h5>
+													        	</div>
+													        </div>
+													        <hr>
+												      	</div>
+												      	
+												      	 <div class="container">
+													      	 <div class="row">
+													      	 	<h4 class="blood-color">Results :</h4>
+															</div>
+													      	 <div class="card bg-gray border-0">
+					                        					<div class="card-body">
+				                                    				<div class="row">
+															        	<div class="col-sm-4">
+															        		<h5>Hemoglobin : <span class="lead">${appointment.analysis.results.index1}</span></h5>
+															        	</div>
+															        	<div class="col-sm-4">
+															        		<h5>RBC : <span class="lead">${appointment.analysis.results.index2}</span></h5>
+															        	</div>
+															        	<div class="col-sm-4">
+															        		<h5>HCT : <span class="lead">${appointment.analysis.results.index3}</span></h5>
+															        	</div>
+															        	<div class="col-sm-4">
+															        		<h5>MCV : <span class="lead">${appointment.analysis.results.index4}</span></h5>
+															        	</div>
+															        	<div class="col-sm-4">
+															        		<h5>MCH : <span class="lead">${appointment.analysis.results.index4}</span></h5>
+															        	</div>
+															        	<div class="col-sm-4">
+															        		<h5>MCHC : <span class="lead">${appointment.analysis.results.index5}</span></h5>
+															        	</div>
+													        		</div>
+				                                    			</div>
+				                                    		</div>
+												      	 	
+												     	  	<div class="row">
+												     	  		<hr>		
+													        	<div class="col-sm-12">
+													        		<h4 class="blood-color">Comment :</h4>
+		                                    						<p class="lead text-left"> ${appointment.analysis.comment}</p>
+													        	</div>
+													        </div>
+												      	</div>
+													  </div>
+												      <div class="modal-footer">
+												        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+												      </div>
+												    </div>
+												</div>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div>
+				                        		<p>Analysis Not yet Available</p>
+				                        	</div>
+										</c:otherwise>
+									</c:choose>
 	                        	</div>
 	                        </div>
 	                    </div>
 	        		</div>
 	        	</div>
    			</c:forEach>
+   		
    			<script type="text/javascript" defer src="${rootUrl}/scripts/feedback.js"></script>
         </div>
     </section>
