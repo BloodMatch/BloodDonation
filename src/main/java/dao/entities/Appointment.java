@@ -283,7 +283,7 @@ public class Appointment implements Serializable, IEntity<Appointment>{
 	}
 	
 	public Long duration() {
-		return appointDao.duration(this);
+		return DAOFactory.getAppointmentDao().duration(this);
 	}
 	
 
