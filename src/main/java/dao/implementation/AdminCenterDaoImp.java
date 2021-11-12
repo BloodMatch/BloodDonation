@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import dao.DbConnection;
 import dao.entities.AdminCenter;
 import dao.entities.Center;
+import dao.entities.Donor;
 import dao.entities.User;
 import dao.interfaces.IAdminCenterDao;
 
@@ -125,6 +126,25 @@ public class AdminCenterDaoImp extends UserDaoImp implements IAdminCenterDao{
 	/*
 	 * RELATIONSHIPS
 	 * */
+	
+	public AdminCenter find(User user) {
+		AdminCenter adminCenter = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("SELECT DISTINCT * FROM AdminCenter WHERE UserId = ?");
+			ps.setLong(1, user.getId());
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				adminCenter = new AdminCenter();
+				adminCenter.setThis(rs);
+				adminCenter.setThis(user);
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return adminCenter;
+	}
 	
 	public List<AdminCenter> find(Center center) {
 		List<AdminCenter> admincenters = new ArrayList<AdminCenter>();

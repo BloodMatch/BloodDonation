@@ -1,7 +1,8 @@
 package web.models;
 
+import dao.entities.User;
 
-public class UserModel {
+public class UserModel implements Model<User>{
 	
 	private Long id;
 	private String email = "";
@@ -11,7 +12,6 @@ public class UserModel {
 	private String role = "";
 	private Boolean active = false;
 	
-	private Boolean error = false;
 	private String errorMsg = "";
 	
 	public UserModel() {
@@ -28,6 +28,16 @@ public class UserModel {
 		this.phone = phone;
 		this.role = role;
 		this.active = active;
+	}
+	
+	public void clone(User user) {
+		this.id = user.getId();
+		this.email = user.getEmail();
+		this.firstName = user.getFirstName();
+		this.lastName = user.getLastName();
+		this.phone = user.getPhone();
+		this.role = user.getRole();
+		this.active = user.getActive();
 	}
 
 	public Long getId() {
@@ -82,14 +92,6 @@ public class UserModel {
 	
 	public void setActive(Boolean active) {
 		this.active = active;
-	}
-
-	public Boolean getError() {
-		return error;
-	}
-
-	public void setError(Boolean error) {
-		this.error = error;
 	}
 
 	public String getErrorMsg() {

@@ -22,8 +22,8 @@ CREATE TABLE AdminHospital (
 
 CREATE TABLE Analysis (
   id            int(10) NOT NULL AUTO_INCREMENT, 
-  code          int(10) NOT NULL UNIQUE, 
-  `date`        date NOT NULL, 
+  code          int(10) UNIQUE, 
+  `date`        date, 
   comment       varchar(255), 
   results       varchar(1024), 
   AppointmentId int(10) NOT NULL, 
@@ -33,16 +33,10 @@ CREATE TABLE Analysis (
 
 CREATE TABLE Appointment (
   id           int(10) NOT NULL AUTO_INCREMENT, 
-  state        varchar(20) DEFAULT 'Proposed' NOT NULL, 
-  donationType varchar(20) DEFAULT 'Blood' comment '
-Donation type: 
-Blood: The most common type of donation, during which approximately a pint of ''whole blood'' is given. This type of blood donation usually takes about an hour
-Power Red: A Power Red donation collects the red cells but returns most of the plasma and platelets to the donor. These donors must meet specific eligibility requirements and have type A Neg, B Neg, or O blood.
-Platelets: This type of donation collects the platelets and some plasma and returns the red cells and most of the plasma back to the donor. The donation takes approximately two to three hours.
-AB Plasma: This type of donation collects AB plasma, then safely and comfortably returns the red cells, platelets and some saline back to the donor. It only takes a few minutes longer than donating blood. Only donors with type AB blood are eligible for AB Elite plasma donation.
- ', 
-  time         date, 
-  satsfaction  int(2), 
+  state        varchar(20) DEFAULT 'Pending' NOT NULL, 
+  donationType varchar(20) DEFAULT 'Blood', 
+  time         TIMESTAMP, 
+  satisfaction  int(2), 
   comment      varchar(255), 
   CenterId     int(10) NOT NULL, 
   DonorId      int(10) NOT NULL, 
@@ -68,7 +62,7 @@ CREATE TABLE Center (
   phone2  varchar(15), 
   city    varchar(20) NOT NULL, 
   address varchar(255) NOT NULL, 
-  ZIPCode varchar(20) NOT NULL, 
+  ZIPCode   int(10) NOT NULL, 
   CONSTRAINT PK_center 
     PRIMARY KEY (id)
 );
@@ -81,7 +75,8 @@ CREATE TABLE Donor (
   `group`   varchar(3), 
   city      varchar(20) NOT NULL, 
   ZIPCode   int(10) NOT NULL, 
-  image     varchar(50) DEFAULT 'default-avatar.jpg', 
+  image     varchar(50) DEFAULT 'default-avatar.jpg',
+  tested    BOOL DEFAULT false,
   UserId    int(10) NOT NULL, 
   CONSTRAINT PK_donor 
     PRIMARY KEY (id)
@@ -174,4 +169,12 @@ ALTER TABLE Appointment ADD CONSTRAINT FKAppointmen921162 FOREIGN KEY (CenterId)
 INSERT INTO USER (id, firstName, lastName, passwd, email, phone, active, role) 
 VALUES
 (2, 'Aniss', 'Nahim', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'donorAniss@gmail.com', '0615487812', FALSE, 'donor'),
-(3, 'Ayoub', 'Benyas', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'donorAyoub@gmail.com','0626154878', FALSE, 'donor');
+(3, 'Ayoub', 'Benyas', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'donorAyoub@gmail.com','0626154878', FALSE, 'center');
+
+INSERT INTO CENTER (id, code, name, city, address, phone1, phone2, email, ZipCode) 
+VALUES
+(1, '151500', 'Centre Rabat', 'Rabat', 'National Blood Transfusion Center Rabat', '0505050202', '0505050203', 'RabatCenter@gmail.com', 10000),
+(2, '151501', 'Centre Casablanca', 'Casablanca', 'National Blood Transfusion Center Casablanca', '0505050204', '0505050205', 'CasaCenter@gmail.com', 20000),
+(3, '151502', 'Centre Marrakech', 'Marrakech', 'National Blood Transfusion Center Marrakech', '0505050206', '0505050207', 'MarraCenter@gmail.com', 40000);
+
+

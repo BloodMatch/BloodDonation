@@ -43,4 +43,11 @@ public interface IUserDao extends IAuth {
 	 */
 	public Boolean delete(long id);
 	
+	public User find(Donor donor);
+	
+	/*
+	 * Business 
+	 */
+	public User changePassword(User user, String password);
+	
 }

@@ -1,5 +1,7 @@
 package dao.interfaces;
 
+import java.util.List;
+
 //import java.util.List;
 
 import dao.entities.Appointment;
@@ -28,7 +30,9 @@ public interface IDonorDao extends IDao<Donor>{
 	 */
 	public Donor find(Appointment appointment);
 	
+	public Donor findByCin(String cin);
 	
+	public Donor tested(Donor donor, Boolean value);
 }
 
 /*

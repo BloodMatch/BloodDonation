@@ -1,43 +1,35 @@
 package dao.entities;
 
-import java.sql.ResultSet;
-
-import javax.servlet.http.HttpServletRequest;
-
 import dao.interfaces.IDao;
+import dao.interfaces.IEntity;
 
-public abstract class Entity<TSelf, TDao extends  IDao>{
+public abstract class Entity<TSelf, TDao extends IDao> implements IEntity<TSelf>{
+	/*
+	 * TDao : AppointmentDaoImp implements IAppointmentDao
+	 * IDao :  
+	 * */
+	protected static IDao idao;
+	protected long id;
 	
-	private long id; 
 	
-	public abstract void setThis(TSelf t);
-	public abstract void setThis(HttpServletRequest request);
-	public abstract void setThis(ResultSet rs);
-	
-	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	
-	
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
-	
-	public void add() {
-		//new TDao
+	public TSelf add() {
+		return (TSelf)idao.insert(this);
 	}
 	
-	
-	public void save() {
-		//new TDao
+	public TSelf save() {
+		return (TSelf)idao.update( this);
 	}
 	
 	public boolean remove() {
-		
-		//(new TDao()).delete(this.getId());
-		return false;
+		return idao.delete( this.getId());
 	}
 	
 }

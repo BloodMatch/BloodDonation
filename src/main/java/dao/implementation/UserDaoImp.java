@@ -8,7 +8,6 @@ import business.Hash;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.ResultSet;
 
 import dao.DbConnection;
@@ -76,7 +75,7 @@ public class UserDaoImp implements IUserDao{
 			}
 			ps.close();
 		}catch(SQLException e) {
-			e.printStackTrace();
+			e.getStackTrace();
 		}
 		return user;
 	}
@@ -169,6 +168,27 @@ public class UserDaoImp implements IUserDao{
 			e.printStackTrace();
 		}
 		return lastId;
+	}
+	
+	/*
+	 * Business 
+	 */
+	public User changePassword(User user, String password) {
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("UPDATE USER SET passwd=? WHERE id=?");
+			ps.setString(1, password);
+			ps.setLong(2, user.getId());
+			if(ps.executeUpdate() == 1) { // 1 : one row affected
+				ps.close();
+				user.setPasswd(password);
+				return user;
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/*

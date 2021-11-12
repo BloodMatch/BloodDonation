@@ -29,7 +29,6 @@ public class HomeController extends HttpServlet {
 			request.getRequestDispatcher("about.jsp").forward(request, response);
 		}
 		
-		//request.getRequestDispatcher("/error404.js").forward(request, response);
 	}
 
 }

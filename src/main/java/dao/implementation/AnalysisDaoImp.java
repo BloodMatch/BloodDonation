@@ -20,16 +20,15 @@ public class AnalysisDaoImp implements IAnalysisDao{
 	public Analysis insert(Analysis analysis) {
 		try {
 			PreparedStatement ps = connection.prepareStatement
-					("INSERT INTO ANALYSIS( CODE, `DATE`, RESULTS, COMMENT, APPOINTMENTID) VALUES(?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
+					("INSERT INTO ANALYSIS( CODE, `DATE`, COMMENT, APPOINTMENTID) VALUES(?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, analysis.getCode());
 			ps.setString(2, analysis.getDate());
-			ps.setString(3, analysis.getResults());
-			ps.setString(4, analysis.getComment());
-			ps.setLong(5, analysis.getAppointmentId());
+			ps.setString(3, analysis.getComment());
+			ps.setLong(4, analysis.getAppointmentId());
 			ps.execute();
 			ResultSet rs = ps.getGeneratedKeys();
 			if(rs.next()) { // 1 : one row affected
-				analysis.setId(rs.getInt(1));
+				analysis.setId(rs.getLong(1));
 				return analysis;
 			}
 			
@@ -81,7 +80,7 @@ public class AnalysisDaoImp implements IAnalysisDao{
 					("UPDATE ANALYSIS SET CODE=?, `DATE`=?, RESULTS=?, COMMENT=? ,APPOINTMENTID=? WHERE id=?");
 			ps.setString(1, analysis.getCode());
 			ps.setString(2, analysis.getDate());
-			ps.setString(3, analysis.getResults());
+			ps.setString(3, analysis.getResultsJSON());
 			ps.setString(4, analysis.getComment());
 			ps.setLong(5, analysis.getAppointmentId());
 			ps.setLong(6, analysis.getId());

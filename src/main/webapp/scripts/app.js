@@ -1,3 +1,4 @@
+// Alert message popout
 const alertMsg = document.getElementById('alertMsg');
 
 setTimeout(function(){
@@ -6,6 +7,7 @@ setTimeout(function(){
 	}
 }, 5000);
 
+// navbar styler
 const navbar = {
 	init : function(){
 		this.cachDOM();

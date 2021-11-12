@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import dao.DbConnection;
 import dao.entities.Bag;
 import dao.entities.Donor;
+import dao.entities.Stock;
 import dao.interfaces.IBagDao;
 
 public class BagDaoImp implements IBagDao{
@@ -108,5 +109,11 @@ public class BagDaoImp implements IBagDao{
 		}
 		return false;
 	}
+	
+	
+	public Bag find(Stock stock) {
+		return this.find(stock.getBagId());
+	}
+	
 
 }

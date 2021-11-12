@@ -7,9 +7,20 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class Appointment implements Serializable{
+import dao.DAOFactory;
+import dao.implementation.AnalysisDaoImp;
+import dao.implementation.AppointmentDaoImp;
+import dao.implementation.CenterDaoImp;
+import dao.implementation.DonorDaoImp;
+import dao.interfaces.IAnalysisDao;
+import dao.interfaces.IAppointmentDao;
+import dao.interfaces.ICenterDao;
+import dao.interfaces.IDonorDao;
+import dao.interfaces.IEntity;
+
+public class Appointment implements Serializable, IEntity<Appointment>{
 	
-	private long id;
+	private Long id;
 	private String state;
 	private String donationType;
 	private String time;
@@ -18,10 +29,10 @@ public class Appointment implements Serializable{
 	private long CenterId;
 	private long DonorId;
 	
+	// Associations
 	private Donor donor;
 	private Center center;
 	private Analysis analysis; 
-
 
 	public Appointment() {
 		super();
@@ -38,9 +49,9 @@ public class Appointment implements Serializable{
 		this.DonorId = DonorId;
 		this.CenterId = CenterId;
 	}
-
+	
 	public void setThis(Appointment appointment){
-		//this.id = appointment.getId();
+		this.id = appointment.getId();
 		this.state = appointment.getState();
 		this.donationType = appointment.getDonationType();
 		this.time = appointment.getTime();
@@ -51,7 +62,7 @@ public class Appointment implements Serializable{
 	}
 
 	public void setThis(HttpServletRequest request){
-		//this.id = request.getParameter("id");
+		this.id = Long.parseLong(request.getParameter("id"));
 		this.state = request.getParameter("state");
 		this.state = request.getParameter("donationType");
 		this.time = request.getParameter("time");
@@ -76,11 +87,11 @@ public class Appointment implements Serializable{
 		}
 	}
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-
-	public void setId(long id) {
+	
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -145,6 +156,10 @@ public class Appointment implements Serializable{
 		return donor;
 	}
 	
+	public void setDonor() {
+		this.donor = DAOFactory.getDonorDao().find(this);
+	}
+	
 	public void setDonor(Donor donor) {
 		this.donor = donor;
 	}
@@ -153,6 +168,10 @@ public class Appointment implements Serializable{
 		return center;
 	}
 
+	public void setCenter() {
+		this.center = DAOFactory.getCenterDao().find(this);
+	}
+	
 	public void setCenter(Center center) {
 		this.center = center;
 	}
@@ -161,16 +180,121 @@ public class Appointment implements Serializable{
 		return analysis;
 	}
 
+	public void setAnalysis() {
+		this.analysis = DAOFactory.getAnalysisDao().find(this);
+	}
+	
 	public void setAnalysis(Analysis analysis) {
 		this.analysis = analysis;
 	}
 	
+	/*
+	 * CRUD OPPERATIONS
+	 * */
+	
 	@Override
-	public String toString() {
-		return String.format(
-			"Appointment [ id=%d, state=%s, donationType=%s, time=%s, comment=%s, DonorId=%d, CenterId  =%d]",
-				id, state, donationType, time, comment, DonorId, CenterId
-		);
+	public Appointment save() {
+		try {
+			return DAOFactory.getAppointmentDao().update(this);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public Appointment add() {
+		try {
+			return DAOFactory.getAppointmentDao().insert(this);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public boolean remove() {
+		try {
+			return DAOFactory.getAppointmentDao().delete(this.id);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static Appointment find(Long id) {
+		try{
+			return DAOFactory.getAppointmentDao().find(id);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static Appointment create(String donationType, String date, Long centerId, Long donorId) {
+		Appointment ap = new Appointment();
+		ap.setDonationType(donationType);
+		ap.setTime(date);
+		ap.setCenterId(centerId);
+		ap.setDonorId(donorId);
+		return ap;
+	}
+
+	/* Business */
+	
+	public void book() {
+		this.setState("Booked");
+		this.save();
+	}
+	
+	public void decline() {
+		this.setState("Declined");
+		this.save();
+	}
+	
+	public void revoke() {
+		this.setState("Revoked");
+		this.save();
+	}
+	
+	public void fulfill() {
+		this.setState("Fulfilled");
+		this.save();
+		analysis = new Analysis();
+		analysis.setAppointmentId(this.getId());
+		analysis.add();
+	}
+	
+	public static List<Center> availableCenters(String date, String city){
+		return DAOFactory.getAppointmentDao().freeCenters(date, city);
+	}
+	
+	public  Boolean cancelAppoint() {
+		return DAOFactory.getAppointmentDao().cancelAppoint(this.id);
+	}
+	
+	public static Appointment lastAppointment(Long donorId) {
+		return DAOFactory.getAppointmentDao().lastAppointment(donorId);
+	}
+	
+	public static Appointment lastDonation(Long donorId) {
+		return DAOFactory.getAppointmentDao().lastDonation(donorId);
+	}
+	
+	public Long duration() {
+		return DAOFactory.getAppointmentDao().duration(this);
+	}
+	
+
+	/* Relationships */
+	public Donor donor() {
+		this.donor = DAOFactory.getDonorDao().find(this);
+		return this.donor;
+	}
+	
+	public Center center() {
+		this.center = DAOFactory.getCenterDao().find(this);
+		return this.center;
 	}
 	
 }

@@ -3,11 +3,17 @@ package dao.entities;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import dao.implementation.UserDaoImp; 
+import dao.implementation.AppointmentDaoImp;
+import dao.implementation.DonorDaoImp;
+import dao.implementation.UserDaoImp;
+import dao.interfaces.IAppointmentDao;
+import dao.interfaces.IDonorDao;
+import dao.interfaces.IUserDao; 
 
 
 public class Donor extends User implements Serializable{
@@ -20,6 +26,15 @@ public class Donor extends User implements Serializable{
 	protected String city;
 	protected long zipCode;
 	protected String image;
+	protected Boolean tested;
+	
+	//Associations
+	private List<Appointment> appointments = new ArrayList<Appointment>();
+
+	//Dao
+	private static IUserDao userDao = new UserDaoImp();
+	private static IDonorDao donorDao = new DonorDaoImp();
+	private static IAppointmentDao appointDao = new AppointmentDaoImp();
 	
 	public Donor() {
 		super();
@@ -74,6 +89,7 @@ public class Donor extends User implements Serializable{
 			this.city = rs.getString("city");
 			this.zipCode = rs.getLong("ZIPCode");
 			this.image = rs.getString("image");
+			this.tested = rs.getBoolean("tested");
 			this.id = rs.getLong("userId");
 			
 		} catch (SQLException e) {
@@ -121,7 +137,6 @@ public class Donor extends User implements Serializable{
 		this.group = group;
 	}
 
-
 	public String getCity() {
 		return city;
 	}
@@ -146,22 +161,58 @@ public class Donor extends User implements Serializable{
 		this.zipCode = zipCode;
 	}
 	
-	/*public void setCenters(List<Center> centers) {
-		this.centers= centers;
-	}*/
+	public Boolean getTested() {
+		return tested;
+	}
 
-	@Override
-	public String toString() {
-		return "Donor [donorId=" + donorId + ", cin=" + cin + ", birthDay=" + birthDay + ", gender=" + gender
-				+ ", group=" + group + ", city=" + city + ", zipCode=" + zipCode + ", image=" + image + "]";
+	public void setTested(Boolean tested) {
+		this.tested = tested;
+	}
+
+	public List<Appointment> getAppointments(){
+		return appointments;
 	}
 	
+	public void setAppointments() {
+		this.appointments= appointDao.find(this);
+	}
+	
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
+	}
+	
+	/*
+	 * Business
+	 */
+	
+	public Donor save() {
+		try {
+			return donorDao.insert(this);			
+		}catch(Exception e) {
+			return null;
+		}
+	}
+	
+	public static Donor update(Donor donor) {
+		return donorDao.update(donor);
+	}
+	
+	public Donor tested(Boolean value) {
+		return donorDao.tested(this, value);
+	}
+	
+
 	/**
 	 * RelationShips
 	 *
 	 */
 	public User user() {
-		return (new UserDaoImp()).find(this);
+		return userDao.find(this);
+	}
+	
+	public List<Appointment>appointments(){
+		this.appointments = appointDao.find(this);
+		return this.appointments;
 	}
 	
 }

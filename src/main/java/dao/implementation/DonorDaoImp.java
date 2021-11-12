@@ -68,6 +68,29 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 		return donor;
 	}
 	
+	public Donor findByCin(String cin) {
+		Donor donor = null;
+		User user = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("SELECT DISTINCT * FROM DONOR WHERE cin = ?");
+			ps.setString(1, cin);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				donor = new Donor();
+				donor.setThis(rs);
+				
+				user = super.find( donor.getId());
+				donor.setThis(user);
+				
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return donor;
+	}
+	
 	public List<Donor> findAll() {
 		List<Donor> donors = new ArrayList<Donor>();
 		try {
@@ -94,15 +117,16 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 
 	public Donor update(Donor donor) {
 		try {
-			super.update(donor);
 			PreparedStatement ps = connection.prepareStatement
-					("UPDATE DONOR SET BIRTHDAY=?, GENDER=?, CITY=? , IMAGE=?, `GROUP`=? WHERE id=?");
-			ps.setString(1, donor.getBirthDay());
-			ps.setString(2, donor.getGender());
-			ps.setString(3, donor.getCity());
-			ps.setString(4, donor.getImage());
-			ps.setString(5, donor.getGroup());
-			ps.setLong(6, donor.getDonorId());
+					("UPDATE DONOR SET CIN=? , BIRTHDAY=?, GENDER=?, CITY=? , IMAGE=?, `GROUP`=?, ZIPCode=? WHERE id=?");
+			ps.setString(1, donor.getCin());		
+			ps.setString(2, donor.getBirthDay());
+			ps.setString(3, donor.getGender());
+			ps.setString(4, donor.getCity());
+			ps.setString(5, donor.getImage());
+			ps.setString(6, donor.getGroup());
+			ps.setLong(7, donor.getZipCode());
+			ps.setLong(8, donor.getDonorId());
 			if(ps.executeUpdate() == 1) { // 1 : one row affected
 				return donor;
 			}
@@ -145,6 +169,23 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 		}
 		return lastId;
 	}
+	
+	public Donor tested(Donor donor, Boolean value) {
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("UPDATE DONOR SET tested=? WHERE id=?");
+			ps.setBoolean(1, value);
+			ps.setLong(2, donor.getDonorId());
+			if(ps.executeUpdate() == 1) { // 1 : one row affected
+				donor.setTested(true);
+				return donor;
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	/*
 	 * RELATIONSHIPS
@@ -155,10 +196,12 @@ public class DonorDaoImp extends UserDaoImp implements IDonorDao{
 			PreparedStatement ps = connection.prepareStatement
 					("SELECT DISTINCT * FROM DONOR WHERE UserId = ?");
 			ps.setLong(1, user.getId());
+			
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
 				donor = new Donor();
-				donor.setThis(rs);	
+				donor.setThis(rs);
+				donor.setThis(user);
 			}
 			ps.close();
 		}catch(SQLException e) {

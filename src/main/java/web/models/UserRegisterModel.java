@@ -18,7 +18,6 @@ public class UserRegisterModel {
 	private String rgroup = "";
 	private Long rzipCode;
 	
-	private boolean error = false;
 	private String errorMsg = "";
 	
 	
@@ -131,23 +130,6 @@ public class UserRegisterModel {
 	public void setRzipCode(Long rzipCode) {
 		this.rzipCode = rzipCode;
 	}
-
-	@Override
-	public String toString() {
-		return "UserRegisterModel [CIN=" + rcin + ", Remail=" + remail + ", RfirstName=" + rfirstName + ", RlastName="
-				+ rlastName + ", Rphone=" + rphone + ", Rpassword=" + rpassword + ", Rcity=" + rcity + ", Rbirthday="
-				+ rbirthday + ", Rgender=" + rgender + ", RbloodType=" + rgroup + "]";
-	}
-	
-	public boolean isError() {
-		return error;
-	}
-
-
-	public void setError(boolean error) {
-		this.error = error;
-	}
-
 
 	public String getErrorMsg() {
 		return errorMsg;

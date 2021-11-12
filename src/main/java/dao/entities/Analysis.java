@@ -1,18 +1,23 @@
 package dao.entities;
 
+
+
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
  
 import javax.servlet.http.HttpServletRequest;
 
-public class Analysis implements Serializable{
+import dao.DAOFactory;
+import dao.interfaces.IEntity;
+
+public class Analysis implements Serializable, IEntity<Analysis>{
 	
-	private long id;
+	private Long id;
 	private String code;
 	private String date;
-	private String results;
 	private String comment;
+	private AnalysisResults results;
 	private long AppointmentId;
 
 	private Appointment appointment;
@@ -22,7 +27,7 @@ public class Analysis implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Analysis( String code, String date, String results, String comment, long AppointmentId) {
+	public Analysis( String code, String date, AnalysisResults results, String comment, long AppointmentId) {
 		super();
 		this.code = code;
 		this.date = date;
@@ -32,7 +37,7 @@ public class Analysis implements Serializable{
 	}
 
 	public void setThis(Analysis analysis){
-		//this.id = analysis.getId();
+		this.id = analysis.getId();
 		this.code = analysis.getCode();
 		this.date = analysis.getDate();
 		this.results = analysis.getResults();
@@ -41,10 +46,10 @@ public class Analysis implements Serializable{
 	}
 
 	public void setThis(HttpServletRequest request){
-		//this.id = request.getParameter("id");
+		this.id = Long.parseLong(request.getParameter("id"));
 		this.code = request.getParameter("code");
 		this.date = request.getParameter("date");
-		this.results = request.getParameter("results");
+		this.results = AnalysisResults.fromString( request.getParameter("results"));
 		this.comment = request.getParameter("comment");
 		this.AppointmentId = Long.parseLong(request.getParameter("AppointmentId"));
 	}
@@ -54,7 +59,7 @@ public class Analysis implements Serializable{
 			this.id = rs.getLong("id");
 			this.code = rs.getString("code");
 			this.date = rs.getString("date");
-			this.results = rs.getString("results");
+			this.results = AnalysisResults.fromString( rs.getString("results"));
 			this.comment = rs.getString("comment");
 			this.AppointmentId = rs.getLong("AppointmentId");
 		} catch (SQLException e) {
@@ -62,11 +67,11 @@ public class Analysis implements Serializable{
 		}
 	}
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -86,12 +91,20 @@ public class Analysis implements Serializable{
 		this.date = date;
 	}
 
-	public String getResults() {
+	public AnalysisResults getResults() {
 		return results;
 	}
+	
+	public String  getResultsJSON() {
+		return results.toString();
+	}
 
-	public void setResults(String results) {
+	public void setResults(AnalysisResults results) {
 		this.results = results;
+	}
+	
+	public void setResultsJSON(String results) {
+		this.results = AnalysisResults.fromString(results);
 	}
 
 	public String getComment() {
@@ -119,6 +132,36 @@ public class Analysis implements Serializable{
 		this.appointment = appointment;
 	}
 
+	@Override
+	public Analysis save() {
+		try {
+			return DAOFactory.getAnalysisDao().update(this);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public Analysis add() {
+		try {
+			return DAOFactory.getAnalysisDao().insert(this);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public boolean remove() {
+		try {
+			return DAOFactory.getAnalysisDao().delete(this.id);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return String.format(

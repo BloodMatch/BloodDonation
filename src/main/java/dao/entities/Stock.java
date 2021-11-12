@@ -6,7 +6,15 @@ import java.sql.SQLException;
  
 import javax.servlet.http.HttpServletRequest;
 
-public class Stock implements Serializable{
+import dao.implementation.BagDaoImp;
+import dao.implementation.CenterDaoImp;
+import dao.implementation.StockDaoImp;
+import dao.interfaces.IBagDao;
+import dao.interfaces.ICenterDao;
+import dao.interfaces.IEntity;
+import dao.interfaces.IStockDao;
+
+public class Stock implements Serializable, IEntity<Stock>{
 	
 	private long id;
 	private long quantity;
@@ -14,6 +22,13 @@ public class Stock implements Serializable{
 	private long CenterId;
 	private long BagId;
 
+	private Bag bag;
+	private Center center;
+	
+	// Dao
+	private static IStockDao stockDao = new StockDaoImp();
+	private static IBagDao bagDao = new BagDaoImp();
+	private static ICenterDao centerDao = new CenterDaoImp();
 
 	public Stock() {
 		super();
@@ -29,7 +44,7 @@ public class Stock implements Serializable{
 	}
 
 	public void setThis(Stock bag){
-		//this.id = bag.getId();
+		this.id = bag.getId();
 		this.quantity = bag.getQuantity();
 		this.required = bag.getRequired();
 		this.CenterId = bag.getCenterId();
@@ -37,7 +52,7 @@ public class Stock implements Serializable{
 	}
 
 	public void setThis(HttpServletRequest request){
-		//this.id = request.getParameter("id");
+		this.id = Long.parseLong(request.getParameter("id"));
 		this.quantity = Long.parseLong(request.getParameter("quantity"));
 		this.required = Boolean.parseBoolean(request.getParameter("required"));
 		this.CenterId = Long.parseLong(request.getParameter("CenterId"));
@@ -58,11 +73,11 @@ public class Stock implements Serializable{
 		}
 	}
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -97,10 +112,59 @@ public class Stock implements Serializable{
 	public void setBagId(long BagId) {
 		this.BagId = BagId;
 	}
+	
+	public Bag getBag() {
+		return bag;
+	}
+	
+	public void setBag() {
+		this.bag = bagDao.find(this);
+	}
+	
+	public void setBag(Bag bag) {
+		this.bag = bag;
+	}
+	
+	public Center getCenter() {
+		return center;
+	}
+	
+	public void setCenter() {
+		this.center= centerDao.find(this);
+	}
+	
+	public void setCenter(Center center) {
+		this.center = center;
+	}
 
 	@Override
-	public String toString() {
-		return "Stock [ id=" + id+ ", quantity=" + quantity+", required="+required+", CenterId="+CenterId+", BagId="+BagId+" ]";
+	public Stock save() {
+		try {
+			return stockDao.update(this);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public Stock add() {
+		try {
+			return stockDao.insert(this);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public boolean remove() {
+		try {
+			return stockDao.delete(this.id);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 }

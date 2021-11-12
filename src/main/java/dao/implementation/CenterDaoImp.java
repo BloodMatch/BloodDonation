@@ -118,6 +118,23 @@ public class CenterDaoImp implements ICenterDao{
 		}
 		return false;
 	}
+	
+	public List<String> getOtherCities(String city){
+		List<String> cities = new ArrayList<String>();
+		try {
+			PreparedStatement ps = connection.prepareStatement
+					("SELECT city from center where city != ? group by city");
+			ps.setString(1, city);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				cities.add(rs.getString("city"));
+			}
+			ps.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return cities;
+	}
 
 	/*
 	 * RELATIONSHIPS

@@ -2,15 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
     <link href="./resources/fontawesome--5.15.1-web/css/all.min.css" rel="stylesheet">
     <link href="./resources/fontawesome--5.15.1-web/css/fontawesome.min.css" rel="stylesheet">
 
     <!-- bootstrap -->
-
     <link href="./resources/bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css" rel="stylesheet">
-
 
     <link href="./styles/temp.css" rel="stylesheet">
 
@@ -64,13 +61,33 @@
             </div>
         </nav>
     </header>
+
     <main>
-        <section id="home-donor">
+        <section class="first-section">
             <div class="container">
-                <div class="row justify-content-end">
-                    <div class="col-sm-12">
-                        <h1 class="text-white"><strong>GIVE BLOOD</strong></h1>
-                        <a href="#" class="btn btn-lg appointement-btn mt-3"> Schedule NEW  APPOINTMENT</a>
+                <h2>Requirements for Donation</h2>
+                <div class="text-muted font-weight-lighter"> Somthing for Requirements </div>
+                <hr>
+            </div>
+            <div class="container" id="message">
+                <div class="row justify-content-center">
+
+                </div>
+            </div>
+
+            <div class="container" id="quiz"> 
+                <div class="row">
+                    <p class="lead">
+                        To ensure the safety of both patients and donors, these are some of 
+                        the requirements donors must meet to be eligible to donate blood based 
+                        on their donation type.
+                    </p>
+                </div>
+            </div>
+            <div class="container my-5">
+                <div class="row">
+                    <div class="col-sm-10 d-flex justify-content-end">
+                        <button class="btn btn-success btn-block" id="submitQuiz">submit</button>
                     </div>
                 </div>
             </div>
@@ -84,15 +101,14 @@
         <h3>BLOOD DONATION</h3>
   </footer>
   
-<script defer src="./resources/fontawesome--5.15.1-web/js/all.min.js"></script>
 
-<!-- bootstrap -->
+
 
 <!-- <script defer src="./resources/bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.min.js"></script> -->
+<script defer src="./resources/fontawesome--5.15.1-web/js/all.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-<script defer src="./resources/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script>
 
-<script defer src="./scripts/app.js"></script>
+<script defer src="./scripts/requirementTest/quiz.js"></script>
 </body>
 </html>
